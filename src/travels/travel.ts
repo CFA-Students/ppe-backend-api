@@ -1,11 +1,18 @@
+import {
+  IsDate,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+
 export class Travel {
-  readonly id: number;
-  readonly cratedAt: string;
-  readonly updatedAt: string;
-  readonly agency: string;
-  readonly destination: string;
-  readonly priceHt: number;
-  readonly price: number;
-  readonly description: string;
-  readonly image: string;
+  @IsNumber() @IsOptional() readonly id: number;
+  @IsDate() readonly cratedAt: string;
+  @IsDate() readonly updatedAt: string;
+  @IsString() readonly agency: string;
+  @IsString() readonly destination: string;
+  @IsNumber() readonly priceHt: number;
+  @IsNumber() readonly price: number;
+  @IsString() readonly description: string;
+  @IsString() readonly image: string;
 }
