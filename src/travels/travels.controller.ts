@@ -23,7 +23,7 @@ export class TravelsController {
 
   @Get(':id')
   async find(@Param('id') id: number): Promise<TravelDto> {
-    return this.travelsService.find(id);
+    return await this.travelsService.find(id);
   }
 
   @Post()
