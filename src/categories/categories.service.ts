@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Categories } from './categories';
-import { Category } from './category';
+import { CategoriesDto } from './categories.dto';
+import { CategoryDto } from './category.dto';
 
 @Injectable()
 export class CategoriesService {
-  private readonly categories: Categories = {
+  private readonly categories: CategoriesDto = {
     1: {
       id: 1,
       createdAt: '2021-03-10 21:38:33',
@@ -21,11 +21,11 @@ export class CategoriesService {
     },
   };
 
-  findAll(): Categories {
+  findAll(): CategoriesDto {
     return this.categories;
   }
 
-  create(newCategory: Category): void {
+  create(newCategory: CategoryDto): void {
     const id = new Date().valueOf();
     this.categories[id] = {
       ...newCategory,
@@ -33,8 +33,8 @@ export class CategoriesService {
     };
   }
 
-  find(id: number): Category {
-    const record: Category = this.categories[id];
+  find(id: number): CategoryDto {
+    const record: CategoryDto = this.categories[id];
 
     if (record) {
       return record;
@@ -43,7 +43,7 @@ export class CategoriesService {
     throw new Error('No record found');
   }
 
-  update(updatedCategory: Category): void {
+  update(updatedCategory: CategoryDto): void {
     if (this.categories[updatedCategory.id]) {
       this.categories[updatedCategory.id] = updatedCategory;
       return;
@@ -53,7 +53,7 @@ export class CategoriesService {
   }
 
   delete(id: number): void {
-    const record: Category = this.categories[id];
+    const record: CategoryDto = this.categories[id];
 
     if (record) {
       delete this.categories[id];

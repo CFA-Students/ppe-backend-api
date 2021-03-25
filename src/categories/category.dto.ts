@@ -6,7 +6,7 @@ import {
   IsString,
 } from 'class-validator';
 
-export class Category {
+export class CategoryDto {
   @IsNumber() @IsOptional() readonly id: number;
   @IsDate() readonly createdAt: string;
   @IsDate() readonly updatedAt: string;

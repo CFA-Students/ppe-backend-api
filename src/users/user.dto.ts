@@ -5,7 +5,7 @@ import {
   IsString,
 } from 'class-validator';
 
-export class User {
+export class UserDto {
   @IsNumber() @IsOptional() readonly id: number;
   @IsString() readonly name: string;
   @IsString() readonly email: string;

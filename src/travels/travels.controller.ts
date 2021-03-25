@@ -9,30 +9,30 @@ import {
 } from '@nestjs/common';
 
 import { TravelsService } from './travels.service';
-import { Travels } from './travels';
-import { Travel } from './travel';
+import { TravelsDto } from './travels.dto';
+import { TravelDto } from './travel.dto';
 
 @Controller('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
 
   @Get()
-  async findAll(): Promise<Travels> {
+  async findAll(): Promise<TravelsDto> {
     return this.travelsService.findAll();
   }
 
   @Get(':id')
-  async find(@Param('id') id: number): Promise<Travel> {
+  async find(@Param('id') id: number): Promise<TravelDto> {
     return this.travelsService.find(id);
   }
 
   @Post()
-  async create(@Body('travel') travel: Travel): Promise<void> {
+  async create(@Body('travel') travel: TravelDto): Promise<void> {
     this.travelsService.create(travel);
   }
 
   @Put()
-  async update(@Body('travel') travel: Travel): Promise<void> {
+  async update(@Body('travel') travel: TravelDto): Promise<void> {
     this.travelsService.update(travel);
   }
 

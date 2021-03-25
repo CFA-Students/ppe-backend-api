@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './user';
-import { Users } from './users';
+import { UserDto } from './user.dto';
+import { UsersDto } from './users.dto';
 
 @Injectable()
 export class UsersService {
-  private readonly users: Users = {
+  private readonly users: UsersDto = {
     1: {
       id: 1,
       name: 'Jarod',
@@ -25,11 +25,11 @@ export class UsersService {
     },
   };
 
-  findAll(): Users {
+  findAll(): UsersDto {
     return this.users;
   }
 
-  create(newUser: User): void {
+  create(newUser: UserDto): void {
     const id = new Date().valueOf();
     this.users[id] = {
       ...newUser,
@@ -37,8 +37,8 @@ export class UsersService {
     };
   }
 
-  find(id: number): User {
-    const record: User = this.users[id];
+  find(id: number): UserDto {
+    const record: UserDto = this.users[id];
 
     if (record) {
       return record;
@@ -47,7 +47,7 @@ export class UsersService {
     throw new Error('No record found');
   }
 
-  update(updatedUser: User): void {
+  update(updatedUser: UserDto): void {
     if (this.users[updatedUser.id]) {
       this.users[updatedUser.id] = updatedUser;
       return;
@@ -57,7 +57,7 @@ export class UsersService {
   }
 
   delete(id: number): void {
-    const record: User = this.users[id];
+    const record: UserDto = this.users[id];
 
     if (record) {
       delete this.users[id];

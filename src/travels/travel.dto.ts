@@ -5,7 +5,7 @@ import {
   IsString,
 } from 'class-validator';
 
-export class Travel {
+export class TravelDto {
   @IsNumber() @IsOptional() readonly id: number;
   @IsDate() readonly createdAt: string;
   @IsDate() readonly updatedAt: string;

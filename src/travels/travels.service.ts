@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Travels } from './travels';
-import { Travel } from './travel';
+import { TravelsDto } from './travels.dto';
+import { TravelDto } from './travel.dto';
 
 @Injectable()
 export class TravelsService {
-  private readonly travels: Travels = {
+  private readonly travels: TravelsDto = {
     1: {
       id: 1,
       createdAt: '2021-03-10 21:38:33',
@@ -29,11 +29,11 @@ export class TravelsService {
     },
   };
 
-  findAll(): Travels {
+  findAll(): TravelsDto {
     return this.travels;
   }
 
-  create(newTravel: Travel): void {
+  create(newTravel: TravelDto): void {
     const id = new Date().valueOf();
     this.travels[id] = {
       ...newTravel,
@@ -41,8 +41,8 @@ export class TravelsService {
     };
   }
 
-  find(id: number): Travel {
-    const record: Travel = this.travels[id];
+  find(id: number): TravelDto {
+    const record: TravelDto = this.travels[id];
 
     if (record) {
       return record;
@@ -51,7 +51,7 @@ export class TravelsService {
     throw new Error('No record found');
   }
 
-  update(updatedTravel: Travel): void {
+  update(updatedTravel: TravelDto): void {
     if (this.travels[updatedTravel.id]) {
       this.travels[updatedTravel.id] = updatedTravel;
       return;
@@ -61,7 +61,7 @@ export class TravelsService {
   }
 
   delete(id: number): void {
-    const record: Travel = this.travels[id];
+    const record: TravelDto = this.travels[id];
 
     if (record) {
       delete this.travels[id];
