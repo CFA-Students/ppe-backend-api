@@ -3,10 +3,10 @@ import { Module } from '@nestjs/common';
 import { TravelsService } from './travels.service';
 import { TravelsController } from './travels.controller';
 import { Travel } from './travels.entity';
-import { TravelRepository } from './travels.repository';
+// import { TravelRepository } from './travels.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Travel, TravelRepository])],
+  imports: [TypeOrmModule.forFeature([Travel])],
   providers: [TravelsService],
   controllers: [TravelsController],
 })

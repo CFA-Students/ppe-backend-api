@@ -1,15 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Travel {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('date')
-  createdAt: string;
+  @Column({ type: 'timestamp', default: null })
+  createdAt: Date;
 
-  @Column('date')
-  updatedAt: string;
+  @Column({ type: 'timestamp', default: null })
+  updatedAt: Date;
 
   @Column({ type: 'varchar', length: 255 })
   agency: string;
@@ -29,13 +29,3 @@ export class Travel {
   @Column({ type: 'varchar', length: 255 })
   image: string;
 }
-
-// @IsNumber() @IsOptional() readonly id: number;
-// @IsDate() readonly createdAt: string;
-// @IsDate() readonly updatedAt: string;
-// @IsString() readonly agency: string;
-// @IsString() readonly destination: string;
-// @IsNumber() readonly priceHt: number;
-// @IsNumber() readonly price: number;
-// @IsString() readonly description: string;
-// @IsString() readonly image: string;

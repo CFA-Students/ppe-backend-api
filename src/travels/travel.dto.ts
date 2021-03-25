@@ -7,8 +7,8 @@ import {
 
 export class TravelDto {
   @IsNumber() @IsOptional() readonly id: number;
-  @IsDate() readonly createdAt: string;
-  @IsDate() readonly updatedAt: string;
+  @IsDate() readonly createdAt: Date;
+  @IsDate() readonly updatedAt: Date;
   @IsString() readonly agency: string;
   @IsString() readonly destination: string;
   @IsNumber() readonly priceHt: number;

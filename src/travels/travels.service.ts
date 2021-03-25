@@ -11,8 +11,8 @@ export class TravelsService {
   private readonly travels: TravelsDto = {
     1: {
       id: 1,
-      createdAt: '2021-03-10 21:38:33',
-      updatedAt: '2021-03-10 21:38:33',
+      createdAt: new Date('2021-03-10T21:38:33'),
+      updatedAt: new Date('2021-03-10T21:38:33'),
       agency: 'Air Malaysia',
       destination: 'Voyage en Malaisie',
       priceHt: 1000.0,
@@ -22,8 +22,8 @@ export class TravelsService {
     },
     2: {
       id: 2,
-      createdAt: '2021-03-10 21:38:33',
-      updatedAt: '2021-03-10 21:38:33',
+      createdAt: new Date('2021-03-10T21:38:33'),
+      updatedAt: new Date('2021-03-10T21:38:33'),
       agency: 'Air Thailand',
       destination: 'Voyage en Thaïlande',
       priceHt: 1000.0,
