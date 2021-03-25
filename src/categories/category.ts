@@ -8,8 +8,8 @@ import {
 
 export class Category {
   @IsNumber() @IsOptional() readonly id: number;
-  @IsDate() readonly created_at: string;
-  @IsDate() readonly updated_at: string;
+  @IsDate() readonly createdAt: string;
+  @IsDate() readonly updatedAt: string;
   @IsString() readonly name: string;
-  @IsBoolean() readonly is_online: boolean;
+  @IsBoolean() readonly isOnline: boolean;
 }

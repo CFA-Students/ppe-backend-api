@@ -7,7 +7,7 @@ import {
 
 export class Travel {
   @IsNumber() @IsOptional() readonly id: number;
-  @IsDate() readonly cratedAt: string;
+  @IsDate() readonly createdAt: string;
   @IsDate() readonly updatedAt: string;
   @IsString() readonly agency: string;
   @IsString() readonly destination: string;

@@ -7,7 +7,7 @@ export class TravelsService {
   private readonly travels: Travels = {
     1: {
       id: 1,
-      cratedAt: '2021-03-10 21:38:33',
+      createdAt: '2021-03-10 21:38:33',
       updatedAt: '2021-03-10 21:38:33',
       agency: 'Air Malaysia',
       destination: 'Voyage en Malaisie',
@@ -18,7 +18,7 @@ export class TravelsService {
     },
     2: {
       id: 2,
-      cratedAt: '2021-03-10 21:38:33',
+      createdAt: '2021-03-10 21:38:33',
       updatedAt: '2021-03-10 21:38:33',
       agency: 'Air Thailand',
       destination: 'Voyage en Thaïlande',
