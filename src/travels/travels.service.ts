@@ -33,10 +33,10 @@ export class TravelsService {
     return this.travels;
   }
 
-  create(newItem: Travel): void {
+  create(newTravel: Travel): void {
     const id = new Date().valueOf();
     this.travels[id] = {
-      ...newItem,
+      ...newTravel,
       id,
     };
   }
@@ -51,9 +51,9 @@ export class TravelsService {
     throw new Error('No record found');
   }
 
-  update(updatedItem: Travel): void {
-    if (this.travels[updatedItem.id]) {
-      this.travels[updatedItem.id] = updatedItem;
+  update(updatedTravel: Travel): void {
+    if (this.travels[updatedTravel.id]) {
+      this.travels[updatedTravel.id] = updatedTravel;
       return;
     }
 

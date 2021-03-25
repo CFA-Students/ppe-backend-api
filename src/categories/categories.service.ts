@@ -25,10 +25,10 @@ export class CategoriesService {
     return this.categories;
   }
 
-  create(newItem: Category): void {
+  create(newCategory: Category): void {
     const id = new Date().valueOf();
     this.categories[id] = {
-      ...newItem,
+      ...newCategory,
       id,
     };
   }
@@ -43,9 +43,9 @@ export class CategoriesService {
     throw new Error('No record found');
   }
 
-  update(updatedItem: Category): void {
-    if (this.categories[updatedItem.id]) {
-      this.categories[updatedItem.id] = updatedItem;
+  update(updatedCategory: Category): void {
+    if (this.categories[updatedCategory.id]) {
+      this.categories[updatedCategory.id] = updatedCategory;
       return;
     }
 
