@@ -1,0 +1,10 @@
+{
+  "type": "mysql",
+  "host": "172.25.0.1",
+  "port": 3306,
+  "username": "e-jarod",
+  "password": "",
+  "database": "travels",
+  "entities": ["src/**/**.entity{.ts,.js}"],
+  "synchronize": true
+} 

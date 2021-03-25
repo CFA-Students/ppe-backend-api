@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
 import { TravelsDto } from './travels.dto';
 import { TravelDto } from './travel.dto';
+import { Travel } from './travels.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TravelsService {
@@ -29,8 +33,13 @@ export class TravelsService {
     },
   };
 
-  findAll(): TravelsDto {
-    return this.travels;
+  constructor(
+    @InjectRepository(Travel)
+    private travelsRepository: Repository<Travel>
+  ) {}
+
+  async findAll(): Promise<TravelsDto> {
+    return await this.travelsRepository.find();
   }
 
   create(newTravel: TravelDto): void {

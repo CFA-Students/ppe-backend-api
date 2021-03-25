@@ -5,16 +5,16 @@ export class Travel {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 255, nullable: true })
+  @Column('date')
   createdAt: string;
 
-  @Column({ length: 255, nullable: true })
+  @Column('date')
   updatedAt: string;
 
-  @Column({ length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   agency: string;
 
-  @Column({ length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   destination: string;
 
   @Column()
@@ -23,10 +23,10 @@ export class Travel {
   @Column()
   price: number;
 
-  @Column({ length: 255 })
+  @Column()
   description: string;
 
-  @Column({ length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   image: string;
 }
 
