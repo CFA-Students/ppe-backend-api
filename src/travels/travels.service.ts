@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 import { TravelsDto } from './travels.dto';
 import { TravelDto } from './travel.dto';
 import { Travel } from './travels.entity';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class TravelsService {
@@ -18,7 +18,7 @@ export class TravelsService {
       priceHt: 1000.0,
       price: 1200.0,
       description: 'Voyage tah les fou',
-      image: 'Malaisie.jpg',
+      mainPhoto: 'Malaisie.jpg',
     },
     2: {
       id: 2,
@@ -29,7 +29,7 @@ export class TravelsService {
       priceHt: 1000.0,
       price: 1200.0,
       description: 'Voyage tah les fou',
-      image: 'Thaïlande.jpg',
+      mainPhoto: 'Thaïlande.jpg',
     },
   };
 
@@ -42,22 +42,25 @@ export class TravelsService {
     return await this.travelsRepository.find();
   }
 
+  async find(id: number): Promise<TravelDto> {
+    const records = await this.travelsRepository.find({
+      where: [{ id: id }],
+    });
+
+    if (records.length > 0 && records.length === 1) {
+      const travelDto: TravelDto = records[0];
+      return travelDto;
+    }
+
+    throw new Error('No record found');
+  }
+
   create(newTravel: TravelDto): void {
     const id = new Date().valueOf();
     this.travels[id] = {
       ...newTravel,
       id,
     };
-  }
-
-  find(id: number): TravelDto {
-    const record: TravelDto = this.travels[id];
-
-    if (record) {
-      return record;
-    }
-
-    throw new Error('No record found');
   }
 
   update(updatedTravel: TravelDto): void {

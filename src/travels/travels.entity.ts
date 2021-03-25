@@ -1,14 +1,30 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IsNotEmpty } from 'class-validator';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Travel {
   @PrimaryGeneratedColumn()
+  @IsNotEmpty()
   id: number;
 
-  @Column({ type: 'timestamp', default: null })
+  @CreateDateColumn({
+    name: 'created_at',
+    type: 'timestamp',
+    default: null,
+  })
   createdAt: Date;
 
-  @Column({ type: 'timestamp', default: null })
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: null,
+  })
   updatedAt: Date;
 
   @Column({ type: 'varchar', length: 255 })
@@ -17,15 +33,24 @@ export class Travel {
   @Column({ type: 'varchar', length: 255 })
   destination: string;
 
-  @Column()
+  @Column({
+    name: 'price_ht',
+    type: 'double',
+    precision: 2,
+    scale: 2,
+  })
+  @IsNotEmpty()
   priceHt: number;
 
-  @Column()
+  @Column({ type: 'double precision', precision: 2, scale: 2 })
+  @IsNotEmpty()
   price: number;
 
-  @Column()
+  @Column({ type: 'text' })
+  @IsNotEmpty()
   description: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  image: string;
+  @Column({ name: 'main_photo', type: 'varchar', length: 255 })
+  @IsNotEmpty()
+  mainPhoto: string;
 }

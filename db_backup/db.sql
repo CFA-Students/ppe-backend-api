@@ -57,9 +57,9 @@ CREATE TABLE `Travel`
 
 INSERT INTO `Travel`
 VALUES (1, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Air Malaysia', 'Voyage en Malaisie',
-        1000.00, 1200.00, 'Voyage tah les fou', 'Malaisie.jpg'),
+        1000.00, 1200.99, 'Voyage tah les fou', 'Malaisie.jpg'),
        (2, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Air Thailand', 'Voyage en Thaïlande',
-        1000.00, 1200.00, 'Voyage tah les fou', 'Thaïlande.jpg'),
+        1000.00, 1200.90, 'Voyage tah les fou', 'Thaïlande.jpg'),
        (3, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Air China', 'Voyage en Chine',
         1000.00, 1200.00, 'Voyage tah les fou', 'Chine.jpg'),
        (4, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Air India', 'Voyage en Inde',

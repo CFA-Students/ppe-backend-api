@@ -14,5 +14,5 @@ export class TravelDto {
   @IsNumber() readonly priceHt: number;
   @IsNumber() readonly price: number;
   @IsString() readonly description: string;
-  @IsString() readonly image: string;
+  @IsString() readonly mainPhoto: string;
 }
