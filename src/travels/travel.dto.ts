@@ -1,5 +1,5 @@
 import {
-  IsDate,
+  IsDateString,
   IsNumber,
   IsOptional,
   IsString,
@@ -7,8 +7,8 @@ import {
 
 export class TravelDto {
   @IsNumber() @IsOptional() readonly id: number;
-  @IsDate() readonly createdAt: Date;
-  @IsDate() readonly updatedAt: Date;
+  @IsDateString() readonly createdAt: Date;
+  @IsDateString() readonly updatedAt: Date;
   @IsString() readonly agency: string;
   @IsString() readonly destination: string;
   @IsNumber() readonly priceHt: number;

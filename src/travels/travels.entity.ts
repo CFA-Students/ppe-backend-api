@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsDateString, IsNotEmpty } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -12,6 +12,7 @@ export class Travel {
     type: 'timestamp',
   })
   @IsNotEmpty()
+  @IsDateString()
   createdAt: Date;
 
   @Column({
@@ -20,6 +21,7 @@ export class Travel {
     default: null,
   })
   @IsNotEmpty()
+  @IsDateString()
   updatedAt: Date;
 
   @Column({ type: 'varchar', length: 255 })

@@ -52,12 +52,8 @@ export class TravelsService {
     throw new Error('No record found');
   }
 
-  create(newTravel: TravelDto): void {
-    const id = new Date().valueOf();
-    this.travels[id] = {
-      ...newTravel,
-      id,
-    };
+  async insert(newTravel: TravelDto): Promise<void> {
+    await this.travelsRepository.insert(newTravel);
   }
 
   update(updatedTravel: TravelDto): void {

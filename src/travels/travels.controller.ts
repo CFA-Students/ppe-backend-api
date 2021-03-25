@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -27,8 +29,9 @@ export class TravelsController {
   }
 
   @Post()
-  async create(@Body('travel') travel: TravelDto): Promise<void> {
-    await this.travelsService.create(travel);
+  @HttpCode(201)
+  async insert(@Body('travel') travel: TravelDto): Promise<void> {
+    await this.travelsService.insert(travel);
   }
 
   @Put()
