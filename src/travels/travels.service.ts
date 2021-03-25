@@ -43,13 +43,10 @@ export class TravelsService {
   }
 
   async find(id: number): Promise<TravelDto> {
-    const records = await this.travelsRepository.find({
-      where: [{ id: id }],
-    });
+    const record = await this.travelsRepository.findOne(id);
 
-    if (records.length > 0 && records.length === 1) {
-      const travelDto: TravelDto = records[0];
-      return travelDto;
+    if (record) {
+      return record;
     }
 
     throw new Error('No record found');

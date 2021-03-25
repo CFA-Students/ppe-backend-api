@@ -28,7 +28,7 @@ export class TravelsController {
 
   @Post()
   async create(@Body('travel') travel: TravelDto): Promise<void> {
-    this.travelsService.create(travel);
+    await this.travelsService.create(travel);
   }
 
   @Put()
