@@ -1,11 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Travel {
@@ -13,24 +7,27 @@ export class Travel {
   @IsNotEmpty()
   id: number;
 
-  @CreateDateColumn({
+  @Column({
     name: 'created_at',
     type: 'timestamp',
-    default: null,
   })
+  @IsNotEmpty()
   createdAt: Date;
 
-  @UpdateDateColumn({
+  @Column({
     name: 'updated_at',
     type: 'timestamp',
     default: null,
   })
+  @IsNotEmpty()
   updatedAt: Date;
 
   @Column({ type: 'varchar', length: 255 })
+  @IsNotEmpty()
   agency: string;
 
   @Column({ type: 'varchar', length: 255 })
+  @IsNotEmpty()
   destination: string;
 
   @Column({

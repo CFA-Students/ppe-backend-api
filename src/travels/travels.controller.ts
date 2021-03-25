@@ -18,7 +18,7 @@ export class TravelsController {
 
   @Get()
   async findAll(): Promise<TravelsDto> {
-    return this.travelsService.findAll();
+    return await this.travelsService.findAll();
   }
 
   @Get(':id')

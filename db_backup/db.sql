@@ -43,7 +43,7 @@ VALUES (1, 'Jarod', 'ejilane.jarod@gmail.com', CURRENT_DATE(), 'jarod321', CURRE
 CREATE TABLE `Travel`
 (
     `id`               INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `created_at`       TIMESTAMP    NULL DEFAULT NULL,
+    `created_at`       TIMESTAMP    NOT NULL,
     `updated_at`       TIMESTAMP    NULL DEFAULT NULL,
     `agency`           VARCHAR(255) NOT NULL,
     `destination`      VARCHAR(255) NOT NULL,
