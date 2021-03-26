@@ -56,13 +56,15 @@ export class TravelsService {
     await this.travelsRepository.insert(newTravel);
   }
 
-  update(updatedTravel: TravelDto): void {
-    if (this.travels[updatedTravel.id]) {
-      this.travels[updatedTravel.id] = updatedTravel;
-      return;
-    }
+  async update(updatedTravel: TravelDto): Promise<void> {
+    await this.travelsRepository.save(updatedTravel);
 
-    throw new Error('No record found to update');
+    // if (this.travels[updatedTravel.id]) {
+    //   this.travels[updatedTravel.id] = updatedTravel;
+    //   return;
+    // }
+
+    // throw new Error('No record found to update');
   }
 
   delete(id: number): void {

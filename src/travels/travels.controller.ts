@@ -35,7 +35,7 @@ export class TravelsController {
 
   @Put()
   async update(@Body('travel') travel: TravelDto): Promise<void> {
-    this.travelsService.update(travel);
+    await this.travelsService.update(travel);
   }
 
   @Delete(':id')
