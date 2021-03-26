@@ -30,8 +30,8 @@ CREATE TABLE `User`
     `created_at`        TIMESTAMP    NOT NULL,
     `updated_at`        TIMESTAMP    NULL DEFAULT NULL,
     -- `is_online`  TINYINT(1)   NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`)
-    -- UNIQUE KEY `users_email_unique` (`email`)
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 4;
 
