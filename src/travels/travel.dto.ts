@@ -1,4 +1,3 @@
-import { Type } from 'class-transformer';
 import {
   IsDateString,
   IsNumber,
@@ -12,8 +11,8 @@ export class TravelDto {
   @IsDateString() readonly updatedAt: Date;
   @IsString() readonly agency: string;
   @IsString() readonly destination: string;
-  @Type(() => Number) @IsNumber() readonly priceHt: number;
-  @Type(() => Number) @IsNumber() readonly price: number;
+  @IsNumber() readonly priceHt: number;
+  @IsNumber() readonly price: number;
   @IsString() readonly description: string;
   @IsString() readonly mainPhoto: string;
 }
