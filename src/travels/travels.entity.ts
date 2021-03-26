@@ -35,13 +35,13 @@ export class Travel {
   @Column({
     name: 'price_ht',
     type: 'double',
-    precision: 2,
+    precision: 8,
     scale: 2,
   })
   @IsNotEmpty()
   priceHt: number;
 
-  @Column({ type: 'double precision', precision: 2, scale: 2 })
+  @Column({ type: 'double', precision: 8, scale: 2 })
   @IsNotEmpty()
   price: number;
 

@@ -30,6 +30,7 @@ export class TravelsController {
   @Post()
   @HttpCode(201)
   async insert(@Body('travel') travel: TravelDto): Promise<void> {
+    console.log(travel);
     await this.travelsService.insert(travel);
   }
 
