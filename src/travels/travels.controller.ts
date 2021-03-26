@@ -40,6 +40,6 @@ export class TravelsController {
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
-    this.travelsService.delete(id);
+    await this.travelsService.delete(id);
   }
 }

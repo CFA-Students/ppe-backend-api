@@ -58,23 +58,9 @@ export class TravelsService {
 
   async update(updatedTravel: TravelDto): Promise<void> {
     await this.travelsRepository.save(updatedTravel);
-
-    // if (this.travels[updatedTravel.id]) {
-    //   this.travels[updatedTravel.id] = updatedTravel;
-    //   return;
-    // }
-
-    // throw new Error('No record found to update');
   }
 
-  delete(id: number): void {
-    const record: TravelDto = this.travels[id];
-
-    if (record) {
-      delete this.travels[id];
-      return;
-    }
-
-    throw new Error('No record found to delete');
+  async delete(id: number): Promise<void> {
+    await this.travelsRepository.delete(id);
   }
 }
