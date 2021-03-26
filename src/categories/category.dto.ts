@@ -1,6 +1,5 @@
 import {
-  IsBoolean,
-  IsDate,
+  IsDateString,
   IsNumber,
   IsOptional,
   IsString,
@@ -8,8 +7,7 @@ import {
 
 export class CategoryDto {
   @IsNumber() @IsOptional() readonly id: number;
-  @IsDate() readonly createdAt: string;
-  @IsDate() readonly updatedAt: string;
+  @IsDateString() readonly createdAt: Date;
+  @IsDateString() readonly updatedAt: Date;
   @IsString() readonly name: string;
-  @IsBoolean() readonly isOnline: boolean;
 }

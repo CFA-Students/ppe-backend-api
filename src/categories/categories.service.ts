@@ -1,40 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { CategoriesDto } from './categories.dto';
 import { CategoryDto } from './category.dto';
+import { Category } from './category.entity';
 
 @Injectable()
 export class CategoriesService {
-  private readonly categories: CategoriesDto = {
-    1: {
-      id: 1,
-      createdAt: '2021-03-10 21:38:33',
-      updatedAt: '2021-03-10 21:38:33',
-      name: 'Malaysia',
-      isOnline: true,
-    },
-    2: {
-      id: 2,
-      createdAt: '2021-03-10 21:38:33',
-      updatedAt: '2021-03-10 21:38:33',
-      name: 'Thailand',
-      isOnline: true,
-    },
-  };
+  constructor(
+    @InjectRepository(Category)
+    private categoriesRepository: Repository<Category>
+  ) {}
 
-  findAll(): CategoriesDto {
-    return this.categories;
+  async findAll(): Promise<CategoriesDto> {
+    return await this.categoriesRepository.find();
   }
 
-  create(newCategory: CategoryDto): void {
-    const id = new Date().valueOf();
-    this.categories[id] = {
-      ...newCategory,
-      id,
-    };
-  }
-
-  find(id: number): CategoryDto {
-    const record: CategoryDto = this.categories[id];
+  async find(id: number): Promise<CategoryDto> {
+    const record = await this.categoriesRepository.findOne(id);
 
     if (record) {
       return record;
@@ -43,23 +27,15 @@ export class CategoriesService {
     throw new Error('No record found');
   }
 
-  update(updatedCategory: CategoryDto): void {
-    if (this.categories[updatedCategory.id]) {
-      this.categories[updatedCategory.id] = updatedCategory;
-      return;
-    }
-
-    throw new Error('No record found to update');
+  async insert(newTravel: CategoryDto): Promise<void> {
+    await this.categoriesRepository.insert(newTravel);
   }
 
-  delete(id: number): void {
-    const record: CategoryDto = this.categories[id];
+  async update(updatedTravel: CategoryDto): Promise<void> {
+    await this.categoriesRepository.save(updatedTravel);
+  }
 
-    if (record) {
-      delete this.categories[id];
-      return;
-    }
-
-    throw new Error('No record found to delete');
+  async delete(id: number): Promise<void> {
+    await this.categoriesRepository.delete(id);
   }
 }

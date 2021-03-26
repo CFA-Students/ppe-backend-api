@@ -13,6 +13,7 @@ export class UsersService {
       password: 'jarod321',
       createdAt: '2021-03-10 21:38:33',
       updatedAt: '2021-03-10 21:38:33',
+      isOnline: false,
     },
     2: {
       id: 2,
@@ -22,6 +23,7 @@ export class UsersService {
       password: 'benjamin123',
       createdAt: '2021-03-10 21:38:33',
       updatedAt: '2021-03-10 21:38:33',
+      isOnline: false,
     },
   };
 

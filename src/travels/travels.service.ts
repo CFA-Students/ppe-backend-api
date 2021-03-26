@@ -8,31 +8,6 @@ import { Travel } from './travels.entity';
 
 @Injectable()
 export class TravelsService {
-  private readonly travels: TravelsDto = {
-    1: {
-      id: 1,
-      createdAt: new Date('2021-03-10T21:38:33'),
-      updatedAt: new Date('2021-03-10T21:38:33'),
-      agency: 'Air Malaysia',
-      destination: 'Voyage en Malaisie',
-      priceHt: 1000.0,
-      price: 1200.0,
-      description: 'Voyage tah les fou',
-      mainPhoto: 'Malaisie.jpg',
-    },
-    2: {
-      id: 2,
-      createdAt: new Date('2021-03-10T21:38:33'),
-      updatedAt: new Date('2021-03-10T21:38:33'),
-      agency: 'Air Thailand',
-      destination: 'Voyage en Thaïlande',
-      priceHt: 1000.0,
-      price: 1200.0,
-      description: 'Voyage tah les fou',
-      mainPhoto: 'Thaïlande.jpg',
-    },
-  };
-
   constructor(
     @InjectRepository(Travel)
     private travelsRepository: Repository<Travel>

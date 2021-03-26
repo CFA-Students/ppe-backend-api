@@ -6,20 +6,19 @@ SET NAMES utf8;
 CREATE TABLE `Category`
 (
     `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `created_at` TIMESTAMP    NULL     DEFAULT NULL,
+    `created_at` TIMESTAMP    NOT NULL,
     `updated_at` TIMESTAMP    NULL     DEFAULT NULL,
-    `name`       VARCHAR(255) NULL,
-    `is_online`  TINYINT(1)   NOT NULL DEFAULT 0,
+    `name`       VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 6;
 
 INSERT INTO `Category`
-VALUES (1, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Asie', 1),
-       (2, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Europe', 1),
-       (3, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Afrique', 1),
-       (4, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Océanie', 1),
-       (5, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Amérique', 1);
+VALUES (1, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Asie'),
+       (2, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Europe'),
+       (3, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Afrique'),
+       (4, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Océanie'),
+       (5, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Amérique');
 
 CREATE TABLE `User`
 (
@@ -30,15 +29,16 @@ CREATE TABLE `User`
     `password`          VARCHAR(255) NOT NULL,
     `created_at`        TIMESTAMP    NULL DEFAULT NULL,
     `updated_at`        TIMESTAMP    NULL DEFAULT NULL,
+    `is_online`  TINYINT(1)   NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 4;
 
 INSERT INTO `User`
-VALUES (1, 'Jarod', 'ejilane.jarod@gmail.com', CURRENT_DATE(), 'jarod321', CURRENT_DATE(), CURRENT_DATE()),
-       (2, 'Benjamin', 'benjamim@gmail.com', CURRENT_DATE(), 'benjamin123', CURRENT_DATE(), CURRENT_DATE()),
-       (3, 'Test', 'test@gmail.com', CURRENT_DATE(), 'test', CURRENT_DATE(), CURRENT_DATE());
+VALUES (1, 'Jarod', 'ejilane.jarod@gmail.com', CURRENT_DATE(), 'jarod321', CURRENT_DATE(), CURRENT_DATE(), 0),
+       (2, 'Benjamin', 'benjamim@gmail.com', CURRENT_DATE(), 'benjamin123', CURRENT_DATE(), CURRENT_DATE(), 0),
+       (3, 'Test', 'test@gmail.com', CURRENT_DATE(), 'test', CURRENT_DATE(), CURRENT_DATE(), 0);
 
 CREATE TABLE `Travel`
 (

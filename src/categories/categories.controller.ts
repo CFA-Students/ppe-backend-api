@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -20,30 +21,31 @@ export class CategoriesController {
 
   @Get()
   async findAll(): Promise<CategoriesDto> {
-    return this.categoriesService.findAll();
+    return await this.categoriesService.findAll();
   }
 
   @Get(':id')
   async find(@Param('id') id: number): Promise<CategoryDto> {
-    return this.categoriesService.find(id);
+    return await this.categoriesService.find(id);
   }
 
   @Post()
-  async create(
+  @HttpCode(201)
+  async insert(
     @Body('category') category: CategoryDto
   ): Promise<void> {
-    this.categoriesService.create(category);
+    await this.categoriesService.insert(category);
   }
 
   @Put()
   async update(
     @Body('category') category: CategoryDto
   ): Promise<void> {
-    this.categoriesService.update(category);
+    await this.categoriesService.update(category);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
-    this.categoriesService.delete(id);
+    await this.categoriesService.delete(id);
   }
 }
