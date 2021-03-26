@@ -1,5 +1,5 @@
 import {
-  // IsBoolean,
+  IsBoolean,
   IsDateString,
   IsNumber,
   IsOptional,
@@ -14,5 +14,5 @@ export class UserDto {
   @IsString() readonly password: string;
   @IsDateString() readonly createdAt: Date;
   @IsDateString() readonly updatedAt: Date;
-  // @IsBoolean() readonly isOnline: boolean;
+  @IsBoolean() readonly isOnline: boolean;
 }

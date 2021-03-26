@@ -45,7 +45,7 @@ export class User {
   @IsDateString()
   updatedAt: Date;
 
-  // @Column({ name: 'is_online', type: 'tinyint', default: 0 })
-  // @IsNotEmpty()
-  // isOnline: boolean;
+  @Column({ name: 'is_online', type: 'bool', default: 0 })
+  @IsNotEmpty()
+  isOnline: boolean;
 }
