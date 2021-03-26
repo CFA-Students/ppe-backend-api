@@ -27,18 +27,22 @@ CREATE TABLE `User`
     `email`             VARCHAR(255) NOT NULL,
     `email_verified_at` TIMESTAMP    NULL DEFAULT NULL,
     `password`          VARCHAR(255) NOT NULL,
-    `created_at`        TIMESTAMP    NULL DEFAULT NULL,
+    `created_at`        TIMESTAMP    NOT NULL,
     `updated_at`        TIMESTAMP    NULL DEFAULT NULL,
-    `is_online`  TINYINT(1)   NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `users_email_unique` (`email`)
+    -- `is_online`  TINYINT(1)   NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`)
+    -- UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 4;
 
+-- INSERT INTO `User`
+-- VALUES (1, 'Jarod', 'ejilane.jarod@gmail.com', CURRENT_TIMESTAMP(), 'jarod321', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 0),
+--        (2, 'Benjamin', 'benjamim@gmail.com', CURRENT_TIMESTAMP(), 'benjamin123', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 0),
+--        (3, 'Test', 'test@gmail.com', CURRENT_TIMESTAMP(), 'test', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 0);
 INSERT INTO `User`
-VALUES (1, 'Jarod', 'ejilane.jarod@gmail.com', CURRENT_DATE(), 'jarod321', CURRENT_DATE(), CURRENT_DATE(), 0),
-       (2, 'Benjamin', 'benjamim@gmail.com', CURRENT_DATE(), 'benjamin123', CURRENT_DATE(), CURRENT_DATE(), 0),
-       (3, 'Test', 'test@gmail.com', CURRENT_DATE(), 'test', CURRENT_DATE(), CURRENT_DATE(), 0);
+VALUES (1, 'Jarod', 'ejilane.jarod@gmail.com', '2021-03-10 21:38:33', 'jarod321', '2021-03-10 21:38:33', '2021-03-10 21:38:33'),
+       (2, 'Benjamin', 'benjamim@gmail.com', '2021-03-10 21:38:33', 'benjamin123', '2021-03-10 21:38:33', '2021-03-10 21:38:33'),
+       (3, 'Test', 'test@gmail.com', '2021-03-10 21:38:33', 'test', '2021-03-10 21:38:33', '2021-03-10 21:38:33');
 
 CREATE TABLE `Travel`
 (

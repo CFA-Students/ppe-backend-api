@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { TravelsDto } from './travels.dto';
 import { TravelDto } from './travel.dto';
-import { Travel } from './travels.entity';
+import { Travel } from './travel.entity';
 
 @Injectable()
 export class TravelsService {

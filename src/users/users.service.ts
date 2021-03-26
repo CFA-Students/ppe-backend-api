@@ -1,46 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { UserDto } from './user.dto';
 import { UsersDto } from './users.dto';
+import { User } from './user.entity';
 
 @Injectable()
 export class UsersService {
-  private readonly users: UsersDto = {
-    1: {
-      id: 1,
-      name: 'Jarod',
-      email: 'ejilane.jarod@gmail.com',
-      emailVerifiedAt: '2021-03-10 21:38:33',
-      password: 'jarod321',
-      createdAt: '2021-03-10 21:38:33',
-      updatedAt: '2021-03-10 21:38:33',
-      isOnline: false,
-    },
-    2: {
-      id: 2,
-      name: 'Benjamin',
-      email: 'benjamim@gmail.com',
-      emailVerifiedAt: '2021-03-10 21:38:33',
-      password: 'benjamin123',
-      createdAt: '2021-03-10 21:38:33',
-      updatedAt: '2021-03-10 21:38:33',
-      isOnline: false,
-    },
-  };
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>
+  ) {}
 
-  findAll(): UsersDto {
-    return this.users;
+  async findAll(): Promise<UsersDto> {
+    return await this.usersRepository.find();
   }
 
-  create(newUser: UserDto): void {
-    const id = new Date().valueOf();
-    this.users[id] = {
-      ...newUser,
-      id,
-    };
-  }
-
-  find(id: number): UserDto {
-    const record: UserDto = this.users[id];
+  async find(id: number): Promise<UserDto> {
+    const record = await this.usersRepository.findOne(id);
 
     if (record) {
       return record;
@@ -49,23 +27,15 @@ export class UsersService {
     throw new Error('No record found');
   }
 
-  update(updatedUser: UserDto): void {
-    if (this.users[updatedUser.id]) {
-      this.users[updatedUser.id] = updatedUser;
-      return;
-    }
-
-    throw new Error('No record found to update');
+  async insert(newUser: UserDto): Promise<void> {
+    await this.usersRepository.insert(newUser);
   }
 
-  delete(id: number): void {
-    const record: UserDto = this.users[id];
+  async update(updatedUser: UserDto): Promise<void> {
+    await this.usersRepository.save(updatedUser);
+  }
 
-    if (record) {
-      delete this.users[id];
-      return;
-    }
-
-    throw new Error('No record found to delete');
+  async delete(id: number): Promise<void> {
+    await this.usersRepository.delete(id);
   }
 }

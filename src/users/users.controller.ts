@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -18,26 +19,27 @@ export class UsersController {
 
   @Get()
   async findAll(): Promise<UsersDto> {
-    return this.usersService.findAll();
+    return await this.usersService.findAll();
   }
 
   @Get(':id')
   async find(@Param('id') id: number): Promise<UserDto> {
-    return this.usersService.find(id);
+    return await this.usersService.find(id);
   }
 
   @Post()
-  async create(@Body('user') user: UserDto): Promise<void> {
-    this.usersService.create(user);
+  @HttpCode(201)
+  async insert(@Body('user') user: UserDto): Promise<void> {
+    await this.usersService.insert(user);
   }
 
   @Put()
   async update(@Body('user') user: UserDto): Promise<void> {
-    this.usersService.update(user);
+    await this.usersService.update(user);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
-    this.usersService.delete(id);
+    await this.usersService.delete(id);
   }
 }

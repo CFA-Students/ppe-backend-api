@@ -1,6 +1,6 @@
 import {
-  IsBoolean,
-  IsDate,
+  // IsBoolean,
+  IsDateString,
   IsNumber,
   IsOptional,
   IsString,
@@ -10,9 +10,9 @@ export class UserDto {
   @IsNumber() @IsOptional() readonly id: number;
   @IsString() readonly name: string;
   @IsString() readonly email: string;
-  @IsDate() readonly emailVerifiedAt: string;
+  @IsDateString() readonly emailVerifiedAt: Date;
   @IsString() readonly password: string;
-  @IsDate() readonly createdAt: string;
-  @IsDate() readonly updatedAt: string;
-  @IsBoolean() readonly isOnline: boolean;
+  @IsDateString() readonly createdAt: Date;
+  @IsDateString() readonly updatedAt: Date;
+  // @IsBoolean() readonly isOnline: boolean;
 }
