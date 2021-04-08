@@ -7,7 +7,7 @@ CREATE TABLE `Category`
 (
     `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `created_at` TIMESTAMP    NOT NULL,
-    `updated_at` TIMESTAMP    NULL     DEFAULT NULL,
+    `updated_at` TIMESTAMP    NULL DEFAULT NULL,
     `name`       VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -23,34 +23,37 @@ VALUES (1, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Asie'),
 CREATE TABLE `User`
 (
     `id`                INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `created_at`        TIMESTAMP    NOT NULL,
+    `updated_at`        TIMESTAMP    NULL     DEFAULT NULL,
     `name`              VARCHAR(255) NOT NULL,
     `email`             VARCHAR(255) NOT NULL,
-    `email_verified_at` TIMESTAMP    NULL DEFAULT NULL,
+    `email_verified_at` TIMESTAMP    NULL     DEFAULT NULL,
     `password`          VARCHAR(255) NOT NULL,
-    `created_at`        TIMESTAMP    NOT NULL,
-    `updated_at`        TIMESTAMP    NULL DEFAULT NULL,
-    `is_online`  TINYINT(1)   NOT NULL DEFAULT 0,
+    `is_online`         TINYINT(1)   NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 4;
 
 INSERT INTO `User`
-VALUES (1, 'Jarod', 'ejilane.jarod@gmail.com', '2021-03-10 21:38:33', 'jarod321', '2021-03-10 21:38:33', '2021-03-10 21:38:33', 0),
-       (2, 'Benjamin', 'benjamim@gmail.com', '2021-03-10 21:38:33', 'benjamin123', '2021-03-10 21:38:33', '2021-03-10 21:38:33', 1),
-       (3, 'Test', 'test@gmail.com', '2021-03-10 21:38:33', 'test', '2021-03-10 21:38:33', '2021-03-10 21:38:33', 0);
+VALUES (1, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Jarod',
+        'ejilane.jarod@gmail.com', '2021-03-10 21:38:33',
+        'jarod321', 0),
+       (2, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Benjamin',
+        'benjamim@gmail.com', '2021-03-10 21:38:33', 'benjamin123', 1),
+       (3, '2021-03-10 21:38:33', '2021-03-10 21:38:33', 'Test', 'test@gmail.com', '2021-03-10 21:38:33', 'test', 0);
 
 CREATE TABLE `Travel`
 (
-    `id`               INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `created_at`       TIMESTAMP    NOT NULL,
-    `updated_at`       TIMESTAMP    NULL DEFAULT NULL,
-    `agency`           VARCHAR(255) NOT NULL,
-    `destination`      VARCHAR(255) NOT NULL,
-    `price_ht`         DOUBLE(8, 2) NOT NULL,
-    `price`            DOUBLE(8, 2) NOT NULL,
-    `description`      TEXT         NOT NULL,
-    `main_photo` VARCHAR(255) NOT NULL,
+    `id`          INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `created_at`  TIMESTAMP    NOT NULL,
+    `updated_at`  TIMESTAMP    NULL DEFAULT NULL,
+    `agency`      VARCHAR(255) NOT NULL,
+    `destination` VARCHAR(255) NOT NULL,
+    `price_ht`    DOUBLE(8, 2) NOT NULL,
+    `price`       DOUBLE(8, 2) NOT NULL,
+    `description` TEXT         NOT NULL,
+    `main_photo`  VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 10;
