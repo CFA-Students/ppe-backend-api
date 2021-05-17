@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -17,14 +21,28 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 
-  async find(id: number): Promise<UserDto> {
+  async findById(id: number): Promise<UserDto> {
     const record = await this.usersRepository.findOne(id);
 
     if (record) {
+      console.debug('find by id :', record);
       return record;
     }
 
-    throw new Error('No record found');
+    throw new HttpException('No user found', HttpStatus.NOT_FOUND);
+  }
+
+  async find(email: string): Promise<UserDto> {
+    const record = await this.usersRepository.findOne({ email });
+    console.log(email);
+
+    if (record) {
+      console.debug('find by email :', record);
+      return record;
+      // new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+
+    throw new HttpException('No user found', HttpStatus.NOT_FOUND);
   }
 
   async insert(newUser: UserDto): Promise<void> {

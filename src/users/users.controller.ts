@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -23,8 +24,12 @@ export class UsersController {
   }
 
   @Get(':id')
-  async find(@Param('id') id: number): Promise<UserDto> {
-    return await this.usersService.find(id);
+  async find(@Param('id') id: number | string): Promise<UserDto> {
+    if (typeof id === 'number')
+      return await this.usersService.findById(id);
+    else if (typeof id === 'string')
+      return await this.usersService.find(id);
+    else throw new BadRequestException();
   }
 
   @Post()

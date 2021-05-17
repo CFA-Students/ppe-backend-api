@@ -9,5 +9,5 @@
   "jsxBracketSameLine": false,
   "arrowParens": "always",
   "htmlWhitespaceSensitivity": "css",
-  "endOfLine": "lf"
+  "endOfLine": "auto"
 }
