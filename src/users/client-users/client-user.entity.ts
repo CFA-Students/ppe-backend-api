@@ -1,4 +1,9 @@
-import { IsBoolean, IsInt, IsNotEmpty } from 'class-validator';
+import {
+  IsAscii,
+  IsBoolean,
+  IsInt,
+  IsNotEmpty,
+} from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -14,6 +19,7 @@ export class ClientUser {
   isMale!: boolean;
 
   @Column({ type: 'text', nullable: false })
+  @IsAscii()
   @IsNotEmpty()
   address!: string;
 

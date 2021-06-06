@@ -7,15 +7,17 @@ import {
   IsAscii,
 } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IsString } from 'class-validator';
 
 @Entity()
 export class BaseUser {
   @PrimaryGeneratedColumn()
-  @IsNotEmpty()
   @IsInt()
+  @IsNotEmpty()
   id!: number;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
+  @IsString()
   @IsNotEmpty()
   username!: string;
 

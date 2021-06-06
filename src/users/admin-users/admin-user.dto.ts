@@ -1,8 +1,8 @@
 import {
   IsOptional,
-  IsString,
   IsInt,
-  IsEmail,
+  IsBoolean,
+  IsNotEmpty,
 } from 'class-validator';
 
 export class AdminUserDto {
@@ -10,22 +10,7 @@ export class AdminUserDto {
   @IsOptional()
   readonly id: number;
 
-  @IsString()
-  readonly username: string;
-
-  @IsString()
-  @IsEmail()
-  readonly email: string;
-
-  @IsString()
-  readonly password: string;
-
-  @IsString()
-  readonly name: string;
-
-  @IsString()
-  readonly surname: string;
-
-  @IsString()
-  readonly phone: string;
+  @IsBoolean()
+  @IsNotEmpty()
+  readonly isSuperAdmin: boolean;
 }

@@ -1,8 +1,9 @@
 import {
   IsOptional,
-  IsString,
   IsInt,
-  IsEmail,
+  IsBoolean,
+  IsNotEmpty,
+  IsAscii,
 } from 'class-validator';
 
 export class ClientUserDto {
@@ -10,22 +11,11 @@ export class ClientUserDto {
   @IsOptional()
   readonly id: number;
 
-  @IsString()
-  readonly username: string;
+  @IsBoolean()
+  @IsNotEmpty()
+  isMale!: boolean;
 
-  @IsString()
-  @IsEmail()
-  readonly email: string;
-
-  @IsString()
-  readonly password: string;
-
-  @IsString()
-  readonly name: string;
-
-  @IsString()
-  readonly surname: string;
-
-  @IsString()
-  readonly phone: string;
+  @IsAscii()
+  @IsNotEmpty()
+  address!: string;
 }
