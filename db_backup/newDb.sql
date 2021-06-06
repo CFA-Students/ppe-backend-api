@@ -7,16 +7,13 @@ SET sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZER
 # START OF USER INHERITANCE
 CREATE TABLE `User`
 (
-    `id`                INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `username`          VARCHAR(255) NOT NULL,
-    `password`          VARCHAR(255) NOT NULL,
-    `name`              VARCHAR(100) NOT NULL,
-    `surname`           VARCHAR(100) NOT NULL,
-    `email`             VARCHAR(255) NOT NULL,
-    `tel`               VARCHAR(15)  NOT NULL,
-#     `created_at`        TIMESTAMP    NOT NULL,
-#     `email_verified_at` TIMESTAMP    NULL DEFAULT NULL,
-#     `updated_at`        TIMESTAMP    NULL DEFAULT NULL,
+    `id`       INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(255) NOT NULL,
+    `email`    VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `name`     VARCHAR(100) NOT NULL,
+    `surname`  VARCHAR(100) NOT NULL,
+    `phone`    VARCHAR(15)  NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `users_email_unique` (`email`),
     UNIQUE KEY `username_unique` (`username`)
