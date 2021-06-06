@@ -21,20 +21,22 @@ CREATE TABLE `User`
 
 CREATE TABLE `Client`
 (
-    `id` INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`)
+    `id`      INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
+    `is_male` TINYINT(1)               NOT NULL,
+    `address` TEXT                     NOT NULL
 ) ENGINE = InnoDB;
 
 CREATE TABLE `Admin`
 (
-    `id` INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`)
+    `id`             INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
+    `is_super_admin` TINYINT(1)               NOT NULL DEFAULT 0 NOT NULL
 ) ENGINE = InnoDB;
 
 CREATE TABLE `Supplier`
 (
-    `id`        INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
-    `idCompany` VARCHAR(150)             NOT NULL,
-    `name`      VARCHAR(100)             NOT NULL,
-    `surname`   VARCHAR(100)             NOT NULL
+    `id`            INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
+    `id_company`    VARCHAR(150)             NOT NULL,
+    `supplier_name` VARCHAR(255)             NOT NULL
 ) ENGINE = InnoDB;
 # END OF USER INHERITANCE
 

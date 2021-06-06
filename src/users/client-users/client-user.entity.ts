@@ -1,33 +1,24 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsInt, IsNotEmpty } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class ClientUser {
   @PrimaryGeneratedColumn()
   @IsNotEmpty()
+  @IsInt()
   id!: number;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ name: 'is_male', type: 'bool', nullable: false })
+  @IsBoolean()
   @IsNotEmpty()
-  username!: string;
+  isMale!: boolean;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'text', nullable: false })
   @IsNotEmpty()
-  email!: string;
+  address!: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  @IsNotEmpty()
-  password!: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  @IsNotEmpty()
-  name!: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  @IsNotEmpty()
-  surname!: string;
-
-  @Column({ type: 'varchar', length: 15 })
-  @IsNotEmpty()
-  phone!: string;
+  // @BeforeInsert()
+  // beforeInsertActions() {
+  //   this.isActive = false;
+  // }
 }

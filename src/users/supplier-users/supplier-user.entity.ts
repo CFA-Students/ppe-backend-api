@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsAlphanumeric, IsAscii, IsNotEmpty } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -7,27 +7,23 @@ export class SupplierUser {
   @IsNotEmpty()
   id!: number;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({
+    name: 'id_company',
+    type: 'varchar',
+    length: 150,
+    nullable: false,
+  })
   @IsNotEmpty()
-  username!: string;
+  @IsAlphanumeric()
+  idCompany!: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({
+    name: 'supplier_name',
+    type: 'varchar',
+    length: 255,
+    nullable: false,
+  })
   @IsNotEmpty()
-  email!: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  @IsNotEmpty()
-  password!: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  @IsNotEmpty()
-  name!: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  @IsNotEmpty()
-  surname!: string;
-
-  @Column({ type: 'varchar', length: 15 })
-  @IsNotEmpty()
-  phone!: string;
+  @IsAscii()
+  supplierName!: string;
 }
