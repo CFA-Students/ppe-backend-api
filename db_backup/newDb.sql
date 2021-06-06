@@ -14,9 +14,9 @@ CREATE TABLE `User`
     `surname`           VARCHAR(100) NOT NULL,
     `email`             VARCHAR(255) NOT NULL,
     `tel`               VARCHAR(15)  NOT NULL,
-    `created_at`        TIMESTAMP    NOT NULL,
-    `email_verified_at` TIMESTAMP    NULL DEFAULT NULL,
-    `updated_at`        TIMESTAMP    NULL DEFAULT NULL,
+#     `created_at`        TIMESTAMP    NOT NULL,
+#     `email_verified_at` TIMESTAMP    NULL DEFAULT NULL,
+#     `updated_at`        TIMESTAMP    NULL DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `users_email_unique` (`email`),
     UNIQUE KEY `username_unique` (`username`)
