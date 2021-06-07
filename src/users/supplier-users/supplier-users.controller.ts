@@ -14,16 +14,16 @@ import { SupplierUsersService } from './supplier-users.service';
 import { SupplierUsersDto } from './supplier-users.dto';
 import { SupplierUserDto } from './supplier-user.dto';
 
-@Controller('users')
+@Controller('users/suppliers')
 export class SupplierUsersController {
   constructor(
     private readonly supplierUsersService: SupplierUsersService
   ) {}
 
-  @Get()
-  async findAll(): Promise<SupplierUsersDto> {
-    return await this.supplierUsersService.findAll();
-  }
+  // @Get()
+  // async findAll(): Promise<SupplierUsersDto> {
+  //   return await this.supplierUsersService.findAll();
+  // }
 
   @Get(':id')
   async find(
@@ -31,8 +31,8 @@ export class SupplierUsersController {
   ): Promise<SupplierUserDto> {
     if (typeof id === 'number')
       return await this.supplierUsersService.findById(id);
-    else if (typeof id === 'string')
-      return await this.supplierUsersService.find(id);
+    // else if (typeof id === 'string')
+    //   return await this.supplierUsersService.find(id);
     else throw new BadRequestException();
   }
 

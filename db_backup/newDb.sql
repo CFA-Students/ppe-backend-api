@@ -15,9 +15,13 @@ CREATE TABLE `User`
     `surname`  VARCHAR(100) NOT NULL,
     `phone`    VARCHAR(15)  NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `users_email_unique` (`email`),
-    UNIQUE KEY `username_unique` (`username`)
+    UNIQUE KEY `credentials_unique` (`username`, `email`, `password`)
 ) ENGINE = InnoDB;
+
+INSERT INTO `User`
+VALUES (1, 'e-jarod', 'test@test.com', 'test321', 'Jarod', 'EJILANE', '+33768458663'),
+       (2, 'wisem', 'test1@test.com', 'test1', 'Jarod', 'EJILANE', '+33768458663'),
+       (3, 'frozenn', 'test2@test.com', 'test2', 'Jarod', 'EJILANE', '+33768458663');
 
 CREATE TABLE `Client`
 (
@@ -26,11 +30,17 @@ CREATE TABLE `Client`
     `address` TEXT                     NOT NULL
 ) ENGINE = InnoDB;
 
+INSERT INTO `Client`
+    VALUE (1, 1, 'Addresse qqc, ville, machin');
+
 CREATE TABLE `Admin`
 (
     `id`             INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
     `is_super_admin` TINYINT(1)               NOT NULL DEFAULT 0 NOT NULL
 ) ENGINE = InnoDB;
+
+INSERT INTO `Admin`
+    VALUE (2, 1);
 
 CREATE TABLE `Supplier`
 (
@@ -38,6 +48,9 @@ CREATE TABLE `Supplier`
     `id_company`    VARCHAR(150)             NOT NULL,
     `supplier_name` VARCHAR(255)             NOT NULL
 ) ENGINE = InnoDB;
+
+INSERT INTO `Supplier`
+    VALUE (3, 'id qqc company', 'Un prestataire');
 # END OF USER INHERITANCE
 
 CREATE TABLE `Location_category`

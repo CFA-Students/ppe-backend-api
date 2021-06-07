@@ -17,9 +17,9 @@ export class AdminUsersService {
     private adminUsersRepository: Repository<AdminUser>
   ) {}
 
-  async findAll(): Promise<AdminUsersDto> {
-    return await this.adminUsersRepository.find();
-  }
+  // async findAll(): Promise<AdminUsersDto> {
+  //   return await this.adminUsersRepository.find();
+  // }
 
   async findById(id: number): Promise<AdminUserDto> {
     const record = await this.adminUsersRepository.findOne(id);
@@ -32,18 +32,18 @@ export class AdminUsersService {
     throw new HttpException('No user found', HttpStatus.NOT_FOUND);
   }
 
-  async find(email: string): Promise<AdminUserDto> {
-    const record = await this.adminUsersRepository.findOne({ email });
-    console.log(email);
+  // async find(email: string): Promise<AdminUserDto> {
+  //   const record = await this.adminUsersRepository.findOne({ email });
+  //   console.log(email);
 
-    if (record) {
-      console.debug('find by email :', record);
-      return record;
-      // new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-    }
+  //   if (record) {
+  //     console.debug('find by email :', record);
+  //     return record;
+  //     // new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+  //   }
 
-    throw new HttpException('No user found', HttpStatus.NOT_FOUND);
-  }
+  //   throw new HttpException('No user found', HttpStatus.NOT_FOUND);
+  // }
 
   async insert(newAdminUser: AdminUserDto): Promise<void> {
     await this.adminUsersRepository.insert(newAdminUser);

@@ -1,48 +1,51 @@
 import {
   IsNotEmpty,
   IsEmail,
-  IsAlpha,
-  IsInt,
   IsMobilePhone,
   IsAscii,
 } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  TableInheritance,
+} from 'typeorm';
 import { IsString } from 'class-validator';
 
-@Entity()
+@Entity({ name: 'user' })
+@TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export class BaseUser {
   @PrimaryGeneratedColumn()
-  @IsInt()
   @IsNotEmpty()
-  id!: number;
+  id: number;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   @IsString()
   @IsNotEmpty()
-  username!: string;
+  username: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
-  @IsNotEmpty()
   @IsEmail()
-  email!: string;
+  @IsNotEmpty()
+  email: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
-  @IsNotEmpty()
   @IsAscii()
-  password!: string;
+  @IsNotEmpty()
+  password: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
+  @IsString()
   @IsNotEmpty()
-  @IsAlpha()
-  name!: string;
+  name: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
+  @IsString()
   @IsNotEmpty()
-  @IsAlpha()
-  surname!: string;
+  surname: string;
 
   @Column({ type: 'varchar', length: 15, nullable: false })
-  @IsNotEmpty()
   @IsMobilePhone()
-  phone!: string;
+  @IsNotEmpty()
+  phone: string;
 }

@@ -14,16 +14,16 @@ import { AdminUsersService } from './admin-users.service';
 import { AdminUsersDto } from './admin-users.dto';
 import { AdminUserDto } from './admin-user.dto';
 
-@Controller('users')
+@Controller('users/admins')
 export class AdminUsersController {
   constructor(
     private readonly adminUsersService: AdminUsersService
   ) {}
 
-  @Get()
-  async findAll(): Promise<AdminUsersDto> {
-    return await this.adminUsersService.findAll();
-  }
+  // @Get()
+  // async findAll(): Promise<AdminUsersDto> {
+  //   return await this.adminUsersService.findAll();
+  // }
 
   @Get(':id')
   async find(
@@ -31,8 +31,8 @@ export class AdminUsersController {
   ): Promise<AdminUserDto> {
     if (typeof id === 'number')
       return await this.adminUsersService.findById(id);
-    else if (typeof id === 'string')
-      return await this.adminUsersService.find(id);
+    // else if (typeof id === 'string')
+    //   return await this.adminUsersService.find(id);
     else throw new BadRequestException();
   }
 

@@ -32,20 +32,20 @@ export class ClientUsersService {
     throw new HttpException('No user found', HttpStatus.NOT_FOUND);
   }
 
-  async find(email: string): Promise<ClientUserDto> {
-    const record = await this.clientUsersRepository.findOne({
-      email,
-    });
-    console.log(email);
+  // async find(email: string): Promise<ClientUserDto> {
+  //   const record = await this.clientUsersRepository.findOne({
+  //     email,
+  //   });
+  //   console.log(email);
 
-    if (record) {
-      console.debug('find by email :', record);
-      return record;
-      // new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-    }
+  //   if (record) {
+  //     console.debug('find by email :', record);
+  //     return record;
+  //     // new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+  //   }
 
-    throw new HttpException('No user found', HttpStatus.NOT_FOUND);
-  }
+  //   throw new HttpException('No user found', HttpStatus.NOT_FOUND);
+  // }
 
   async insert(newClientUser: ClientUserDto): Promise<void> {
     await this.clientUsersRepository.insert(newClientUser);

@@ -18,7 +18,8 @@ export class BaseUsersService {
   ) {}
 
   async findAll(): Promise<BaseUsersDto> {
-    return await this.baseUsersRepository.find();
+    const allBaseUsers = await this.baseUsersRepository.find();
+    return allBaseUsers;
   }
 
   async findById(id: number): Promise<BaseUserDto> {
@@ -34,7 +35,7 @@ export class BaseUsersService {
 
   async find(email: string): Promise<BaseUserDto> {
     const record = await this.baseUsersRepository.findOne({ email });
-    console.log(email);
+    console.log(email, record);
 
     if (record) {
       console.debug('find by email :', record);

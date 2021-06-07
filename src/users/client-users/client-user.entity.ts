@@ -1,18 +1,10 @@
-import {
-  IsAscii,
-  IsBoolean,
-  IsInt,
-  IsNotEmpty,
-} from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IsAscii, IsBoolean, IsNotEmpty } from 'class-validator';
+import { ChildEntity, Column } from 'typeorm';
 
-@Entity()
-export class ClientUser {
-  @PrimaryGeneratedColumn()
-  @IsNotEmpty()
-  @IsInt()
-  id!: number;
+import { BaseUser } from '../base-users/base-user.entity';
 
+@ChildEntity({ name: 'client' })
+export class ClientUser extends BaseUser {
   @Column({ name: 'is_male', type: 'bool', nullable: false })
   @IsBoolean()
   @IsNotEmpty()

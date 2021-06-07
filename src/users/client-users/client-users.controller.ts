@@ -14,16 +14,16 @@ import { ClientUsersService } from './client-users.service';
 import { ClientUsersDto } from './client-users.dto';
 import { ClientUserDto } from './client-user.dto';
 
-@Controller('users')
+@Controller('users/clients')
 export class ClientUsersController {
   constructor(
     private readonly clientUsersService: ClientUsersService
   ) {}
 
-  @Get()
-  async findAll(): Promise<ClientUsersDto> {
-    return await this.clientUsersService.findAll();
-  }
+  // @Get()
+  // async findAll(): Promise<ClientUsersDto> {
+  //   return await this.clientUsersService.findAll();
+  // }
 
   @Get(':id')
   async find(
@@ -31,8 +31,8 @@ export class ClientUsersController {
   ): Promise<ClientUserDto> {
     if (typeof id === 'number')
       return await this.clientUsersService.findById(id);
-    else if (typeof id === 'string')
-      return await this.clientUsersService.find(id);
+    // else if (typeof id === 'string')
+    //   return await this.clientUsersService.find(id);
     else throw new BadRequestException();
   }
 

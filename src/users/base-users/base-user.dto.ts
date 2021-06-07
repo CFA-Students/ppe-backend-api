@@ -2,11 +2,10 @@ import {
   IsOptional,
   IsString,
   IsInt,
-  IsEmail,
   IsMobilePhone,
   IsNotEmpty,
-  IsAlpha,
   IsAscii,
+  IsEmail,
 } from 'class-validator';
 
 export class BaseUserDto {
@@ -18,6 +17,7 @@ export class BaseUserDto {
   @IsNotEmpty()
   readonly username: string;
 
+  @IsString()
   @IsEmail()
   @IsNotEmpty()
   readonly email: string;
@@ -26,15 +26,15 @@ export class BaseUserDto {
   @IsNotEmpty()
   readonly password: string;
 
-  @IsAlpha()
+  @IsString()
   @IsNotEmpty()
   readonly name: string;
 
-  @IsAlpha()
+  @IsString()
   @IsNotEmpty()
   readonly surname: string;
 
-  @IsNotEmpty()
   @IsMobilePhone()
+  @IsNotEmpty()
   readonly phone: string;
 }
