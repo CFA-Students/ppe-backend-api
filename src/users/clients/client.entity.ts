@@ -3,8 +3,8 @@ import { ChildEntity, Column } from 'typeorm';
 
 import { User } from '../user.entity';
 
-@ChildEntity({ name: 'client' })
-export class ClientUser extends User {
+@ChildEntity()
+export class Client extends User {
   @Column({ name: 'is_male', type: 'bool', nullable: false })
   @IsBoolean()
   @IsNotEmpty()

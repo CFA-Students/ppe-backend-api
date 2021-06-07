@@ -6,7 +6,7 @@ import {
   IsAscii,
 } from 'class-validator';
 
-export class ClientUserDto {
+export class ClientDto {
   @IsInt()
   @IsOptional()
   readonly id: number;
