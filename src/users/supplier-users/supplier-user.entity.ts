@@ -1,10 +1,10 @@
 import { IsAlphanumeric, IsAscii, IsNotEmpty } from 'class-validator';
 import { Column, ChildEntity } from 'typeorm';
 
-import { BaseUser } from '../base-users/base-user.entity';
+import { User } from '../user.entity';
 
 @ChildEntity({ name: 'supplier' })
-export class SupplierUser extends BaseUser {
+export class SupplierUser extends User {
   @Column({
     name: 'id_company',
     type: 'varchar',

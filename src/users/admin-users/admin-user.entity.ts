@@ -1,10 +1,10 @@
 import { IsBoolean, IsNotEmpty } from 'class-validator';
 import { Column, ChildEntity } from 'typeorm';
 
-import { BaseUser } from '../base-users/base-user.entity';
+import { User } from '../user.entity';
 
 @ChildEntity({ name: 'admin' })
-export class AdminUser extends BaseUser {
+export class AdminUser extends User {
   @Column({
     name: 'is_super_admin',
     type: 'bool',

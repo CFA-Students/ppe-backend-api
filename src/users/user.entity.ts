@@ -12,9 +12,9 @@ import {
 } from 'typeorm';
 import { IsString } from 'class-validator';
 
-@Entity({ name: 'user' })
+@Entity()
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
-export class BaseUser {
+export class User {
   @PrimaryGeneratedColumn()
   @IsNotEmpty()
   id: number;

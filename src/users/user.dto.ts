@@ -8,7 +8,7 @@ import {
   IsEmail,
 } from 'class-validator';
 
-export class BaseUserDto {
+export class UserDto {
   @IsInt()
   @IsOptional()
   readonly id: number;
