@@ -6,9 +6,9 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { AdminUserDto } from './admin-user.dto';
-import { AdminUsersDto } from './admin-users.dto';
-import { AdminUser } from './admin-user.entity';
+import { AdminUserDto } from './admin.dto';
+import { AdminUsersDto } from './admins.dto';
+import { AdminUser } from './admin.entity';
 
 @Injectable()
 export class AdminUsersService {

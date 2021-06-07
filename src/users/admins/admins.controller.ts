@@ -10,9 +10,9 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { AdminUsersService } from './admin-users.service';
-import { AdminUsersDto } from './admin-users.dto';
-import { AdminUserDto } from './admin-user.dto';
+import { AdminUsersService } from './admins.service';
+import { AdminUsersDto } from './admins.dto';
+import { AdminUserDto } from './admin.dto';
 
 @Controller('users/admins')
 export class AdminUsersController {

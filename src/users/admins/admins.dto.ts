@@ -1,4 +1,4 @@
-import { AdminUserDto } from './admin-user.dto';
+import { AdminUserDto } from './admin.dto';
 
 export class AdminUsersDto {
   [key: number]: AdminUserDto;

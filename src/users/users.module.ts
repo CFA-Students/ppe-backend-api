@@ -3,17 +3,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UsersController } from './users.controller';
 import { ClientUsersController } from './client-users/client-users.controller';
-import { AdminUsersController } from './admin-users/admin-users.controller';
+import { AdminUsersController } from './admins/admins.controller';
 import { SupplierUsersController } from './supplier-users/supplier-users.controller';
 
 import { UsersService } from './users.service';
 import { ClientUsersService } from './client-users/client-users.service';
-import { AdminUsersService } from './admin-users/admin-users.service';
+import { AdminUsersService } from './admins/admins.service';
 import { SupplierUsersService } from './supplier-users/supplier-users.service';
 
 import { User } from './user.entity';
 import { ClientUser } from './client-users/client-user.entity';
-import { AdminUser } from './admin-users/admin-user.entity';
+import { AdminUser } from './admins/admin.entity';
 import { SupplierUser } from './supplier-users/supplier-user.entity';
 
 @Module({
