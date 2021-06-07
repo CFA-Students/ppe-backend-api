@@ -4,39 +4,39 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersController } from './users.controller';
 import { ClientsController } from './clients/clients.controller';
 import { AdminsController } from './admins/admins.controller';
-import { SupplierUsersController } from './supplier-users/supplier-users.controller';
+import { SuppliersController } from './suppliers/suppliers.controller';
 
 import { UsersService } from './users.service';
 import { ClientsService } from './clients/clients.service';
 import { AdminsService } from './admins/admins.service';
-import { SupplierUsersService } from './supplier-users/supplier-users.service';
+import { SuppliersService } from './suppliers/suppliers.service';
 
 import { User } from './user.entity';
 import { Client } from './clients/client.entity';
 import { Admin } from './admins/admin.entity';
-import { SupplierUser } from './supplier-users/supplier-user.entity';
+import { Supplier } from './suppliers/supplier.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Client, Admin, SupplierUser]),
+    TypeOrmModule.forFeature([User, Client, Admin, Supplier]),
   ],
   controllers: [
     UsersController,
     ClientsController,
     AdminsController,
-    SupplierUsersController,
+    SuppliersController,
   ],
   providers: [
     UsersService,
     ClientsService,
     AdminsService,
-    SupplierUsersService,
+    SuppliersService,
   ],
   exports: [
     UsersService,
     ClientsService,
     AdminsService,
-    SupplierUsersService,
+    SuppliersService,
   ],
 })
 export class UsersModule {}

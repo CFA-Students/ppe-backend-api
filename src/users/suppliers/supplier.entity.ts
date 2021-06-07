@@ -4,7 +4,7 @@ import { Column, ChildEntity } from 'typeorm';
 import { User } from '../user.entity';
 
 @ChildEntity({ name: 'supplier' })
-export class SupplierUser extends User {
+export class Supplier extends User {
   @Column({
     name: 'id_company',
     type: 'varchar',
