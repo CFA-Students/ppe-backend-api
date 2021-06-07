@@ -3,8 +3,8 @@ import { Column, ChildEntity } from 'typeorm';
 
 import { User } from '../user.entity';
 
-@ChildEntity({ name: 'admin' })
-export class AdminUser extends User {
+@ChildEntity()
+export class Admin extends User {
   @Column({
     name: 'is_super_admin',
     type: 'bool',

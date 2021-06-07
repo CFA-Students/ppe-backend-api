@@ -1,5 +1,5 @@
-import { AdminUserDto } from './admin.dto';
+import { AdminDto } from './admin.dto';
 
-export class AdminUsersDto {
-  [key: number]: AdminUserDto;
+export class AdminsDto {
+  [key: number]: AdminDto;
 }

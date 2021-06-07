@@ -3,44 +3,39 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UsersController } from './users.controller';
 import { ClientUsersController } from './client-users/client-users.controller';
-import { AdminUsersController } from './admins/admins.controller';
+import { AdminsController } from './admins/admins.controller';
 import { SupplierUsersController } from './supplier-users/supplier-users.controller';
 
 import { UsersService } from './users.service';
 import { ClientUsersService } from './client-users/client-users.service';
-import { AdminUsersService } from './admins/admins.service';
+import { AdminsService } from './admins/admins.service';
 import { SupplierUsersService } from './supplier-users/supplier-users.service';
 
 import { User } from './user.entity';
 import { ClientUser } from './client-users/client-user.entity';
-import { AdminUser } from './admins/admin.entity';
+import { Admin } from './admins/admin.entity';
 import { SupplierUser } from './supplier-users/supplier-user.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      User,
-      ClientUser,
-      AdminUser,
-      SupplierUser,
-    ]),
+    TypeOrmModule.forFeature([User, ClientUser, Admin, SupplierUser]),
   ],
   controllers: [
     UsersController,
     ClientUsersController,
-    AdminUsersController,
+    AdminsController,
     SupplierUsersController,
   ],
   providers: [
     UsersService,
     ClientUsersService,
-    AdminUsersService,
+    AdminsService,
     SupplierUsersService,
   ],
   exports: [
     UsersService,
     ClientUsersService,
-    AdminUsersService,
+    AdminsService,
     SupplierUsersService,
   ],
 })

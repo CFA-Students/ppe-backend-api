@@ -10,45 +10,41 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { AdminUsersService } from './admins.service';
-import { AdminUsersDto } from './admins.dto';
-import { AdminUserDto } from './admin.dto';
+import { AdminsService } from './admins.service';
+import { AdminsDto } from './admins.dto';
+import { AdminDto } from './admin.dto';
 
 @Controller('users/admins')
-export class AdminUsersController {
-  constructor(
-    private readonly adminUsersService: AdminUsersService
-  ) {}
+export class AdminsController {
+  constructor(private readonly adminsService: AdminsService) {}
 
   // @Get()
-  // async findAll(): Promise<AdminUsersDto> {
-  //   return await this.adminUsersService.findAll();
+  // async findAll(): Promise<AdminsDto> {
+  //   return await this.adminsService.findAll();
   // }
 
   @Get(':id')
-  async find(
-    @Param('id') id: number | string
-  ): Promise<AdminUserDto> {
+  async find(@Param('id') id: number | string): Promise<AdminDto> {
     if (typeof id === 'number')
-      return await this.adminUsersService.findById(id);
+      return await this.adminsService.findById(id);
     // else if (typeof id === 'string')
-    //   return await this.adminUsersService.find(id);
+    //   return await this.adminsService.find(id);
     else throw new BadRequestException();
   }
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('user') adminUser: AdminUserDto): Promise<void> {
-    await this.adminUsersService.insert(adminUser);
+  async insert(@Body('user') admin: AdminDto): Promise<void> {
+    await this.adminsService.insert(admin);
   }
 
   @Put()
-  async update(@Body('user') adminUser: AdminUserDto): Promise<void> {
-    await this.adminUsersService.update(adminUser);
+  async update(@Body('user') admin: AdminDto): Promise<void> {
+    await this.adminsService.update(admin);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
-    await this.adminUsersService.delete(id);
+    await this.adminsService.delete(id);
   }
 }

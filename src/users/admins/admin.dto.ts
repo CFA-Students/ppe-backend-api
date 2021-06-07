@@ -5,7 +5,7 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 
-export class AdminUserDto {
+export class AdminDto {
   @IsInt()
   @IsOptional()
   readonly id: number;

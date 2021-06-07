@@ -6,23 +6,23 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { AdminUserDto } from './admin.dto';
-import { AdminUsersDto } from './admins.dto';
-import { AdminUser } from './admin.entity';
+import { AdminDto } from './admin.dto';
+import { AdminsDto } from './admins.dto';
+import { Admin } from './admin.entity';
 
 @Injectable()
-export class AdminUsersService {
+export class AdminsService {
   constructor(
-    @InjectRepository(AdminUser)
-    private adminUsersRepository: Repository<AdminUser>
+    @InjectRepository(Admin)
+    private adminsRepository: Repository<Admin>
   ) {}
 
-  // async findAll(): Promise<AdminUsersDto> {
-  //   return await this.adminUsersRepository.find();
+  // async findAll(): Promise<AdminsDto> {
+  //   return await this.adminsRepository.find();
   // }
 
-  async findById(id: number): Promise<AdminUserDto> {
-    const record = await this.adminUsersRepository.findOne(id);
+  async findById(id: number): Promise<AdminDto> {
+    const record = await this.adminsRepository.findOne(id);
 
     if (record) {
       console.debug('find by id :', record);
@@ -32,8 +32,8 @@ export class AdminUsersService {
     throw new HttpException('No user found', HttpStatus.NOT_FOUND);
   }
 
-  // async find(email: string): Promise<AdminUserDto> {
-  //   const record = await this.adminUsersRepository.findOne({ email });
+  // async find(email: string): Promise<AdminDto> {
+  //   const record = await this.adminsRepository.findOne({ email });
   //   console.log(email);
 
   //   if (record) {
@@ -45,15 +45,15 @@ export class AdminUsersService {
   //   throw new HttpException('No user found', HttpStatus.NOT_FOUND);
   // }
 
-  async insert(newAdminUser: AdminUserDto): Promise<void> {
-    await this.adminUsersRepository.insert(newAdminUser);
+  async insert(newAdmin: AdminDto): Promise<void> {
+    await this.adminsRepository.insert(newAdmin);
   }
 
-  async update(updatedAdminUser: AdminUserDto): Promise<void> {
-    await this.adminUsersRepository.save(updatedAdminUser);
+  async update(updatedAdmin: AdminDto): Promise<void> {
+    await this.adminsRepository.save(updatedAdmin);
   }
 
   async delete(id: number): Promise<void> {
-    await this.adminUsersRepository.delete(id);
+    await this.adminsRepository.delete(id);
   }
 }
