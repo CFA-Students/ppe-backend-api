@@ -18,20 +18,7 @@ export class UsersService {
   ) {}
 
   async findAll(): Promise<UsersDto> {
-    const allUsers = await this.usersRepository
-      .find
-      // {
-      //   select: [
-      //     'id',
-      //     'username',
-      //     'email',
-      //     'password',
-      //     'name',
-      //     'surname',
-      //     'phone',
-      //   ],
-      // }
-      ();
+    const allUsers = await this.usersRepository.find();
     return allUsers;
   }
 

@@ -11,17 +11,17 @@ import {
 } from '@nestjs/common';
 
 import { ClientsService } from './clients.service';
-import { ClientsDto } from './clients.dto';
 import { ClientDto } from './client.dto';
+import { Client } from './client.entity';
 
 @Controller('users/clients')
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
-  // @Get()
-  // async findAll(): Promise<ClientsDto> {
-  //   return await this.clientsService.findAll();
-  // }
+  @Get()
+  async findAll(): Promise<Client[]> {
+    return await this.clientsService.findAll();
+  }
 
   @Get(':id')
   async find(@Param('id') id: number | string): Promise<ClientDto> {
