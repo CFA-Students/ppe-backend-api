@@ -8,14 +8,15 @@ import {
   BaseEntity,
   Column,
   Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
+  Index,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsString } from 'class-validator';
 
 @Entity()
+@Index('credentials_unique', ['username', 'email', 'password'], {
+  unique: true,
+})
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', unsigned: true })
   id: number;
