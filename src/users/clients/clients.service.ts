@@ -20,21 +20,18 @@ export class ClientsService {
     const allClients = await this.clientsRepository.find({
       relations: ['user'],
     });
-    if (allClients.length <= 0)
-      throw new HttpException(
-        'No clients found',
-        HttpStatus.NOT_FOUND
-      );
-    return allClients;
+
+    if (allClients.length > 0) return allClients;
+
+    throw new HttpException('No clients found', HttpStatus.NOT_FOUND);
   }
 
-  async findById(id: number): Promise<ClientDto> {
-    const record = await this.clientsRepository.findOne(id);
+  async findById(id: number): Promise<Client> {
+    const record = await this.clientsRepository.findOne(id, {
+      relations: ['user'],
+    });
 
-    if (record) {
-      console.debug('find by id :', record);
-      return record;
-    }
+    if (record) return record;
 
     throw new HttpException('No user found', HttpStatus.NOT_FOUND);
   }

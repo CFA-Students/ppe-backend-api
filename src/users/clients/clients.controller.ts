@@ -6,6 +6,7 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -24,13 +25,14 @@ export class ClientsController {
   }
 
   @Get(':id')
-  async find(@Param('id') id: number | string): Promise<ClientDto> {
-    if (typeof id === 'number')
-      return await this.clientsService.findById(id);
-    // else if (typeof id === 'string')
-    //   return await this.clientsService.find(id);
-    else throw new BadRequestException();
+  async find(@Param('id', ParseIntPipe) id: number): Promise<Client> {
+    return await this.clientsService.findById(id);
   }
+
+  // @Get(':id')
+  // async findByString(@Param('id') id: string): Promise<ClientDto> {
+  //   return await this.clientsService.find(id);
+  // }
 
   @Post()
   @HttpCode(201)
