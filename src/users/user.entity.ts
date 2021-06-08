@@ -5,18 +5,19 @@ import {
   IsAscii,
 } from 'class-validator';
 import {
+  BaseEntity,
   Column,
   Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
-  TableInheritance,
 } from 'typeorm';
 import { IsString } from 'class-validator';
 
 @Entity()
-@TableInheritance({ column: { type: 'varchar', name: 'type' } })
-export class User {
-  @PrimaryGeneratedColumn()
-  @IsNotEmpty()
+export class User extends BaseEntity {
+  @PrimaryGeneratedColumn({ type: 'int', unsigned: true })
   id: number;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
@@ -34,12 +35,12 @@ export class User {
   @IsNotEmpty()
   password: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'varchar', length: 100, nullable: false })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'varchar', length: 100, nullable: false })
   @IsString()
   @IsNotEmpty()
   surname: string;
@@ -48,4 +49,11 @@ export class User {
   @IsMobilePhone()
   @IsNotEmpty()
   phone: string;
+
+  // @OneToMany(() => Client, (client) => client.clientId)
+  // clients: Client[];
+  // @OneToMany(() => Admin, (admin) => admin.user)
+  // admins: Admin[];
+  // @OneToMany(() => Supplier, (supplier) => supplier.supplierId)
+  // suppliers: Supplier[];
 }

@@ -1,22 +1,34 @@
-import { IsAscii, IsBoolean, IsNotEmpty } from 'class-validator';
-import { ChildEntity, Column } from 'typeorm';
+// import { IsAscii, IsBoolean, IsNotEmpty } from 'class-validator';
+// import {
+//   Entity,
+//   Column,
+//   OneToOne,
+//   JoinColumn,
+//   BaseEntity,
+//   ManyToOne,
+//   PrimaryGeneratedColumn,
+// } from 'typeorm';
 
-import { User } from '../user.entity';
+// @Entity()
+// export class Client extends BaseEntity {
+//   @PrimaryGeneratedColumn({ name: 'client_id' })
+//   clientId: number;
 
-@ChildEntity()
-export class Client extends User {
-  @Column({ name: 'is_male', type: 'bool', nullable: false })
-  @IsBoolean()
-  @IsNotEmpty()
-  isMale!: boolean;
+//   @Column({ name: 'is_male', type: 'bool', nullable: false })
+//   @IsBoolean()
+//   @IsNotEmpty()
+//   isMale!: boolean;
 
-  @Column({ type: 'text', nullable: false })
-  @IsAscii()
-  @IsNotEmpty()
-  address!: string;
+//   @Column({ type: 'text', nullable: false })
+//   @IsAscii()
+//   @IsNotEmpty()
+//   address!: string;
 
-  // @BeforeInsert()
-  // beforeInsertActions() {
-  //   this.isActive = false;
-  // }
-}
+//   // @ManyToOne(() => User, (user) => user.id, { primary: true })
+//   // user: User;
+
+//   // @BeforeInsert()
+//   // beforeInsertActions() {
+//   //   this.isActive = false;
+//   // }
+// }

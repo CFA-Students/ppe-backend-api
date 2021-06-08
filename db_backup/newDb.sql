@@ -25,29 +25,41 @@ VALUES (1, 'e-jarod', 'test@test.com', 'test321', 'Jarod', 'EJILANE', '+33768458
 
 CREATE TABLE `Client`
 (
-    `id`      INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
-    `is_male` TINYINT(1)               NOT NULL,
-    `address` TEXT                     NOT NULL
+    `client_id` INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
+    `is_male`   TINYINT(1)               NOT NULL,
+    `address`   TEXT                     NOT NULL
 ) ENGINE = InnoDB;
+
+# ALTER TABLE `Client`
+#     ADD CONSTRAINT `fk_client`
+#         FOREIGN KEY (`client_id`) REFERENCES User (`id`);
 
 INSERT INTO `Client`
     VALUE (1, 1, 'Addresse qqc, ville, machin');
 
 CREATE TABLE `Admin`
 (
-    `id`             INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
+    `admin_id`       INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
     `is_super_admin` TINYINT(1)               NOT NULL DEFAULT 0 NOT NULL
 ) ENGINE = InnoDB;
+
+# ALTER TABLE `Admin`
+#     ADD CONSTRAINT `fk_admin`
+#         FOREIGN KEY (`admin_id`) REFERENCES User (`id`);
 
 INSERT INTO `Admin`
     VALUE (2, 1);
 
 CREATE TABLE `Supplier`
 (
-    `id`            INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
+    `supplier_id`   INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
     `id_company`    VARCHAR(150)             NOT NULL,
     `supplier_name` VARCHAR(255)             NOT NULL
 ) ENGINE = InnoDB;
+
+# ALTER TABLE `Supplier`
+#     ADD CONSTRAINT `fk_supplier`
+#         FOREIGN KEY (`supplier_id`) REFERENCES User (`id`);
 
 INSERT INTO `Supplier`
     VALUE (3, 'id qqc company', 'Un prestataire');
@@ -120,7 +132,7 @@ CREATE TABLE `Perform_reservation`
     `id_client`      INT UNSIGNED NOT NULL,
     `id_reservation` INT UNSIGNED NOT NULL,
     PRIMARY KEY (`id_client`, `id_reservation`),
-    FOREIGN KEY (`id_client`) REFERENCES Client (`id`),
+    FOREIGN KEY (`id_client`) REFERENCES Client (`client_id`),
     FOREIGN KEY (`id_reservation`) REFERENCES Reservation (`id`)
 ) ENGINE = InnoDB;
 
@@ -134,632 +146,632 @@ CREATE TABLE `Execute_payment`
 ) ENGINE = InnoDB;
 # END OF 1,N - 1,N TABLES
 
-######
-# TRIGGERS
-######
-
-# User triggers
-
-DELIMITER $
-CREATE TRIGGER User_trigger_before_insert
-    BEFORE INSERT
-    ON `User`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER User_trigger_after_insert
-    AFTER INSERT
-    ON `User`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER User_trigger_before_update
-    BEFORE UPDATE
-    ON `User`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER User_trigger_after_update
-    AFTER UPDATE
-    ON `User`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER User_trigger_before_delete
-    BEFORE DELETE
-    ON `User`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER User_trigger_after_delete
-    AFTER DELETE
-    ON `User`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-
-# Client triggers
-
-DELIMITER $
-CREATE TRIGGER Client_trigger_before_insert
-    BEFORE INSERT
-    ON `Client`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Client_trigger_after_insert
-    AFTER INSERT
-    ON `Client`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Client_trigger_before_update
-    BEFORE UPDATE
-    ON `Client`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Client_trigger_after_update
-    AFTER UPDATE
-    ON `Client`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Client_trigger_before_delete
-    BEFORE DELETE
-    ON `Client`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Client_trigger_after_delete
-    AFTER DELETE
-    ON `Client`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-
-# Admin triggers
-
-DELIMITER $
-CREATE TRIGGER Admin_trigger_before_insert
-    BEFORE INSERT
-    ON `Admin`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Admin_trigger_after_insert
-    AFTER INSERT
-    ON `Admin`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Admin_trigger_before_update
-    BEFORE UPDATE
-    ON `Admin`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Admin_trigger_after_update
-    AFTER UPDATE
-    ON `Admin`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Admin_trigger_before_delete
-    BEFORE DELETE
-    ON `Admin`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Admin_trigger_after_delete
-    AFTER DELETE
-    ON `Admin`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-
-# Supplier triggers
-
-DELIMITER $
-CREATE TRIGGER Supplier_trigger_before_insert
-    BEFORE INSERT
-    ON `Supplier`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Supplier_trigger_after_insert
-    AFTER INSERT
-    ON `Supplier`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Supplier_trigger_before_update
-    BEFORE UPDATE
-    ON `Supplier`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Supplier_trigger_after_update
-    AFTER UPDATE
-    ON `Supplier`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Supplier_trigger_before_delete
-    BEFORE DELETE
-    ON `Supplier`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Supplier_trigger_after_delete
-    AFTER DELETE
-    ON `Supplier`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-
-# Location triggers
-
-DELIMITER $
-CREATE TRIGGER Location_trigger_before_insert
-    BEFORE INSERT
-    ON `Location`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_trigger_after_insert
-    AFTER INSERT
-    ON `Location`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_trigger_before_update
-    BEFORE UPDATE
-    ON `Location`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_trigger_after_update
-    AFTER UPDATE
-    ON `Location`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_trigger_before_delete
-    BEFORE DELETE
-    ON `Location`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_trigger_after_delete
-    AFTER DELETE
-    ON `Location`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-
-# Location_category triggers
-
-DELIMITER $
-CREATE TRIGGER Location_category_trigger_before_insert
-    BEFORE INSERT
-    ON `Location_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_category_trigger_after_insert
-    AFTER INSERT
-    ON `Location_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_category_trigger_before_update
-    BEFORE UPDATE
-    ON `Location_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_category_trigger_after_update
-    AFTER UPDATE
-    ON `Location_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_category_trigger_before_delete
-    BEFORE DELETE
-    ON `Location_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Location_category_trigger_after_delete
-    AFTER DELETE
-    ON `Location_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-# Vehicle_category triggers
-
-DELIMITER $
-CREATE TRIGGER Vehicle_category_trigger_before_insert
-    BEFORE INSERT
-    ON `Vehicle_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_category_trigger_after_insert
-    AFTER INSERT
-    ON `Vehicle_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_category_trigger_before_update
-    BEFORE UPDATE
-    ON `Vehicle_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_category_trigger_after_update
-    AFTER UPDATE
-    ON `Vehicle_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_category_trigger_before_delete
-    BEFORE DELETE
-    ON `Vehicle_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_category_trigger_after_delete
-    AFTER DELETE
-    ON `Vehicle_category`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-
-# Vehicle triggers
-
-DELIMITER $
-CREATE TRIGGER Vehicle_trigger_before_insert
-    BEFORE INSERT
-    ON `Vehicle`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_trigger_after_insert
-    AFTER INSERT
-    ON `Vehicle`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_trigger_before_update
-    BEFORE UPDATE
-    ON `Vehicle`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_trigger_after_update
-    AFTER UPDATE
-    ON `Vehicle`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_trigger_before_delete
-    BEFORE DELETE
-    ON `Vehicle`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Vehicle_trigger_after_delete
-    AFTER DELETE
-    ON `Vehicle`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-
-# Payment triggers
-
-DELIMITER $
-CREATE TRIGGER Payment_trigger_before_insert
-    BEFORE INSERT
-    ON `Payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Payment_trigger_after_insert
-    AFTER INSERT
-    ON `Payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Payment_trigger_before_update
-    BEFORE UPDATE
-    ON `Payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Payment_trigger_after_update
-    AFTER UPDATE
-    ON `Payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Payment_trigger_before_delete
-    BEFORE DELETE
-    ON `Payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Payment_trigger_after_delete
-    AFTER DELETE
-    ON `Payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-
-# Perform_reservation triggers
-
-DELIMITER $
-CREATE TRIGGER Perform_reservation_trigger_before_insert
-    BEFORE INSERT
-    ON `Perform_reservation`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Perform_reservation_trigger_after_insert
-    AFTER INSERT
-    ON `Perform_reservation`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Perform_reservation_trigger_before_update
-    BEFORE UPDATE
-    ON `Perform_reservation`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Perform_reservation_trigger_after_update
-    AFTER UPDATE
-    ON `Perform_reservation`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Perform_reservation_trigger_before_delete
-    BEFORE DELETE
-    ON `Perform_reservation`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Perform_reservation_trigger_after_delete
-    AFTER DELETE
-    ON `Perform_reservation`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-
-# Execute_payment triggers
-
-DELIMITER $
-CREATE TRIGGER Execute_payment_trigger_before_insert
-    BEFORE INSERT
-    ON `Execute_payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Execute_payment_trigger_after_insert
-    AFTER INSERT
-    ON `Execute_payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Execute_payment_trigger_before_update
-    BEFORE UPDATE
-    ON `Execute_payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Execute_payment_trigger_after_update
-    AFTER UPDATE
-    ON `Execute_payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Execute_payment_trigger_before_delete
-    BEFORE DELETE
-    ON `Execute_payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
-DELIMITER $
-CREATE TRIGGER Execute_payment_trigger_after_delete
-    AFTER DELETE
-    ON `Execute_payment`
-    FOR EACH ROW
-BEGIN
-    # @TODO:
-END $
-DELIMITER ;
+# ######
+# # TRIGGERS
+# ######
+#
+# # User triggers
+#
+# DELIMITER $
+# CREATE TRIGGER User_trigger_before_insert
+#     BEFORE INSERT
+#     ON `User`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER User_trigger_after_insert
+#     AFTER INSERT
+#     ON `User`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER User_trigger_before_update
+#     BEFORE UPDATE
+#     ON `User`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER User_trigger_after_update
+#     AFTER UPDATE
+#     ON `User`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER User_trigger_before_delete
+#     BEFORE DELETE
+#     ON `User`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER User_trigger_after_delete
+#     AFTER DELETE
+#     ON `User`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+#
+# # Client triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Client_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Client`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Client_trigger_after_insert
+#     AFTER INSERT
+#     ON `Client`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Client_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Client`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Client_trigger_after_update
+#     AFTER UPDATE
+#     ON `Client`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Client_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Client`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Client_trigger_after_delete
+#     AFTER DELETE
+#     ON `Client`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+#
+# # Admin triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Admin_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Admin`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Admin_trigger_after_insert
+#     AFTER INSERT
+#     ON `Admin`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Admin_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Admin`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Admin_trigger_after_update
+#     AFTER UPDATE
+#     ON `Admin`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Admin_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Admin`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Admin_trigger_after_delete
+#     AFTER DELETE
+#     ON `Admin`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+#
+# # Supplier triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Supplier_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Supplier`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Supplier_trigger_after_insert
+#     AFTER INSERT
+#     ON `Supplier`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Supplier_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Supplier`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Supplier_trigger_after_update
+#     AFTER UPDATE
+#     ON `Supplier`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Supplier_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Supplier`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Supplier_trigger_after_delete
+#     AFTER DELETE
+#     ON `Supplier`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+#
+# # Location triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Location_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Location`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_trigger_after_insert
+#     AFTER INSERT
+#     ON `Location`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Location`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_trigger_after_update
+#     AFTER UPDATE
+#     ON `Location`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Location`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_trigger_after_delete
+#     AFTER DELETE
+#     ON `Location`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+#
+# # Location_category triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Location_category_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Location_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_category_trigger_after_insert
+#     AFTER INSERT
+#     ON `Location_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_category_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Location_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_category_trigger_after_update
+#     AFTER UPDATE
+#     ON `Location_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_category_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Location_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Location_category_trigger_after_delete
+#     AFTER DELETE
+#     ON `Location_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# # Vehicle_category triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Vehicle_category_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Vehicle_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_category_trigger_after_insert
+#     AFTER INSERT
+#     ON `Vehicle_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_category_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Vehicle_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_category_trigger_after_update
+#     AFTER UPDATE
+#     ON `Vehicle_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_category_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Vehicle_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_category_trigger_after_delete
+#     AFTER DELETE
+#     ON `Vehicle_category`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+#
+# # Vehicle triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Vehicle_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Vehicle`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_trigger_after_insert
+#     AFTER INSERT
+#     ON `Vehicle`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Vehicle`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_trigger_after_update
+#     AFTER UPDATE
+#     ON `Vehicle`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Vehicle`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Vehicle_trigger_after_delete
+#     AFTER DELETE
+#     ON `Vehicle`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+#
+# # Payment triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Payment_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Payment_trigger_after_insert
+#     AFTER INSERT
+#     ON `Payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Payment_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Payment_trigger_after_update
+#     AFTER UPDATE
+#     ON `Payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Payment_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Payment_trigger_after_delete
+#     AFTER DELETE
+#     ON `Payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+#
+# # Perform_reservation triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Perform_reservation_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Perform_reservation`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Perform_reservation_trigger_after_insert
+#     AFTER INSERT
+#     ON `Perform_reservation`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Perform_reservation_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Perform_reservation`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Perform_reservation_trigger_after_update
+#     AFTER UPDATE
+#     ON `Perform_reservation`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Perform_reservation_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Perform_reservation`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Perform_reservation_trigger_after_delete
+#     AFTER DELETE
+#     ON `Perform_reservation`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+#
+# # Execute_payment triggers
+#
+# DELIMITER $
+# CREATE TRIGGER Execute_payment_trigger_before_insert
+#     BEFORE INSERT
+#     ON `Execute_payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Execute_payment_trigger_after_insert
+#     AFTER INSERT
+#     ON `Execute_payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Execute_payment_trigger_before_update
+#     BEFORE UPDATE
+#     ON `Execute_payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Execute_payment_trigger_after_update
+#     AFTER UPDATE
+#     ON `Execute_payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Execute_payment_trigger_before_delete
+#     BEFORE DELETE
+#     ON `Execute_payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
+# DELIMITER $
+# CREATE TRIGGER Execute_payment_trigger_after_delete
+#     AFTER DELETE
+#     ON `Execute_payment`
+#     FOR EACH ROW
+# BEGIN
+#     # @TODO:
+# END $
+# DELIMITER ;
