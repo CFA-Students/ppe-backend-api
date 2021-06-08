@@ -5,7 +5,7 @@
   "username": "e-jarod",
   "password": "",
   "database": "travels",
-  "entities": ["dist/**/user.entity{.ts,.js}"],
+  "entities": ["dist/**/{user,client}.entity{.ts,.js}"],
   "synchronize": true,
   "logging": true
 }

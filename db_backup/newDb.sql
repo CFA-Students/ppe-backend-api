@@ -25,17 +25,21 @@ VALUES (1, 'e-jarod', 'test@test.com', 'test321', 'Jarod', 'EJILANE', '+33768458
 
 CREATE TABLE `Client`
 (
-    `client_id` INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
-    `is_male`   TINYINT(1)               NOT NULL,
-    `address`   TEXT                     NOT NULL
+    `id`      INT UNSIGNED NOT NULL,
+    `is_male` BOOLEAN      NOT NULL DEFAULT true,
+    `address` TEXT         NOT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
-# ALTER TABLE `Client`
-#     ADD CONSTRAINT `fk_client`
-#         FOREIGN KEY (`client_id`) REFERENCES User (`id`);
+ALTER TABLE `Client`
+    ADD CONSTRAINT `fk_user_id`
+        FOREIGN KEY (`id`)
+            REFERENCES User (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
 
 INSERT INTO `Client`
-    VALUE (1, 1, 'Addresse qqc, ville, machin');
+    VALUE (1, true, 'Addresse qqc, ville, machin');
 
 CREATE TABLE `Admin`
 (
@@ -132,7 +136,7 @@ CREATE TABLE `Perform_reservation`
     `id_client`      INT UNSIGNED NOT NULL,
     `id_reservation` INT UNSIGNED NOT NULL,
     PRIMARY KEY (`id_client`, `id_reservation`),
-    FOREIGN KEY (`id_client`) REFERENCES Client (`client_id`),
+    FOREIGN KEY (`id_client`) REFERENCES Client (`id`),
     FOREIGN KEY (`id_reservation`) REFERENCES Reservation (`id`)
 ) ENGINE = InnoDB;
 

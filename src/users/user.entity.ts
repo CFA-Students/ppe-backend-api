@@ -9,9 +9,11 @@ import {
   Column,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsString } from 'class-validator';
+import { Client } from './clients/client.entity';
 
 @Entity()
 @Index('credentials_unique', ['username', 'email', 'password'], {
@@ -51,8 +53,8 @@ export class User extends BaseEntity {
   @IsNotEmpty()
   phone: string;
 
-  // @OneToMany(() => Client, (client) => client.clientId)
-  // clients: Client[];
+  @OneToMany(() => Client, (client) => client.user)
+  clients: Client[];
   // @OneToMany(() => Admin, (admin) => admin.user)
   // admins: Admin[];
   // @OneToMany(() => Supplier, (supplier) => supplier.supplierId)
