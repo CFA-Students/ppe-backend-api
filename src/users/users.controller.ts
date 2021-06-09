@@ -8,11 +8,13 @@ import {
   Param,
   Post,
   Put,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { UsersDto } from './users.dto';
 import { UserDto } from './user.dto';
+import { User } from './user.entity';
 
 @Controller('users-all')
 export class UsersController {
@@ -24,12 +26,8 @@ export class UsersController {
   }
 
   @Get(':id')
-  async find(@Param('id') id: number | string): Promise<UserDto> {
-    if (typeof id === 'number')
-      return await this.usersService.findById(id);
-    else if (typeof id === 'string')
-      return await this.usersService.find(id);
-    else throw new BadRequestException();
+  async find(@Param('id', ParseIntPipe) id: number): Promise<User> {
+    return await this.usersService.findById(id);
   }
 
   @Post()

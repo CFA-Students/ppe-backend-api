@@ -14,6 +14,7 @@ import {
 import { ClientsService } from './clients.service';
 import { ClientDto } from './client.dto';
 import { Client } from './client.entity';
+import { isEmail } from 'class-validator';
 
 @Controller('users/clients')
 export class ClientsController {
@@ -28,11 +29,6 @@ export class ClientsController {
   async find(@Param('id', ParseIntPipe) id: number): Promise<Client> {
     return await this.clientsService.findById(id);
   }
-
-  // @Get(':id')
-  // async findByString(@Param('id') id: string): Promise<ClientDto> {
-  //   return await this.clientsService.find(id);
-  // }
 
   @Post()
   @HttpCode(201)
