@@ -1,10 +1,4 @@
-import {
-  IsOptional,
-  IsInt,
-  IsNotEmpty,
-  IsAlphanumeric,
-  IsAscii,
-} from 'class-validator';
+import { IsNotEmpty, IsAlphanumeric, IsAscii } from 'class-validator';
 
 export class SupplierDto {
   @IsAlphanumeric()

@@ -34,7 +34,13 @@ export class ClientsController {
 
   @Get(':id')
   async find(@Param('id', ParseIntPipe) id: number): Promise<Client> {
-    return await this.clientsService.findById(id);
+    const client = await this.clientsService.findById(id);
+    if (!client)
+      throw new HttpException(
+        'No client found',
+        HttpStatus.NOT_FOUND
+      );
+    return client;
   }
 
   @Post()

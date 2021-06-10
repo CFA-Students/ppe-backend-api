@@ -23,13 +23,9 @@ export class ClientsService {
   }
 
   async findById(id: number): Promise<Client> {
-    const record = await this.clientsRepository.findOne(id, {
+    return await this.clientsRepository.findOne(id, {
       relations: ['user'],
     });
-
-    if (record) return record;
-
-    throw new HttpException('No user found', HttpStatus.NOT_FOUND);
   }
 
   async insert(newClient: ClientDto): Promise<void> {

@@ -1,59 +1,56 @@
-// import {
-//   HttpException,
-//   HttpStatus,
-//   Injectable,
-// } from '@nestjs/common';
-// import { InjectRepository } from '@nestjs/typeorm';
-// import { Repository } from 'typeorm';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-// import { AdminDto } from './admin.dto';
-// import { AdminsDto } from './admins.dto';
-// import { Admin } from './admin.entity';
+import { AdminDto } from './admin.dto';
+import { AdminsDto } from './admins.dto';
+import { Admin } from './admin.entity';
 
-// @Injectable()
-// export class AdminsService {
-//   constructor(
-//     @InjectRepository(Admin)
-//     private adminsRepository: Repository<Admin>
-//   ) {}
+@Injectable()
+export class AdminsService {
+  constructor(
+    @InjectRepository(Admin)
+    private adminsRepository: Repository<Admin>
+  ) {}
 
-//   // async findAll(): Promise<AdminsDto> {
-//   //   return await this.adminsRepository.find();
-//   // }
+  async findAll(): Promise<Admin[]> {
+    return await this.adminsRepository.find({
+      relations: ['user'],
+    });
+  }
 
-//   async findById(id: number): Promise<AdminDto> {
-//     const record = await this.adminsRepository.findOne(id);
+  async findById(id: number): Promise<Admin> {
+    return await this.adminsRepository.findOne(id, {
+      relations: ['user'],
+    });
+  }
 
-//     if (record) {
-//       console.debug('find by id :', record);
-//       return record;
-//     }
+  // async find(email: string): Promise<AdminDto> {
+  //   const record = await this.adminsRepository.findOne({ email });
+  //   console.log(email);
 
-//     throw new HttpException('No user found', HttpStatus.NOT_FOUND);
-//   }
+  //   if (record) {
+  //     console.debug('find by email :', record);
+  //     return record;
+  //     // new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+  //   }
 
-//   // async find(email: string): Promise<AdminDto> {
-//   //   const record = await this.adminsRepository.findOne({ email });
-//   //   console.log(email);
+  //   throw new HttpException('No user found', HttpStatus.NOT_FOUND);
+  // }
 
-//   //   if (record) {
-//   //     console.debug('find by email :', record);
-//   //     return record;
-//   //     // new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-//   //   }
+  async insert(newAdmin: AdminDto): Promise<void> {
+    await this.adminsRepository.insert(newAdmin);
+  }
 
-//   //   throw new HttpException('No user found', HttpStatus.NOT_FOUND);
-//   // }
+  async update(updatedAdmin: AdminDto): Promise<void> {
+    await this.adminsRepository.save(updatedAdmin);
+  }
 
-//   async insert(newAdmin: AdminDto): Promise<void> {
-//     await this.adminsRepository.insert(newAdmin);
-//   }
-
-//   async update(updatedAdmin: AdminDto): Promise<void> {
-//     await this.adminsRepository.save(updatedAdmin);
-//   }
-
-//   async delete(id: number): Promise<void> {
-//     await this.adminsRepository.delete(id);
-//   }
-// }
+  async delete(id: number): Promise<void> {
+    await this.adminsRepository.delete(id);
+  }
+}
