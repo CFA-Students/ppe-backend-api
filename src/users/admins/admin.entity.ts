@@ -36,7 +36,4 @@ export class Admin extends BaseEntity {
   })
   @JoinColumn({ name: 'id' })
   user: User;
-
-  // @ManyToOne(() => User, (user) => user.id, { primary: true })
-  // user: User;
 }
