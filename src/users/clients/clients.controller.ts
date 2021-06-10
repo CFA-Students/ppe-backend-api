@@ -14,7 +14,6 @@ import {
 import { ClientsService } from './clients.service';
 import { ClientDto } from './client.dto';
 import { Client } from './client.entity';
-import { isEmail } from 'class-validator';
 
 @Controller('users/clients')
 export class ClientsController {
