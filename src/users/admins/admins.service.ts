@@ -1,13 +1,8 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { AdminDto } from './admin.dto';
-import { AdminsDto } from './admins.dto';
 import { Admin } from './admin.entity';
 
 @Injectable()
@@ -28,19 +23,6 @@ export class AdminsService {
       relations: ['user'],
     });
   }
-
-  // async find(email: string): Promise<AdminDto> {
-  //   const record = await this.adminsRepository.findOne({ email });
-  //   console.log(email);
-
-  //   if (record) {
-  //     console.debug('find by email :', record);
-  //     return record;
-  //     // new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-  //   }
-
-  //   throw new HttpException('No user found', HttpStatus.NOT_FOUND);
-  // }
 
   async insert(newAdmin: AdminDto): Promise<void> {
     await this.adminsRepository.insert(newAdmin);

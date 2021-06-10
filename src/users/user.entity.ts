@@ -14,6 +14,8 @@ import {
 } from 'typeorm';
 import { IsString } from 'class-validator';
 import { Client } from './clients/client.entity';
+import { Supplier } from './suppliers/supplier.entity';
+import { Admin } from './admins/admin.entity';
 
 @Entity()
 @Index('credentials_unique', ['username', 'email', 'password'], {
@@ -55,8 +57,10 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Client, (client) => client.user)
   clients: Client[];
-  // @OneToMany(() => Admin, (admin) => admin.user)
-  // admins: Admin[];
-  // @OneToMany(() => Supplier, (supplier) => supplier.supplierId)
-  // suppliers: Supplier[];
+
+  @OneToMany(() => Admin, (admin) => admin.user)
+  admins: Admin[];
+
+  @OneToMany(() => Supplier, (supplier) => supplier.user)
+  suppliers: Supplier[];
 }
