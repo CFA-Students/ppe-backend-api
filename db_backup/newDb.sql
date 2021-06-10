@@ -32,7 +32,7 @@ CREATE TABLE `Client`
 ) ENGINE = InnoDB;
 
 ALTER TABLE `Client`
-    ADD CONSTRAINT `fk_user_id`
+    ADD CONSTRAINT `fk_client_user_id`
         FOREIGN KEY (`id`)
             REFERENCES User (`id`)
             ON DELETE NO ACTION
@@ -43,27 +43,36 @@ INSERT INTO `Client`
 
 CREATE TABLE `Admin`
 (
-    `admin_id`       INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
-    `is_super_admin` TINYINT(1)               NOT NULL DEFAULT 0 NOT NULL
+    `id`             INT UNSIGNED NOT NULL,
+    `is_super_admin` TINYINT(1)   NOT NULL DEFAULT 0 NOT NULL,
+    PRIMARY KEY (`id`)
+
 ) ENGINE = InnoDB;
 
-# ALTER TABLE `Admin`
-#     ADD CONSTRAINT `fk_admin`
-#         FOREIGN KEY (`admin_id`) REFERENCES User (`id`);
+ALTER TABLE `Admin`
+    ADD CONSTRAINT `fk_admin_user_id`
+        FOREIGN KEY (`id`)
+            REFERENCES User (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
 
 INSERT INTO `Admin`
     VALUE (2, 1);
 
 CREATE TABLE `Supplier`
 (
-    `supplier_id`   INT UNSIGNED PRIMARY KEY NOT NULL REFERENCES User (`id`),
-    `id_company`    VARCHAR(150)             NOT NULL,
-    `supplier_name` VARCHAR(255)             NOT NULL
+    `id`            INT UNSIGNED NOT NULL,
+    `id_company`    VARCHAR(150) NOT NULL,
+    `supplier_name` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
-# ALTER TABLE `Supplier`
-#     ADD CONSTRAINT `fk_supplier`
-#         FOREIGN KEY (`supplier_id`) REFERENCES User (`id`);
+ALTER TABLE `Supplier`
+    ADD CONSTRAINT `fk_supplier_user_id`
+        FOREIGN KEY (`id`)
+            REFERENCES User (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
 
 INSERT INTO `Supplier`
     VALUE (3, 'id qqc company', 'Un prestataire');

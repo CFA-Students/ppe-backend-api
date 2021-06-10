@@ -1,31 +1,42 @@
-// import { IsBoolean, IsNotEmpty } from 'class-validator';
-// import {
-//   Column,
-//   Entity,
-//   JoinColumn,
-//   OneToOne,
-//   BaseEntity,
-//   ManyToOne,
-// } from 'typeorm';
+import { IsBoolean, IsNotEmpty } from 'class-validator';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  BaseEntity,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 
-// import { User } from '../user.entity';
-// import { PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '../user.entity';
 
-// @Entity()
-// export class Admin extends BaseEntity {
-//   @PrimaryGeneratedColumn({ name: 'admin_id' })
-//   adminId: number;
+@Entity()
+export class Admin extends BaseEntity {
+  @PrimaryColumn({
+    type: 'int',
+    unsigned: true,
+    nullable: false,
+    primary: true,
+  })
+  id: number;
 
-//   @Column({
-//     name: 'is_super_admin',
-//     type: 'bool',
-//     nullable: false,
-//     default: false,
-//   })
-//   @IsBoolean()
-//   @IsNotEmpty()
-//   isSuperAdmin!: boolean;
+  @Column({
+    name: 'is_super_admin',
+    type: 'bool',
+    width: 1,
+    nullable: false,
+    default: false,
+  })
+  @IsBoolean()
+  @IsNotEmpty()
+  isSuperAdmin!: boolean;
 
-//   // @ManyToOne(() => User, (user) => user.id, { primary: true })
-//   // user: User;
-// }
+  @ManyToOne((type) => User, (user) => user.clients, {
+    orphanedRowAction: 'delete',
+  })
+  @JoinColumn({ name: 'id' })
+  user: User;
+
+  // @ManyToOne(() => User, (user) => user.id, { primary: true })
+  // user: User;
+}
