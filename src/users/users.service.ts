@@ -7,7 +7,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Equal } from 'typeorm';
 
 import { UserDto } from './user.dto';
-import { UsersDto } from './users.dto';
 import { User } from './user.entity';
 import { isEmail } from 'class-validator';
 import { ClientsService } from './clients/clients.service';
@@ -26,17 +25,12 @@ export class UsersService {
     private clientsRepository: ClientsService
   ) {}
 
-  async findAll(): Promise<UsersDto> {
-    const allUsers = await this.usersRepository.find();
-    return allUsers;
+  async findAll(): Promise<User[]> {
+    return await this.usersRepository.find();
   }
 
   async findById(id: number): Promise<User> {
-    const record = await this.usersRepository.findOne(id);
-
-    if (record) return record;
-
-    throw new HttpException('No user found', HttpStatus.NOT_FOUND);
+    return await this.usersRepository.findOne(id);
   }
 
   async find(username: string): Promise<User> {

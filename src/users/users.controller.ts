@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -9,10 +8,11 @@ import {
   Post,
   Put,
   ParseIntPipe,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
-import { UsersDto } from './users.dto';
 import { UserDto } from './user.dto';
 import { User } from './user.entity';
 
@@ -21,13 +21,25 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  async findAll(): Promise<UsersDto> {
-    return await this.usersService.findAll();
+  async findAll(): Promise<User[]> {
+    const allUsers = await this.usersService.findAll();
+    if (allUsers.length <= 0)
+      throw new HttpException(
+        'No clients found',
+        HttpStatus.NOT_FOUND
+      );
+    return allUsers;
   }
 
   @Get(':id')
   async find(@Param('id', ParseIntPipe) id: number): Promise<User> {
-    return await this.usersService.findById(id);
+    const user = await this.usersService.findById(id);
+    if (!user)
+      throw new HttpException(
+        'No client found',
+        HttpStatus.NOT_FOUND
+      );
+    return user;
   }
 
   @Post()
