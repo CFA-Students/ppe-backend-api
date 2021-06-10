@@ -5,6 +5,8 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
@@ -21,7 +23,13 @@ export class ClientsController {
 
   @Get()
   async findAll(): Promise<Client[]> {
-    return await this.clientsService.findAll();
+    const allClients = await this.clientsService.findAll();
+    if (allClients.length <= 0)
+      throw new HttpException(
+        'No clients found',
+        HttpStatus.NOT_FOUND
+      );
+    return allClients;
   }
 
   @Get(':id')

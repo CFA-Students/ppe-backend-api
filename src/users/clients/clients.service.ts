@@ -17,13 +17,9 @@ export class ClientsService {
   ) {}
 
   async findAll(): Promise<Client[]> {
-    const allClients = await this.clientsRepository.find({
+    return await this.clientsRepository.find({
       relations: ['user'],
     });
-
-    if (allClients.length > 0) return allClients;
-
-    throw new HttpException('No clients found', HttpStatus.NOT_FOUND);
   }
 
   async findById(id: number): Promise<Client> {
