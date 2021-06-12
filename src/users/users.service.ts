@@ -6,10 +6,11 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Equal } from 'typeorm';
 
-import { UserDto } from './user.dto';
 import { User } from './user.entity';
 import { isEmail } from 'class-validator';
 import { ClientsService } from './clients/clients.service';
+import { SuppliersService } from './suppliers/suppliers.service';
+import { AdminsService } from './admins/admins.service';
 
 export enum UserType {
   Client,
@@ -22,7 +23,9 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-    private clientsRepository: ClientsService
+    private clientsRepository: ClientsService,
+    private adminsRepository: AdminsService,
+    private suppliersRepository: SuppliersService
   ) {}
 
   async findAll(): Promise<User[]> {
@@ -79,19 +82,19 @@ export class UsersService {
   async findUserType(user: User) {
     const client = await this.clientsRepository.findById(user.id);
     if (client) return UserType.Client;
-    // const client = this.clientsRepository.findById(user.id);
-    // if (client) return UserType.Client;
-    // const client = this.clientsRepository.findById(user.id);
-    // if (client) return UserType.Client;
+    const admin = this.clientsRepository.findById(user.id);
+    if (admin) return UserType.Admin;
+    const supplier = this.clientsRepository.findById(user.id);
+    if (supplier) return UserType.Supplier;
 
     throw new HttpException('INCORRECT TABLES', HttpStatus.NOT_FOUND);
   }
 
-  async insert(newUser: UserDto): Promise<void> {
+  async insert(newUser: User): Promise<void> {
     await this.usersRepository.insert(newUser);
   }
 
-  async update(updatedUser: UserDto): Promise<void> {
+  async update(updatedUser: User): Promise<void> {
     await this.usersRepository.save(updatedUser);
   }
 
