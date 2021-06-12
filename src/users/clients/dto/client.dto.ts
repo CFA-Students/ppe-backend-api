@@ -1,10 +1,4 @@
-import {
-  IsOptional,
-  IsInt,
-  IsBoolean,
-  IsNotEmpty,
-  IsAscii,
-} from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsAscii } from 'class-validator';
 
 export class ClientDto {
   @IsBoolean()

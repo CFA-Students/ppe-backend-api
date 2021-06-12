@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { ClientDto } from './client.dto';
 import { Client } from './client.entity';
 
 @Injectable()
@@ -24,11 +23,11 @@ export class ClientsService {
     });
   }
 
-  async insert(newClient: ClientDto): Promise<void> {
+  async insert(newClient: Client): Promise<void> {
     await this.clientsRepository.insert(newClient);
   }
 
-  async update(updatedClient: ClientDto): Promise<void> {
+  async update(updatedClient: Client): Promise<void> {
     await this.clientsRepository.save(updatedClient);
   }
 

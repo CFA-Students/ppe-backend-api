@@ -8,6 +8,19 @@ import {
   IsEmail,
 } from 'class-validator';
 
+export class UserLoginDto {
+  @IsEmail(
+    { ignore_max_length: true, allow_utf8_local_part: false },
+    { always: true }
+  )
+  @IsNotEmpty({ always: true })
+  readonly email: string;
+
+  @IsAscii({ always: true })
+  @IsNotEmpty({ always: true })
+  readonly password: string;
+}
+
 export class UserDto {
   @IsInt()
   @IsOptional()

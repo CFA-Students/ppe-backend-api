@@ -13,8 +13,6 @@ import {
 } from '@nestjs/common';
 
 import { SuppliersService } from './suppliers.service';
-import { SuppliersDto } from './suppliers.dto';
-import { SupplierDto } from './supplier.dto';
 import { Supplier } from './supplier.entity';
 
 @Controller('users/suppliers')
@@ -48,12 +46,12 @@ export class SuppliersController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('user') supplier: SupplierDto): Promise<void> {
+  async insert(@Body('user') supplier: Supplier): Promise<void> {
     await this.suppliersService.insert(supplier);
   }
 
   @Put()
-  async update(@Body('user') supplier: SupplierDto): Promise<void> {
+  async update(@Body('user') supplier: Supplier): Promise<void> {
     await this.suppliersService.update(supplier);
   }
 
