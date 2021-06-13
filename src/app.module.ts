@@ -10,6 +10,8 @@ import { ReservationModule } from './reservation/reservation.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocationModule } from './locations-spot/location.module';
 import { LocationCategoryModule } from './location-category/location-category.module';
+import { VehicleModule } from './vehicle/vehicle.module';
+import { VehicleCategoryModule } from './vehicle-category/vehicle-category.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { LocationCategoryModule } from './location-category/location-category.mo
     ReservationModule,
     LocationModule,
     LocationCategoryModule,
+    VehicleModule,
+    VehicleCategoryModule,
   ],
   controllers: [AppController],
   providers: [
