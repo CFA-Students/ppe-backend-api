@@ -31,7 +31,9 @@ export class ClientsController {
   }
 
   @Get(':id')
-  async find(@Param('id', ParseIntPipe) id: number): Promise<Client> {
+  async findById(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Client> {
     const client = await this.clientsService.findById(id);
     if (!client)
       throw new HttpException(

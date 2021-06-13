@@ -32,7 +32,7 @@ export class SuppliersController {
   }
 
   @Get(':id')
-  async find(
+  async findById(
     @Param('id', ParseIntPipe) id: number
   ): Promise<Supplier> {
     const supplier = await this.suppliersService.findById(id);

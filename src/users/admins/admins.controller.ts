@@ -32,7 +32,9 @@ export class AdminsController {
   }
 
   @Get(':id')
-  async find(@Param('id', ParseIntPipe) id: number): Promise<Admin> {
+  async findById(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Admin> {
     const client = await this.adminsService.findById(id);
     if (!client)
       throw new HttpException(

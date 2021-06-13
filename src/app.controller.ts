@@ -4,10 +4,13 @@ import {
   Controller,
   Request,
   UseGuards,
+  Body,
 } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard, Public } from './auth/jwt-auth.guard';
+import { JwtTokenDto } from './auth/dto/auth.dto';
+import { UserLoginDto } from './users/dto/user.dto';
 
 @Controller()
 export class AppController {
@@ -16,13 +19,14 @@ export class AppController {
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req: any) {
-    return this.authService.login(req.user);
+  async login(@Body() userLogin: UserLoginDto): Promise<JwtTokenDto> {
+    return this.authService.login(userLogin);
   }
 
+  @Public()
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   async getProfile(@Request() req: any) {
-    return req.user;
+    return req;
   }
 }
