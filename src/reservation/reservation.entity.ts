@@ -6,10 +6,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { LocationSpot } from '../locations-spot/location-spot.entity';
+import { Vehicle } from '../vehicle/vehicle.entity';
 
 @Entity()
 export class Reservation extends BaseEntity {
@@ -69,4 +71,7 @@ export class Reservation extends BaseEntity {
   )
   @JoinColumn({ name: 'id_location_spot_end' })
   locationSpotEnd: LocationSpot;
+
+  @OneToMany(() => Vehicle, (vehicle) => vehicle.reservation)
+  vehicles: Vehicle[];
 }

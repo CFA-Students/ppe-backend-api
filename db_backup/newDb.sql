@@ -112,9 +112,7 @@ CREATE TABLE `Reservation`
     `end_at`                 TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     `id_location_spot_start` INT UNSIGNED NOT NULL,
     `id_location_spot_end`   INT UNSIGNED NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`id_location_spot_start`) REFERENCES Location_spot (`id`),
-    FOREIGN KEY (`id_location_spot_end`) REFERENCES Location_spot (`id`)
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
 ALTER TABLE `Reservation`
@@ -141,15 +139,27 @@ CREATE TABLE `Vehicle_category`
 
 CREATE TABLE `Vehicle`
 (
-    `id`                  INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `name`                VARCHAR(255) NOT NULL,
-    `seats_count`         SMALLINT     NOT NULL,
-    `id_reservation`      INT UNSIGNED NOT NULL,
-    `id_vehicle_category` INT UNSIGNED NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`id_reservation`) REFERENCES Reservation (`id`),
-    FOREIGN KEY (`id_vehicle_category`) REFERENCES Vehicle_category (`id`)
+    `id`                  INT UNSIGNED      NOT NULL AUTO_INCREMENT,
+    `name`                VARCHAR(255)      NOT NULL,
+    `seats_count`         SMALLINT UNSIGNED NOT NULL,
+    `id_reservation`      INT UNSIGNED      NOT NULL,
+    `id_vehicle_category` INT UNSIGNED      NOT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
+
+ALTER TABLE `Vehicle`
+    ADD CONSTRAINT `fk_reservation_id`
+        FOREIGN KEY (`id_reservation`)
+            REFERENCES Reservation (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
+
+ALTER TABLE `Vehicle`
+    ADD CONSTRAINT `fk_vehicle_category_id`
+        FOREIGN KEY (`id_vehicle_category`)
+            REFERENCES Vehicle_category (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
 
 CREATE TABLE `Payment`
 (
