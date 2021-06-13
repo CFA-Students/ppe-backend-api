@@ -12,6 +12,7 @@ import { LocationModule } from './locations-spot/location.module';
 import { LocationCategoryModule } from './location-category/location-category.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { VehicleCategoryModule } from './vehicle-category/vehicle-category.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { VehicleCategoryModule } from './vehicle-category/vehicle-category.modul
     LocationCategoryModule,
     VehicleModule,
     VehicleCategoryModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [
