@@ -9,6 +9,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { LocationSpot } from '../locations-spot/location-spot.entity';
+
 @Entity()
 export class Reservation extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', unsigned: true })
@@ -34,23 +36,37 @@ export class Reservation extends BaseEntity {
   @IsNotEmpty()
   endAt: string;
 
-  // @ManyToOne(
-  //   (type) => Location,
-  //   (locationStart) => locationStart.reservations,
-  //   {
-  //     orphanedRowAction: 'delete',
-  //   }
-  // )
-  // @JoinColumn({ name: 'id_location_start' })
-  // locationStart: Location;
+  @Column({
+    name: 'id_location_spot_start',
+    unsigned: true,
+    nullable: false,
+  })
+  idLocationSpotStart: number;
 
-  // @ManyToOne(
-  //   (type) => Location,
-  //   (locationEnd) => locationEnd.reservations,
-  //   {
-  //     orphanedRowAction: 'delete',
-  //   }
-  // )
-  // @JoinColumn({ name: 'id_location_end' })
-  // locationEnd: Location;
+  @Column({
+    name: 'id_location_spot_end',
+    unsigned: true,
+    nullable: false,
+  })
+  idLocationSpotEnd: number;
+
+  @ManyToOne(
+    (type) => LocationSpot,
+    (idLocationSpotStart) => idLocationSpotStart.reservationsStart,
+    {
+      orphanedRowAction: 'delete',
+    }
+  )
+  @JoinColumn({ name: 'id_location_spot_start' })
+  locationSpotStart: LocationSpot;
+
+  @ManyToOne(
+    (type) => LocationSpot,
+    (idLocationSpotEnd) => idLocationSpotEnd.reservationsEnd,
+    {
+      orphanedRowAction: 'delete',
+    }
+  )
+  @JoinColumn({ name: 'id_location_spot_end' })
+  locationSpotEnd: LocationSpot;
 }

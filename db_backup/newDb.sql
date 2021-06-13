@@ -86,7 +86,7 @@ CREATE TABLE `Location_category`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
-CREATE TABLE `Location`
+CREATE TABLE `Location_spot`
 (
     `id`                   INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `name`                 VARCHAR(255) NOT NULL,
@@ -95,21 +95,41 @@ CREATE TABLE `Location`
     `postal_code`          VARCHAR(10)  NOT NULL,
     `country`              VARCHAR(255) NOT NULL,
     `id_location_category` INT UNSIGNED NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`id_location_category`) REFERENCES Location_category (`id`)
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
+
+ALTER TABLE `Location_spot`
+    ADD CONSTRAINT `fk_location_category_id`
+        FOREIGN KEY (`id_location_category`)
+            REFERENCES Location_category (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
 
 CREATE TABLE `Reservation`
 (
-    `id`                INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `start_at`          TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-    `end_at`            TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-    `id_location_start` INT UNSIGNED NOT NULL,
-    `id_location_end`   INT UNSIGNED NOT NULL,
+    `id`                     INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `start_at`               TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    `end_at`                 TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    `id_location_spot_start` INT UNSIGNED NOT NULL,
+    `id_location_spot_end`   INT UNSIGNED NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`id_location_start`) REFERENCES Location (`id`),
-    FOREIGN KEY (`id_location_end`) REFERENCES Location (`id`)
+    FOREIGN KEY (`id_location_spot_start`) REFERENCES Location_spot (`id`),
+    FOREIGN KEY (`id_location_spot_end`) REFERENCES Location_spot (`id`)
 ) ENGINE = InnoDB;
+
+ALTER TABLE `Reservation`
+    ADD CONSTRAINT `fk_location_spot_start_id`
+        FOREIGN KEY (`id_location_spot_start`)
+            REFERENCES Location_spot (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
+
+ALTER TABLE `Reservation`
+    ADD CONSTRAINT `fk_location_spot_end_id`
+        FOREIGN KEY (`id_location_spot_end`)
+            REFERENCES Location_spot (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
 
 CREATE TABLE `Vehicle_category`
 (

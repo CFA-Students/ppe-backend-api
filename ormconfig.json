@@ -6,7 +6,7 @@
   "password": "",
   "database": "travels",
   "entities": [
-    "dist/**/{user,client,admin,supplier,reservation,location,location-category}.entity{.ts,.js}"
+    "dist/**/{user,client,admin,supplier,reservation,location-spot,location-category}.entity{.ts,.js}"
   ],
   "synchronize": true,
   "logging": true

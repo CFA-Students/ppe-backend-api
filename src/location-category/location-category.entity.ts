@@ -1,11 +1,8 @@
-import { IsNotEmpty, IsDateString } from 'class-validator';
+import { LocationSpot } from '../locations-spot/location-spot.entity';
 import {
   BaseEntity,
   Column,
-  CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -18,6 +15,9 @@ export class LocationCategory extends BaseEntity {
   @Column({ name: 'category_name', type: 'varchar', nullable: false })
   categoryName: string;
 
-  // @OneToMany(() => Location, (location) => location.locationCategory)
-  // reservations: Location[];
+  @OneToMany(
+    () => LocationSpot,
+    (locationSpot) => locationSpot.locationCategory
+  )
+  locationSpots: LocationSpot[];
 }
