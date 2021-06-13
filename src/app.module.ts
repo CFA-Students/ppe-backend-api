@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
 import { ReservationModule } from './reservation/reservation.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { LocationModule } from './location/location.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     AuthModule,
     UsersModule,
     ReservationModule,
+    LocationModule,
   ],
   controllers: [AppController],
   providers: [
