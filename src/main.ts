@@ -10,6 +10,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(
     new ValidationPipe({
+      always: true,
+      enableDebugMessages: true,
+      forbidUnknownValues: true,
+      forbidNonWhitelisted: true,
       // disableErrorMessages: true,
     })
   );
