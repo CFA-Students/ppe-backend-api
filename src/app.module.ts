@@ -9,6 +9,7 @@ import { AppController } from './app.controller';
 import { ReservationModule } from './reservation/reservation.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocationModule } from './location/location.module';
+import { LocationCategoryModule } from './location-category/location-category.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { LocationModule } from './location/location.module';
     UsersModule,
     ReservationModule,
     LocationModule,
+    LocationCategoryModule,
   ],
   controllers: [AppController],
   providers: [
