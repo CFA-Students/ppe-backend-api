@@ -5,14 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 
-import { AppController } from './app.controller';
 import { ReservationModule } from './reservation/reservation.module';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { LocationModule } from './locations-spot/location.module';
+import { LocationSpotModule } from './locations-spots/location-spots.module';
 import { LocationCategoryModule } from './location-category/location-category.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { VehicleCategoryModule } from './vehicle-category/vehicle-category.module';
 import { PaymentModule } from './payment/payment.module';
+
+import { AppController } from './app.controller';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { PaymentModule } from './payment/payment.module';
     AuthModule,
     UsersModule,
     ReservationModule,
-    LocationModule,
+    LocationSpotModule,
     LocationCategoryModule,
     VehicleModule,
     VehicleCategoryModule,

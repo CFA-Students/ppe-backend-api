@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { LocationSpot } from '../locations-spot/location-spot.entity';
+import { LocationSpot } from '../locations-spots/location-spot.entity';
 
 @Entity({ name: 'location_category' })
 export class LocationCategory extends BaseEntity {

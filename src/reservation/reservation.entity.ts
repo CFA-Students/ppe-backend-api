@@ -12,7 +12,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { LocationSpot } from '../locations-spot/location-spot.entity';
+import { LocationSpot } from '../locations-spots/location-spot.entity';
 import { Vehicle } from '../vehicle/vehicle.entity';
 import { Payment } from '../payment/payment.entity';
 import { Client } from '../users/clients/client.entity';
