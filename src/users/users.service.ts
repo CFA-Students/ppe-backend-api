@@ -82,9 +82,9 @@ export class UsersService {
   async findUserType(user: User) {
     const client = await this.clientsRepository.findById(user.id);
     if (client) return UserType.Client;
-    const admin = this.clientsRepository.findById(user.id);
+    const admin = this.adminsRepository.findById(user.id);
     if (admin) return UserType.Admin;
-    const supplier = this.clientsRepository.findById(user.id);
+    const supplier = this.suppliersRepository.findById(user.id);
     if (supplier) return UserType.Supplier;
 
     throw new HttpException('INCORRECT TABLES', HttpStatus.NOT_FOUND);
