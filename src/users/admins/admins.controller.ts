@@ -43,12 +43,12 @@ export class AdminsController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('user') admin: Admin): Promise<void> {
+  async insert(@Body('admin') admin: Admin): Promise<void> {
     await this.adminsService.insert(admin);
   }
 
   @Put()
-  async update(@Body('user') admin: Admin): Promise<void> {
+  async update(@Body('admin') admin: Admin): Promise<void> {
     await this.adminsService.update(admin);
   }
 

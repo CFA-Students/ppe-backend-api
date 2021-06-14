@@ -14,7 +14,7 @@ import {
 import { Payment } from './payment.entity';
 import { PaymentsService } from './payments.service';
 
-@Controller('payment')
+@Controller('payments')
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
 
@@ -44,12 +44,12 @@ export class PaymentsController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('user') payment: Payment): Promise<void> {
+  async insert(@Body('payment') payment: Payment): Promise<void> {
     await this.paymentsService.insert(payment);
   }
 
   @Put()
-  async update(@Body('user') payment: Payment): Promise<void> {
+  async update(@Body('payment') payment: Payment): Promise<void> {
     await this.paymentsService.update(payment);
   }
 

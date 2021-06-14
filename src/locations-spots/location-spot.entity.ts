@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Reservation } from '../reservation/reservation.entity';
+import { Reservation } from '../reservations/reservation.entity';
 import { LocationCategory } from '../location-categories/location-category.entity';
 
 @Entity({ name: 'location_spot' })

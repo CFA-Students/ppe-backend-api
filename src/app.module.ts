@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 
-import { ReservationModule } from './reservation/reservation.module';
+import { ReservationsModule } from './reservations/reservations.module';
 import { LocationSpotsModule } from './locations-spots/location-spots.module';
 import { LocationCategoriesModule } from './location-categories/location-categories.module';
 import { VehicleModule } from './vehicle/vehicle.module';
@@ -20,7 +20,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     TypeOrmModule.forRoot(),
     AuthModule,
     UsersModule,
-    ReservationModule,
+    ReservationsModule,
     LocationSpotsModule,
     LocationCategoriesModule,
     VehicleModule,

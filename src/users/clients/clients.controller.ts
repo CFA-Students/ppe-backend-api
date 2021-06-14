@@ -45,12 +45,12 @@ export class ClientsController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('user') client: Client): Promise<void> {
+  async insert(@Body('client') client: Client): Promise<void> {
     await this.clientsService.insert(client);
   }
 
   @Put()
-  async update(@Body('user') client: Client): Promise<void> {
+  async update(@Body('client') client: Client): Promise<void> {
     await this.clientsService.update(client);
   }
 

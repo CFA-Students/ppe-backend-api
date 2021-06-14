@@ -15,7 +15,7 @@ import {
 import { LocationSpotsService } from './location-spots.service';
 import { LocationSpot } from './location-spot.entity';
 
-@Controller('location-spot')
+@Controller('location-spots')
 export class LocationSpotsController {
   constructor(
     private readonly locationSpotsService: LocationSpotsService
@@ -27,7 +27,7 @@ export class LocationSpotsController {
       await this.locationSpotsService.findAll();
     if (allLocationSpots.length <= 0)
       throw new HttpException(
-        'No location spots found',
+        'No location-spots found',
         HttpStatus.NOT_FOUND
       );
     return allLocationSpots;
@@ -40,7 +40,7 @@ export class LocationSpotsController {
     const locationSpot = await this.locationSpotsService.findById(id);
     if (!locationSpot)
       throw new HttpException(
-        'No location spot found',
+        'No location-spot found',
         HttpStatus.NOT_FOUND
       );
     return locationSpot;

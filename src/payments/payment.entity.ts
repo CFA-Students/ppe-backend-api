@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-import { Reservation } from '../reservation/reservation.entity';
+import { Reservation } from '../reservations/reservation.entity';
 import {
   BaseEntity,
   Column,

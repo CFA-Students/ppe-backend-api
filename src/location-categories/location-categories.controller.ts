@@ -15,7 +15,7 @@ import {
 import { LocationCategoriesService } from './location-categories.service';
 import { LocationCategory } from './location-category.entity';
 
-@Controller('location-category')
+@Controller('location-categories')
 export class LocationCategoriesController {
   constructor(
     private readonly locationCategoriesService: LocationCategoriesService
@@ -49,13 +49,17 @@ export class LocationCategoriesController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('user') user: LocationCategory): Promise<void> {
-    await this.locationCategoriesService.insert(user);
+  async insert(
+    @Body('locationCategory') locationCategory: LocationCategory
+  ): Promise<void> {
+    await this.locationCategoriesService.insert(locationCategory);
   }
 
   @Put()
-  async update(@Body('user') user: LocationCategory): Promise<void> {
-    await this.locationCategoriesService.update(user);
+  async update(
+    @Body('locationCategory') locationCategory: LocationCategory
+  ): Promise<void> {
+    await this.locationCategoriesService.update(locationCategory);
   }
 
   @Delete(':id')

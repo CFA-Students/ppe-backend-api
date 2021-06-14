@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Reservation } from './../reservation/reservation.entity';
+import { Reservation } from '../reservations/reservation.entity';
 import { VehicleCategory } from 'src/vehicle-category/vehicle-category.entity';
 
 @Entity()

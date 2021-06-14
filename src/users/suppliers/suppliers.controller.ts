@@ -46,12 +46,12 @@ export class SuppliersController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('user') supplier: Supplier): Promise<void> {
+  async insert(@Body('supplier') supplier: Supplier): Promise<void> {
     await this.suppliersService.insert(supplier);
   }
 
   @Put()
-  async update(@Body('user') supplier: Supplier): Promise<void> {
+  async update(@Body('supplier') supplier: Supplier): Promise<void> {
     await this.suppliersService.update(supplier);
   }
 

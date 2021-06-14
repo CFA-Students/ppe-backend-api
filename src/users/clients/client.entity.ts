@@ -10,7 +10,7 @@ import {
   JoinTable,
 } from 'typeorm';
 import { User } from '../user.entity';
-import { Reservation } from '../../reservation/reservation.entity';
+import { Reservation } from '../../reservations/reservation.entity';
 
 @Entity()
 export class Client extends BaseEntity {
