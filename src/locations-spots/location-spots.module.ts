@@ -11,4 +11,4 @@ import { LocationSpot } from './location-spot.entity';
   providers: [LocationSpotsService],
   exports: [LocationSpotsService],
 })
-export class LocationSpotModule {}
+export class LocationSpotsModule {}
