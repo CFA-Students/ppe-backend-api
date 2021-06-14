@@ -27,7 +27,7 @@ export class LocationCategoriesController {
       await this.locationCategoriesService.findAll();
     if (allLocationCategorys.length <= 0)
       throw new HttpException(
-        'No clients found',
+        'No location categoriess found',
         HttpStatus.NOT_FOUND
       );
     return allLocationCategorys;
@@ -41,7 +41,7 @@ export class LocationCategoriesController {
       await this.locationCategoriesService.findById(id);
     if (!locationCategory)
       throw new HttpException(
-        'No client found',
+        'No location category found',
         HttpStatus.NOT_FOUND
       );
     return locationCategory;

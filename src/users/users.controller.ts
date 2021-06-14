@@ -23,10 +23,7 @@ export class UsersController {
   async findAll(): Promise<User[]> {
     const allUsers = await this.usersService.findAll();
     if (allUsers.length <= 0)
-      throw new HttpException(
-        'No clients found',
-        HttpStatus.NOT_FOUND
-      );
+      throw new HttpException('No users found', HttpStatus.NOT_FOUND);
     return allUsers;
   }
 
@@ -36,10 +33,7 @@ export class UsersController {
   ): Promise<User> {
     const user = await this.usersService.findById(id);
     if (!user)
-      throw new HttpException(
-        'No client found',
-        HttpStatus.NOT_FOUND
-      );
+      throw new HttpException('No user found', HttpStatus.NOT_FOUND);
     return user;
   }
 

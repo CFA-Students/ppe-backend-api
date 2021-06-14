@@ -24,7 +24,7 @@ export class AdminsController {
     const allAdmins = await this.adminsService.findAll();
     if (allAdmins.length <= 0) {
       throw new HttpException(
-        'No clients found',
+        'No admins found',
         HttpStatus.NOT_FOUND
       );
     }
@@ -35,13 +35,10 @@ export class AdminsController {
   async findById(
     @Param('id', ParseIntPipe) id: number
   ): Promise<Admin> {
-    const client = await this.adminsService.findById(id);
-    if (!client)
-      throw new HttpException(
-        'No client found',
-        HttpStatus.NOT_FOUND
-      );
-    return client;
+    const admin = await this.adminsService.findById(id);
+    if (!admin)
+      throw new HttpException('No admin found', HttpStatus.NOT_FOUND);
+    return admin;
   }
 
   @Post()

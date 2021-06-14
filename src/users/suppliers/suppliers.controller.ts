@@ -24,7 +24,7 @@ export class SuppliersController {
     const allSuppliers = await this.suppliersService.findAll();
     if (allSuppliers.length <= 0) {
       throw new HttpException(
-        'No admins found',
+        'No suppliers found',
         HttpStatus.NOT_FOUND
       );
     }
@@ -38,7 +38,7 @@ export class SuppliersController {
     const supplier = await this.suppliersService.findById(id);
     if (!supplier)
       throw new HttpException(
-        'No client found',
+        'No supplier found',
         HttpStatus.NOT_FOUND
       );
     return supplier;
