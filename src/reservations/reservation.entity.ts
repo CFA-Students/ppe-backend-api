@@ -13,7 +13,7 @@ import {
 } from 'typeorm';
 
 import { LocationSpot } from '../locations-spots/location-spot.entity';
-import { Vehicle } from '../vehicle/vehicle.entity';
+import { Vehicle } from '../vehicles/vehicle.entity';
 import { Payment } from '../payments/payment.entity';
 import { Client } from '../users/clients/client.entity';
 

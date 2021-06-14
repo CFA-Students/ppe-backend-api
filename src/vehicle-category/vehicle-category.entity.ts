@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Vehicle } from '../vehicle/vehicle.entity';
+import { Vehicle } from '../vehicles/vehicle.entity';
 
 @Entity({ name: 'vehicle_category' })
 export class VehicleCategory extends BaseEntity {

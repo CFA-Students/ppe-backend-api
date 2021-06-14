@@ -8,7 +8,7 @@ import { UsersModule } from './users/users.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { LocationSpotsModule } from './locations-spots/location-spots.module';
 import { LocationCategoriesModule } from './location-categories/location-categories.module';
-import { VehicleModule } from './vehicle/vehicle.module';
+import { VehiclesModule } from './vehicles/vehicles.module';
 import { VehicleCategoryModule } from './vehicle-category/vehicle-category.module';
 import { PaymentsModule } from './payments/payments.module';
 
@@ -23,7 +23,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     ReservationsModule,
     LocationSpotsModule,
     LocationCategoriesModule,
-    VehicleModule,
+    VehiclesModule,
     VehicleCategoryModule,
     PaymentsModule,
   ],
