@@ -86,6 +86,13 @@ CREATE TABLE `Location_category`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
+INSERT INTO `Location_category`
+VALUES (1, 'hotel'),
+       (2, 'airport'),
+       (3, 'port'),
+       (4, 'bus stop'),
+       (5, 'train station');
+
 CREATE TABLE `Location_spot`
 (
     `id`                   INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -104,6 +111,13 @@ ALTER TABLE `Location_spot`
             REFERENCES Location_category (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
+
+INSERT INTO `Location_spot`
+VALUES (1, 'some place 1', 'street1', 'city1', '00001', 'France', 1),
+       (2, 'some place 2', 'street2', 'city2', '00002', 'France', 2),
+       (3, 'some place 3', 'street3', 'city3', '00003', 'France', 3),
+       (4, 'some place 4', 'street4', 'city4', '00004', 'France', 4),
+       (5, 'some place 5', 'street5', 'city5', '00005', 'France', 5);
 
 CREATE TABLE `Reservation`
 (
@@ -129,6 +143,13 @@ ALTER TABLE `Reservation`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
+INSERT INTO `Reservation`
+VALUES (1, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, 2),
+       (2, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 2, 3),
+       (3, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 3, 4),
+       (4, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 4, 5),
+       (5, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 5, 1);
+
 CREATE TABLE `Vehicle_category`
 (
     `id`            INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -136,6 +157,13 @@ CREATE TABLE `Vehicle_category`
     `category_name` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
+
+INSERT INTO `Vehicle_category`
+VALUES (1, 'car'),
+       (2, 'bus'),
+       (3, 'train'),
+       (4, 'flight'),
+       (5, 'boat');
 
 CREATE TABLE `Vehicle`
 (
@@ -161,6 +189,13 @@ ALTER TABLE `Vehicle`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
+INSERT INTO `Vehicle`
+VALUES (1, 'mercedes', 5, 1, 1),
+       (2, 'renault', 70, 2, 2),
+       (3, 'sncf', 340, 3, 3),
+       (4, 'flight', 722, 4, 4),
+       (5, 'boat', 500, 5, 5);
+
 CREATE TABLE `Payment`
 (
     `id`       INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -168,6 +203,9 @@ CREATE TABLE `Payment`
     `price`    DOUBLE(8, 2) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
+
+INSERT INTO `Payment`
+VALUES (1, 345.5, 319.1);
 
 # START OF 1,N - 1,N TABLES
 CREATE TABLE `Perform_reservation`
@@ -191,6 +229,9 @@ ALTER TABLE `Perform_reservation`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
+INSERT INTO `Perform_reservation`
+VALUES (1, 1);
+
 CREATE TABLE `Execute_payment`
 (
     `id_reservation` INT UNSIGNED NOT NULL,
@@ -211,6 +252,9 @@ ALTER TABLE `Execute_payment`
             REFERENCES Payment (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
+
+INSERT INTO `Execute_payment`
+VALUES (1, 1);
 # END OF 1,N - 1,N TABLES
 
 # ######
