@@ -14,10 +14,14 @@ import {
 
 import { AdminsService } from './admins.service';
 import { Admin } from './admin.entity';
+import { UsersService } from '../users.service';
 
 @Controller('users/admins')
 export class AdminsController {
-  constructor(private readonly adminsService: AdminsService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly adminsService: AdminsService
+  ) {}
 
   @Get()
   async findAll(): Promise<Admin[]> {
@@ -43,12 +47,14 @@ export class AdminsController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('admin') admin: Admin): Promise<void> {
+  async insert(@Body() admin: Admin): Promise<void> {
+    console.log(admin);
+    await this.usersService.insert(admin.user);
     await this.adminsService.insert(admin);
   }
 
   @Put()
-  async update(@Body('admin') admin: Admin): Promise<void> {
+  async update(@Body() admin: Admin): Promise<void> {
     await this.adminsService.update(admin);
   }
 
