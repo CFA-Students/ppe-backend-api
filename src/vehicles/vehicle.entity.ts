@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { Reservation } from '../reservations/reservation.entity';
-import { VehicleCategory } from 'src/vehicle-category/vehicle-category.entity';
+import { VehicleCategory } from 'src/vehicle-categories/vehicle-category.entity';
 
 @Entity()
 export class Vehicle extends BaseEntity {

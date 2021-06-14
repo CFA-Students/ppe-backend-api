@@ -9,7 +9,7 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { LocationSpotsModule } from './locations-spots/location-spots.module';
 import { LocationCategoriesModule } from './location-categories/location-categories.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
-import { VehicleCategoryModule } from './vehicle-category/vehicle-category.module';
+import { VehicleCategoriesModule } from './vehicle-categories/vehicle-categories.module';
 import { PaymentsModule } from './payments/payments.module';
 
 import { AppController } from './app.controller';
@@ -24,7 +24,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     LocationSpotsModule,
     LocationCategoriesModule,
     VehiclesModule,
-    VehicleCategoryModule,
+    VehicleCategoriesModule,
     PaymentsModule,
   ],
   controllers: [AppController],
