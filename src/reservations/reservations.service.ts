@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -20,7 +24,16 @@ export class ReservationsService {
   }
 
   async insert(newreservation: Reservation): Promise<void> {
-    await this.reservationsRepository.insert(newreservation);
+    try {
+      await this.reservationsRepository.insert(newreservation);
+    } catch (e) {
+      if (e.code === 'ER_DUP_ENTRY')
+        throw new HttpException(
+          'Duplicate reservation',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async update(updatedreservation: Reservation): Promise<void> {
