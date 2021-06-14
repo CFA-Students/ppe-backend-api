@@ -15,6 +15,7 @@ import {
 import { LocationSpot } from '../locations-spot/location-spot.entity';
 import { Vehicle } from '../vehicle/vehicle.entity';
 import { Payment } from '../payment/payment.entity';
+import { Client } from '../users/clients/client.entity';
 
 @Entity()
 export class Reservation extends BaseEntity {
@@ -77,6 +78,9 @@ export class Reservation extends BaseEntity {
 
   @OneToMany(() => Vehicle, (vehicle) => vehicle.reservation)
   vehicles: Vehicle[];
+
+  @ManyToMany((type) => Client, (client) => client.reservations)
+  clients: Client[];
 
   @ManyToMany((type) => Payment, (payment) => payment.reservations)
   @JoinTable({

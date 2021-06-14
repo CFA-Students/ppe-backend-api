@@ -170,26 +170,26 @@ CREATE TABLE `Payment`
 ) ENGINE = InnoDB;
 
 # START OF 1,N - 1,N TABLES
-# CREATE TABLE `Perform_reservation`
-# (
-#     `id_client`      INT UNSIGNED NOT NULL,
-#     `id_reservation` INT UNSIGNED NOT NULL,
-#     PRIMARY KEY (`id_client`, `id_reservation`)
-# ) ENGINE = InnoDB;
-#
-# ALTER TABLE `Perform_reservation`
-#     ADD CONSTRAINT `fk_client_id`
-#         FOREIGN KEY (`id_client`)
-#             REFERENCES Client (`id`)
-#             ON DELETE NO ACTION
-#             ON UPDATE CASCADE;
-#
-# ALTER TABLE `Perform_reservation`
-#     ADD CONSTRAINT `fk_reservation_id`
-#         FOREIGN KEY (`id_reservation`)
-#             REFERENCES Reservation (`id`)
-#             ON DELETE NO ACTION
-#             ON UPDATE NO ACTION;
+CREATE TABLE `Perform_reservation`
+(
+    `id_client`      INT UNSIGNED NOT NULL,
+    `id_reservation` INT UNSIGNED NOT NULL,
+    PRIMARY KEY (`id_client`, `id_reservation`)
+) ENGINE = InnoDB;
+
+ALTER TABLE `Perform_reservation`
+    ADD CONSTRAINT `fk_perform_reservation_r_id`
+        FOREIGN KEY (`id_client`)
+            REFERENCES Client (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE CASCADE;
+
+ALTER TABLE `Perform_reservation`
+    ADD CONSTRAINT `fk_perform_reservation_p_id`
+        FOREIGN KEY (`id_reservation`)
+            REFERENCES Reservation (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
 
 CREATE TABLE `Execute_payment`
 (
@@ -199,19 +199,18 @@ CREATE TABLE `Execute_payment`
 ) ENGINE = InnoDB;
 
 ALTER TABLE `Execute_payment`
-    ADD CONSTRAINT `fk_execute_reservation_id`
+    ADD CONSTRAINT `fk_execute_payment_r_id`
         FOREIGN KEY (`id_reservation`)
             REFERENCES Reservation (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE;
 
 ALTER TABLE `Execute_payment`
-    ADD CONSTRAINT `fk_execute_payment_id`
+    ADD CONSTRAINT `fk_execute_payment_p_id`
         FOREIGN KEY (`id_payment`)
             REFERENCES Payment (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
-
 # END OF 1,N - 1,N TABLES
 
 # ######

@@ -6,8 +6,11 @@ import {
   ManyToOne,
   JoinColumn,
   PrimaryColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { User } from '../user.entity';
+import { Reservation } from '../../reservation/reservation.entity';
 
 @Entity()
 export class Client extends BaseEntity {
@@ -40,6 +43,23 @@ export class Client extends BaseEntity {
   })
   @JoinColumn({ name: 'id' })
   user: User;
+
+  @ManyToMany(
+    (type) => Reservation,
+    (reservation) => reservation.clients
+  )
+  @JoinTable({
+    name: 'perform_reservation',
+    joinColumn: {
+      name: 'id_client',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'id_reservation',
+      referencedColumnName: 'id',
+    },
+  })
+  reservations: Reservation[];
 
   // @BeforeInsert()
   // beforeInsertActions() {
