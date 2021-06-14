@@ -29,9 +29,9 @@ export class Admin extends BaseEntity {
   })
   @IsBoolean()
   @IsNotEmpty()
-  isSuperAdmin!: boolean;
+  isSuperAdmin: boolean;
 
-  @ManyToOne(() => User, (user) => user.clients, {
+  @ManyToOne(() => User, (user) => user.admins, {
     orphanedRowAction: 'delete',
   })
   @JoinColumn({ name: 'id' })

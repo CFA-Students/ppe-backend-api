@@ -24,6 +24,7 @@ export class ClientsService {
   }
 
   async insert(newClient: Client): Promise<void> {
+    console.log(newClient);
     await this.clientsRepository.insert(newClient);
   }
 

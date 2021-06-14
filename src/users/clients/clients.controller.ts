@@ -14,10 +14,14 @@ import {
 
 import { ClientsService } from './clients.service';
 import { Client } from './client.entity';
+import { UsersService } from '../users.service';
 
 @Controller('users/clients')
 export class ClientsController {
-  constructor(private readonly clientsService: ClientsService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly clientsService: ClientsService
+  ) {}
 
   @Get()
   async findAll(): Promise<Client[]> {
@@ -45,7 +49,9 @@ export class ClientsController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('client') client: Client): Promise<void> {
+  async insert(@Body() client: Client): Promise<void> {
+    console.log(client);
+    await this.usersService.insert(client.user);
     await this.clientsService.insert(client);
   }
 

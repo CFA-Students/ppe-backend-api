@@ -28,7 +28,7 @@ export class Supplier extends BaseEntity {
   })
   @IsNotEmpty()
   @IsAlphanumeric()
-  idCompany!: string;
+  idCompany: string;
 
   @Column({
     name: 'supplier_name',
@@ -38,9 +38,9 @@ export class Supplier extends BaseEntity {
   })
   @IsNotEmpty()
   @IsAscii()
-  supplierName!: string;
+  supplierName: string;
 
-  @ManyToOne(() => User, (user) => user.clients, {
+  @ManyToOne(() => User, (user) => user.suppliers, {
     orphanedRowAction: 'delete',
   })
   @JoinColumn({ name: 'id' })

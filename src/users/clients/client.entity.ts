@@ -1,4 +1,4 @@
-import { IsAscii, IsBoolean, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsAscii, IsNotEmpty } from 'class-validator';
 import {
   Entity,
   Column,
@@ -9,6 +9,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+
 import { User } from '../user.entity';
 import { Reservation } from '../../reservations/reservation.entity';
 
@@ -31,12 +32,12 @@ export class Client extends BaseEntity {
   })
   @IsBoolean()
   @IsNotEmpty()
-  isMale!: boolean;
+  isMale: boolean;
 
   @Column({ type: 'text', nullable: false })
   @IsAscii()
   @IsNotEmpty()
-  address!: string;
+  address: string;
 
   @ManyToOne(() => User, (user) => user.clients, {
     orphanedRowAction: 'delete',
