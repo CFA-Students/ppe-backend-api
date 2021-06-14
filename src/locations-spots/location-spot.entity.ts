@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import { Reservation } from '../reservation/reservation.entity';
-import { LocationCategory } from '../location-category/location-category.entity';
+import { LocationCategory } from '../location-categories/location-category.entity';
 
 @Entity({ name: 'location_spot' })
 export class LocationSpot extends BaseEntity {

@@ -7,7 +7,7 @@ import { UsersModule } from './users/users.module';
 
 import { ReservationModule } from './reservation/reservation.module';
 import { LocationSpotModule } from './locations-spots/location-spots.module';
-import { LocationCategoryModule } from './location-category/location-category.module';
+import { LocationCategoryModule } from './location-categories/location-categories.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { VehicleCategoryModule } from './vehicle-category/vehicle-category.module';
 import { PaymentModule } from './payment/payment.module';

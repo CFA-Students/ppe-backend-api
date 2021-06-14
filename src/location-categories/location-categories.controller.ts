@@ -12,13 +12,13 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { LocationCategoryService } from './location-category.service';
+import { LocationCategoriesService } from './location-categories.service';
 import { LocationCategory } from './location-category.entity';
 
 @Controller('location-category')
-export class LocationCategoryController {
+export class LocationCategoriesController {
   constructor(
-    private readonly locationCategoriesService: LocationCategoryService
+    private readonly locationCategoriesService: LocationCategoriesService
   ) {}
 
   @Get()
