@@ -47,16 +47,12 @@ export class ReservationsController {
 
   @Post()
   @HttpCode(201)
-  async insert(
-    @Body('reservation') reservation: Reservation
-  ): Promise<void> {
+  async insert(@Body() reservation: Reservation): Promise<void> {
     await this.reservationsService.insert(reservation);
   }
 
   @Put()
-  async update(
-    @Body('reservation') reservation: Reservation
-  ): Promise<void> {
+  async update(@Body() reservation: Reservation): Promise<void> {
     await this.reservationsService.update(reservation);
   }
 
