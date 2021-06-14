@@ -57,7 +57,7 @@ export class Reservation extends BaseEntity {
   idLocationSpotEnd: number;
 
   @ManyToOne(
-    (type) => LocationSpot,
+    () => LocationSpot,
     (idLocationSpotStart) => idLocationSpotStart.reservationsStart,
     {
       orphanedRowAction: 'delete',
@@ -67,7 +67,7 @@ export class Reservation extends BaseEntity {
   locationSpotStart: LocationSpot;
 
   @ManyToOne(
-    (type) => LocationSpot,
+    () => LocationSpot,
     (idLocationSpotEnd) => idLocationSpotEnd.reservationsEnd,
     {
       orphanedRowAction: 'delete',
@@ -79,10 +79,10 @@ export class Reservation extends BaseEntity {
   @OneToMany(() => Vehicle, (vehicle) => vehicle.reservation)
   vehicles: Vehicle[];
 
-  @ManyToMany((type) => Client, (client) => client.reservations)
+  @ManyToMany(() => Client, (client) => client.reservations)
   clients: Client[];
 
-  @ManyToMany((type) => Payment, (payment) => payment.reservations)
+  @ManyToMany(() => Payment, (payment) => payment.reservations)
   @JoinTable({
     name: 'execute_payment',
     joinColumn: {

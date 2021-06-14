@@ -49,7 +49,7 @@ export class LocationSpot extends BaseEntity {
   idLocationCategory: number;
 
   @ManyToOne(
-    (type) => LocationCategory,
+    () => LocationCategory,
     (locationCategory) => locationCategory.locationSpots,
     {
       orphanedRowAction: 'delete',

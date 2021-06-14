@@ -31,7 +31,7 @@ export class Admin extends BaseEntity {
   @IsNotEmpty()
   isSuperAdmin!: boolean;
 
-  @ManyToOne((type) => User, (user) => user.clients, {
+  @ManyToOne(() => User, (user) => user.clients, {
     orphanedRowAction: 'delete',
   })
   @JoinColumn({ name: 'id' })

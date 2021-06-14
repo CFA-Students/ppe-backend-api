@@ -33,7 +33,7 @@ export class Payment extends BaseEntity {
   price: number;
 
   @ManyToMany(
-    (type) => Reservation,
+    () => Reservation,
     (reservation) => reservation.payments
   )
   reservations: Reservation[];

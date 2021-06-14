@@ -43,7 +43,7 @@ export class Vehicle extends BaseEntity {
   idVehicleCategory: number;
 
   @ManyToOne(
-    (type) => Reservation,
+    () => Reservation,
     (reservation) => reservation.vehicles,
     {
       orphanedRowAction: 'delete',
@@ -53,7 +53,7 @@ export class Vehicle extends BaseEntity {
   reservation: Reservation;
 
   @ManyToOne(
-    (type) => VehicleCategory,
+    () => VehicleCategory,
     (vehicleCategory) => vehicleCategory.vehicles,
     {
       orphanedRowAction: 'delete',

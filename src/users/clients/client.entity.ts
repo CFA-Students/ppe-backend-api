@@ -38,16 +38,13 @@ export class Client extends BaseEntity {
   @IsNotEmpty()
   address!: string;
 
-  @ManyToOne((type) => User, (user) => user.clients, {
+  @ManyToOne(() => User, (user) => user.clients, {
     orphanedRowAction: 'delete',
   })
   @JoinColumn({ name: 'id' })
   user: User;
 
-  @ManyToMany(
-    (type) => Reservation,
-    (reservation) => reservation.clients
-  )
+  @ManyToMany(() => Reservation, (reservation) => reservation.clients)
   @JoinTable({
     name: 'perform_reservation',
     joinColumn: {

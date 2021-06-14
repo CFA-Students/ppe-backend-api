@@ -40,7 +40,7 @@ export class Supplier extends BaseEntity {
   @IsAscii()
   supplierName!: string;
 
-  @ManyToOne((type) => User, (user) => user.clients, {
+  @ManyToOne(() => User, (user) => user.clients, {
     orphanedRowAction: 'delete',
   })
   @JoinColumn({ name: 'id' })
