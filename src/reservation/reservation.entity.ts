@@ -5,6 +5,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -12,6 +14,7 @@ import {
 
 import { LocationSpot } from '../locations-spot/location-spot.entity';
 import { Vehicle } from '../vehicle/vehicle.entity';
+import { Payment } from '../payment/payment.entity';
 
 @Entity()
 export class Reservation extends BaseEntity {
@@ -74,4 +77,18 @@ export class Reservation extends BaseEntity {
 
   @OneToMany(() => Vehicle, (vehicle) => vehicle.reservation)
   vehicles: Vehicle[];
+
+  @ManyToMany((type) => Payment, (payment) => payment.reservations)
+  @JoinTable({
+    name: 'execute_payment',
+    joinColumn: {
+      name: 'id_reservation',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'id_payment',
+      referencedColumnName: 'id',
+    },
+  })
+  payments: Payment[];
 }

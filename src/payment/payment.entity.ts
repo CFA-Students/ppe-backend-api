@@ -1,8 +1,10 @@
 import { IsNotEmpty } from 'class-validator';
+import { Reservation } from '../reservation/reservation.entity';
 import {
   BaseEntity,
   Column,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -29,4 +31,10 @@ export class Payment extends BaseEntity {
   })
   @IsNotEmpty()
   price: number;
+
+  @ManyToMany(
+    (type) => Reservation,
+    (reservation) => reservation.payments
+  )
+  reservations: Reservation[];
 }
