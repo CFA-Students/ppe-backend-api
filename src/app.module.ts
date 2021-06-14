@@ -10,7 +10,7 @@ import { LocationSpotModule } from './locations-spots/location-spots.module';
 import { LocationCategoryModule } from './location-categories/location-categories.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { VehicleCategoryModule } from './vehicle-category/vehicle-category.module';
-import { PaymentModule } from './payment/payment.module';
+import { PaymentsModule } from './payments/payments.module';
 
 import { AppController } from './app.controller';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
@@ -25,7 +25,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     LocationCategoryModule,
     VehicleModule,
     VehicleCategoryModule,
-    PaymentModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [
