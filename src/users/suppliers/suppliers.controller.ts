@@ -14,10 +14,14 @@ import {
 
 import { SuppliersService } from './suppliers.service';
 import { Supplier } from './supplier.entity';
+import { UsersService } from '../users.service';
 
 @Controller('users/suppliers')
 export class SuppliersController {
-  constructor(private readonly suppliersService: SuppliersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly suppliersService: SuppliersService
+  ) {}
 
   @Get()
   async findAll(): Promise<Supplier[]> {
@@ -46,12 +50,14 @@ export class SuppliersController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('supplier') supplier: Supplier): Promise<void> {
+  async insert(@Body() supplier: Supplier): Promise<void> {
+    console.log(supplier);
+    await this.usersService.insert(supplier.user);
     await this.suppliersService.insert(supplier);
   }
 
   @Put()
-  async update(@Body('supplier') supplier: Supplier): Promise<void> {
+  async update(@Body() supplier: Supplier): Promise<void> {
     await this.suppliersService.update(supplier);
   }
 

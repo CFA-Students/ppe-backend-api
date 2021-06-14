@@ -39,12 +39,12 @@ export class UsersController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('user') user: User): Promise<void> {
+  async insert(@Body() user: User): Promise<void> {
     await this.usersService.insert(user);
   }
 
   @Put()
-  async update(@Body('user') user: User): Promise<void> {
+  async update(@Body() user: User): Promise<void> {
     await this.usersService.update(user);
   }
 
