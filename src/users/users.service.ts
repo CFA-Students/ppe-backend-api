@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Equal } from 'typeorm';
+import { isEmail } from 'class-validator';
 
 import { User } from './user.entity';
-import { isEmail } from 'class-validator';
 import { ClientsService } from './clients/clients.service';
 import { SuppliersService } from './suppliers/suppliers.service';
 import { AdminsService } from './admins/admins.service';
@@ -91,7 +91,16 @@ export class UsersService {
   }
 
   async insert(newUser: User): Promise<void> {
-    await this.usersRepository.insert(newUser);
+    try {
+      await this.usersRepository.insert(newUser);
+    } catch (e) {
+      if (e.code === 'ER_DUP_ENTRY')
+        throw new HttpException(
+          'Duplicate user',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async update(updatedUser: User): Promise<void> {

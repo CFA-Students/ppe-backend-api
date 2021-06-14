@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -24,7 +28,11 @@ export class SuppliersService {
   }
 
   async insert(newSupplier: Supplier): Promise<void> {
-    await this.suppliersRepository.insert(newSupplier);
+    try {
+      await this.suppliersRepository.insert(newSupplier);
+    } catch (e) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async update(updatedSupplier: Supplier): Promise<void> {

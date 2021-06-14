@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -24,7 +28,11 @@ export class AdminsService {
   }
 
   async insert(newAdmin: Admin): Promise<void> {
-    await this.adminsRepository.insert(newAdmin);
+    try {
+      await this.adminsRepository.insert(newAdmin);
+    } catch (e) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async update(updatedAdmin: Admin): Promise<void> {
