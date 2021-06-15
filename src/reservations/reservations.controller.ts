@@ -77,16 +77,40 @@ export class ReservationsController {
   @Post()
   @HttpCode(201)
   async insert(@Body() reservation: Reservation): Promise<void> {
-    await this.reservationsService.insert(reservation);
+    try {
+      await this.reservationsService.insert(reservation);
+    } catch (e) {
+      if (e.code === 'ER_DUP_ENTRY')
+        throw new HttpException(
+          'Duplicate reservation',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put()
   async update(@Body() reservation: Reservation): Promise<void> {
-    await this.reservationsService.update(reservation);
+    try {
+      await this.reservationsService.update(reservation);
+    } catch (e) {
+      if (e.code === 'ER_NO_REFERENCED_ROW_2')
+        throw new HttpException(
+          'Duplicate foreign key',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
-    await this.reservationsService.delete(id);
+    const reservation = await this.reservationsService.delete(id);
+    if (!reservation) {
+      throw new HttpException(
+        'No reservation found',
+        HttpStatus.NOT_FOUND
+      );
+    }
   }
 }
