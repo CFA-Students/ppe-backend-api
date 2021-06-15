@@ -34,6 +34,18 @@ export class ClientsController {
     return allClients;
   }
 
+  @Get('reservations')
+  async findAllReservations(): Promise<Client[]> {
+    const allClients =
+      await this.clientsService.findAllReservations();
+    if (allClients.length <= 0)
+      throw new HttpException(
+        'No clients found',
+        HttpStatus.NOT_FOUND
+      );
+    return allClients;
+  }
+
   @Get(':id')
   async findById(
     @Param('id', ParseIntPipe) id: number

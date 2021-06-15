@@ -14,10 +14,13 @@ import {
 
 import { ReservationsService } from './reservations.service';
 import { Reservation } from './reservation.entity';
+import { ClientsService } from '../users/clients/clients.service';
+import { Client } from '../users/clients/client.entity';
 
 @Controller('reservations')
 export class ReservationsController {
   constructor(
+    private readonly clientsService: ClientsService,
     private readonly reservationsService: ReservationsService
   ) {}
 

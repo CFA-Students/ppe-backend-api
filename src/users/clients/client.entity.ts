@@ -45,7 +45,11 @@ export class Client extends BaseEntity {
   @JoinColumn({ name: 'id' })
   user: User;
 
-  @ManyToMany(() => Reservation, (reservation) => reservation.clients)
+  @ManyToMany(
+    () => Reservation,
+    (reservation) => reservation.clients,
+    { cascade: true }
+  )
   @JoinTable({
     name: 'perform_reservation',
     joinColumn: {

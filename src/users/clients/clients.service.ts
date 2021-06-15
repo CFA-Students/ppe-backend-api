@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Client } from './client.entity';
+import { Reservation } from '../../reservations/reservation.entity';
 
 @Injectable()
 export class ClientsService {
@@ -18,6 +19,12 @@ export class ClientsService {
   async findAll(): Promise<Client[]> {
     return await this.clientsRepository.find({
       relations: ['user'],
+    });
+  }
+
+  async findAllReservations(): Promise<Client[]> {
+    return await this.clientsRepository.find({
+      relations: ['user', 'reservations'],
     });
   }
 
@@ -36,7 +43,8 @@ export class ClientsService {
   }
 
   async update(updatedClient: Client): Promise<void> {
-    await this.clientsRepository.save(updatedClient);
+    const a = await this.clientsRepository.save(updatedClient);
+    console.log(a);
   }
 
   async delete(id: number): Promise<void> {

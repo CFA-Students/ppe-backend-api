@@ -25,7 +25,7 @@ export class ReservationsService {
 
   async insert(newreservation: Reservation): Promise<void> {
     try {
-      await this.reservationsRepository.insert(newreservation);
+      await this.reservationsRepository.save(newreservation);
     } catch (e) {
       if (e.code === 'ER_DUP_ENTRY')
         throw new HttpException(
