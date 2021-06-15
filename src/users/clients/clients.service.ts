@@ -38,13 +38,26 @@ export class ClientsService {
     try {
       await this.clientsRepository.insert(newClient);
     } catch (e) {
+      if (e.code === 'ER_NO_REFERENCED_ROW_2')
+        throw new HttpException(
+          'Duplicate foreign key',
+          HttpStatus.CONFLICT
+        );
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
   }
 
   async update(updatedClient: Client): Promise<void> {
-    const a = await this.clientsRepository.save(updatedClient);
-    console.log(a);
+    try {
+      await this.clientsRepository.save(updatedClient);
+    } catch (e) {
+      if (e.code === 'ER_NO_REFERENCED_ROW_2')
+        throw new HttpException(
+          'Duplicate foreign key',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async delete(id: number): Promise<void> {

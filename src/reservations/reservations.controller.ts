@@ -35,11 +35,37 @@ export class ReservationsController {
     return allReservations;
   }
 
+  @Get('clients')
+  async findAllWithClients(): Promise<Reservation[]> {
+    const allReservations =
+      await this.reservationsService.findAllWithClients();
+    if (allReservations.length <= 0)
+      throw new HttpException(
+        'No reservations found',
+        HttpStatus.NOT_FOUND
+      );
+    return allReservations;
+  }
+
   @Get(':id')
   async findById(
     @Param('id', ParseIntPipe) id: number
   ): Promise<Reservation> {
     const reservation = await this.reservationsService.findById(id);
+    if (!reservation)
+      throw new HttpException(
+        'No reservation found',
+        HttpStatus.NOT_FOUND
+      );
+    return reservation;
+  }
+
+  @Get('clients/:id')
+  async findByIdWithClients(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Reservation> {
+    const reservation =
+      await this.reservationsService.findByIdWithClients(id);
     if (!reservation)
       throw new HttpException(
         'No reservation found',
