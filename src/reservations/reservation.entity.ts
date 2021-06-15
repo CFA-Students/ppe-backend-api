@@ -82,7 +82,9 @@ export class Reservation extends BaseEntity {
   @ManyToMany(() => Client, (client) => client.reservations)
   clients: Client[];
 
-  @ManyToMany(() => Payment, (payment) => payment.reservations)
+  @ManyToMany(() => Payment, (payment) => payment.reservations, {
+    cascade: true,
+  })
   @JoinTable({
     name: 'execute_payment',
     joinColumn: {

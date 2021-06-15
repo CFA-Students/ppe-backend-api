@@ -41,6 +41,7 @@ export class Client extends BaseEntity {
 
   @ManyToOne(() => User, (user) => user.clients, {
     orphanedRowAction: 'delete',
+    cascade: true,
   })
   @JoinColumn({ name: 'id' })
   user: User;

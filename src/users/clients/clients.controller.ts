@@ -24,8 +24,8 @@ export class ClientsController {
   ) {}
 
   @Get()
-  async findAll(): Promise<Client[]> {
-    const allClients = await this.clientsService.findAll();
+  async findAllWithUser(): Promise<Client[]> {
+    const allClients = await this.clientsService.findAllWithUser();
     if (allClients.length <= 0)
       throw new HttpException(
         'No clients found',
@@ -35,9 +35,9 @@ export class ClientsController {
   }
 
   @Get('reservations')
-  async findAllReservations(): Promise<Client[]> {
+  async findAllWithUserAndReservations(): Promise<Client[]> {
     const allClients =
-      await this.clientsService.findAllReservations();
+      await this.clientsService.findAllWithUserAndReservations();
     if (allClients.length <= 0)
       throw new HttpException(
         'No clients found',
@@ -47,10 +47,10 @@ export class ClientsController {
   }
 
   @Get(':id')
-  async findById(
+  async findByIdWithUser(
     @Param('id', ParseIntPipe) id: number
   ): Promise<Client> {
-    const client = await this.clientsService.findById(id);
+    const client = await this.clientsService.findByIdWithUser(id);
     if (!client)
       throw new HttpException(
         'No client found',
@@ -62,18 +62,79 @@ export class ClientsController {
   @Post()
   @HttpCode(201)
   async insert(@Body() client: Client): Promise<void> {
-    console.log(client);
     await this.usersService.insert(client.user);
     await this.clientsService.insert(client);
   }
 
   @Put()
-  async update(@Body('client') client: Client): Promise<void> {
-    await this.clientsService.update(client);
+  async update(@Body() newClient: Client): Promise<void> {
+    const client = await this.clientsService.update(newClient);
+    if (!client)
+      throw new HttpException(
+        'No updatable client found',
+        HttpStatus.NOT_FOUND
+      );
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
-    await this.clientsService.delete(id);
+    const client = await this.clientsService.deleteByIdWithUser(id);
+    this.testClientExists(client);
+
+    await this.usersService.delete(id);
+  }
+
+  @Get('reservations/:id')
+  async findByIdWithUserAndReservations(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Client> {
+    const client =
+      await this.clientsService.findByIdWithUserAndReservations(id);
+    this.testClientExists(client);
+    return client;
+  }
+
+  @Post('reservations')
+  @HttpCode(201)
+  async insertWithReservations(
+    @Body() client: Client
+  ): Promise<void> {
+    this.testReservationsExists(client);
+
+    await this.clientsService.update(client);
+  }
+
+  @Put('reservations')
+  @HttpCode(201)
+  async updateReservations(@Body() newClient: Client): Promise<void> {
+    this.testReservationsExists(newClient);
+
+    await this.clientsService.updateReservations(newClient);
+  }
+
+  @Delete('reservations/:id')
+  async deleteReservationById(
+    @Param('id') id: number
+  ): Promise<void> {
+    const client = await this.clientsService.deleteReservationById(
+      id
+    );
+    this.testClientExists(client);
+  }
+
+  private testReservationsExists(client: Client) {
+    if (!client.reservations || client.reservations.length <= 0)
+      throw new HttpException(
+        'Bad request : no reservations[]',
+        HttpStatus.BAD_REQUEST
+      );
+  }
+
+  private testClientExists(client: Client) {
+    if (!client)
+      throw new HttpException(
+        'No client found',
+        HttpStatus.NOT_FOUND
+      );
   }
 }
