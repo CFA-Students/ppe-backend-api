@@ -94,16 +94,6 @@ export class ClientsController {
     return client;
   }
 
-  @Post('reservations')
-  @HttpCode(201)
-  async insertWithReservations(
-    @Body() client: Client
-  ): Promise<void> {
-    this.testReservationsExists(client);
-
-    await this.clientsService.update(client);
-  }
-
   @Put('reservations')
   @HttpCode(201)
   async updateReservations(@Body() newClient: Client): Promise<void> {
