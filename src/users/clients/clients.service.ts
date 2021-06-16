@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Client } from './client.entity';
+import { Reservation } from '../../reservations/reservation.entity';
 
 @Injectable()
 export class ClientsService {
@@ -73,12 +74,52 @@ export class ClientsService {
     return client;
   }
 
-  async updateReservations(updatedClient: Client): Promise<Client> {
-    const client = this.clientsRepository.findOne(updatedClient.id);
-    if (!client) return client;
+  async updateReservations(newClient: Client): Promise<Client> {
+    const client = await this.clientsRepository.findOne(
+      newClient.id,
+      {
+        relations: ['reservations'],
+      }
+    );
+    if (!client) return undefined;
+
     try {
-      await this.clientsRepository.save(updatedClient);
+      if (client.reservations.length <= 0) {
+        client.reservations = [...newClient.reservations];
+        await this.clientsRepository.save(client);
+        return client;
+      }
+
+      const newReservations: Reservation[] = [];
+      client.reservations = client.reservations.map(
+        (existingReservation, index) => {
+          if (
+            existingReservation.id ===
+            newClient.reservations[index].id
+          ) {
+            return newClient.reservations[index];
+          }
+          return existingReservation;
+        }
+      );
+
+      for (const newReservation of newClient.reservations) {
+        if (!client.reservations.includes(newReservation)) {
+          newReservations.push(newReservation);
+        }
+      }
+
+      if (newReservations.length > 0) {
+        client.reservations = [
+          ...client.reservations,
+          ...newReservations,
+        ];
+      }
+
+      await this.clientsRepository.save(client);
+      return client;
     } catch (e) {
+      console.debug(e);
       if (e.code === 'ER_NO_REFERENCED_ROW_2')
         throw new HttpException(
           'Duplicate foreign key',
@@ -86,14 +127,14 @@ export class ClientsService {
         );
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
-    return client;
   }
 
   async deleteByIdWithUser(id: number): Promise<Client> {
-    const client = await this.findByIdWithReservations(id);
+    const client = await this.findByIdWithUserAndReservations(id);
     if (!client) return client;
     client.reservations = [];
     await this.clientsRepository.save(client);
+    await this.clientsRepository.delete(client.id);
     return client;
   }
 

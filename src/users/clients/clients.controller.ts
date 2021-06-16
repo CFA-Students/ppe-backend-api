@@ -109,10 +109,13 @@ export class ClientsController {
   async updateReservations(@Body() newClient: Client): Promise<void> {
     this.testReservationsExists(newClient);
 
-    await this.clientsService.updateReservations(newClient);
+    const client = await this.clientsService.updateReservations(
+      newClient
+    );
+    this.testClientExists(client);
   }
 
-  @Delete('reservations/:id')
+  @Delete(':id/reservations')
   async deleteReservationById(
     @Param('id') id: number
   ): Promise<void> {
