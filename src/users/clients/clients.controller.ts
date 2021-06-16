@@ -116,13 +116,43 @@ export class ClientsController {
   }
 
   @Delete(':id/reservations')
-  async deleteReservationById(
+  async deleteReservationsById(
     @Param('id') id: number
   ): Promise<void> {
-    const client = await this.clientsService.deleteReservationById(
+    const client = await this.clientsService.deleteReservationsById(
       id
     );
     this.testClientExists(client);
+  }
+
+  @Delete(':id/reservations/:idReservation')
+  async deleteReservationById(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('idReservation', ParseIntPipe) idReservation: number
+  ): Promise<void> {
+    const client = await this.clientsService.findByIdWithReservations(
+      id
+    );
+    this.testClientExists(client);
+    this.testReservationsExists(client);
+    this.testReservationExists(client, idReservation);
+
+    await this.clientsService.deleteReservationById(
+      client,
+      idReservation
+    );
+  }
+
+  private testReservationExists(
+    client: Client,
+    idReservation: number
+  ) {
+    for (const reservation of client.reservations)
+      if (reservation.id === idReservation) return undefined;
+    throw new HttpException(
+      'Bad request : no reservation with this id',
+      HttpStatus.BAD_REQUEST
+    );
   }
 
   private testReservationsExists(client: Client) {

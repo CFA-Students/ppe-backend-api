@@ -138,7 +138,17 @@ export class ClientsService {
     return client;
   }
 
-  async deleteReservationById(id: number): Promise<Client> {
+  async deleteReservationById(
+    client: Client,
+    idReservation: number
+  ): Promise<void> {
+    client.reservations = client.reservations.filter(
+      (reservation) => reservation.id !== idReservation
+    );
+    await this.clientsRepository.save(client);
+  }
+
+  async deleteReservationsById(id: number): Promise<Client> {
     const client = await this.findByIdWithReservations(id);
     if (!client) return client;
     client.reservations = client.reservations.filter(
