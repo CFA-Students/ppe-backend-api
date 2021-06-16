@@ -49,17 +49,12 @@ export class ClientsService {
     });
   }
 
-  async insert(newClient: Client): Promise<Client> {
-    const storedClient = await this.findByIdWithUserAndReservations(
-      newClient.id
-    );
-    if (!storedClient) return storedClient;
+  async insert(newClient: Client): Promise<void> {
     try {
       await this.clientsRepository.insert(newClient);
     } catch (e) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
-    return storedClient;
   }
 
   async update(updatedClient: Client): Promise<Client> {
