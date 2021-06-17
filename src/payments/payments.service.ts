@@ -26,7 +26,20 @@ export class PaymentsService {
     return await this.paymentsRepository.save(updatedPayment);
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: number): Promise<Payment> {
+    const payment = await this.findById(id);
+    if (!payment) return payment;
+    payment.reservations = payment.reservations.filter(
+      (reservation) => {
+        reservation.id !== id;
+      }
+    );
+    await this.paymentsRepository.save(payment);
+    await this.deleteById(id);
+    return payment;
+  }
+
+  async deleteById(id: number): Promise<void> {
     await this.paymentsRepository.delete(id);
   }
 }

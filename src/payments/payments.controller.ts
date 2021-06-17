@@ -70,7 +70,8 @@ export class PaymentsController {
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
-    await this.paymentsService.delete(id);
+    const payment = await this.paymentsService.delete(id);
+    this.testEntityExists(payment);
   }
 
   private testEntitiesExists(entities: BaseEntity[]) {
