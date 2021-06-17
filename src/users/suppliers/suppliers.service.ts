@@ -53,7 +53,10 @@ export class SuppliersService {
     return supplier;
   }
 
-  async delete(id: number): Promise<void> {
-    await this.suppliersRepository.delete(id);
+  async delete(id: number): Promise<Supplier> {
+    const supplier = await this.findById(id);
+    if (!supplier) return supplier;
+    await this.suppliersRepository.delete(supplier.id);
+    return supplier;
   }
 }

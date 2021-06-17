@@ -55,7 +55,10 @@ export class SuppliersController {
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
-    await this.suppliersService.delete(id);
+    const supplier = await this.suppliersService.delete(id);
+    this.testEntityExists(supplier);
+
+    await this.usersService.delete(id);
   }
 
   private testEntitiesExists(entities: BaseEntity[]) {
