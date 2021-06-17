@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Payment } from './payment.entity';
@@ -30,8 +34,17 @@ export class PaymentsService {
     });
   }
 
-  async insert(newPayment: Payment): Promise<Payment> {
-    return await this.paymentsRepository.save(newPayment);
+  async insert(newPayment: Payment): Promise<void> {
+    try {
+      await this.paymentsRepository.save(newPayment);
+    } catch (e) {
+      if (e.code === 'ER_DUP_ENTRY')
+        throw new HttpException(
+          'Duplicate reservation',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async update(updatedPayment: Payment): Promise<Payment> {

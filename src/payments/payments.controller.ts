@@ -50,16 +50,7 @@ export class PaymentsController {
   @Post()
   @HttpCode(201)
   async insert(@Body() payment: Payment): Promise<void> {
-    try {
-      await this.paymentsService.insert(payment);
-    } catch (e) {
-      if (e.code === 'ER_DUP_ENTRY')
-        throw new HttpException(
-          'Duplicate reservation',
-          HttpStatus.CONFLICT
-        );
-      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-    }
+    await this.paymentsService.insert(payment);
   }
 
   @Put()
