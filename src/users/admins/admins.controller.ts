@@ -48,7 +48,6 @@ export class AdminsController {
   @Post()
   @HttpCode(201)
   async insert(@Body() admin: Admin): Promise<void> {
-    console.log(admin);
     await this.usersService.insert(admin.user);
     await this.adminsService.insert(admin);
   }
@@ -59,7 +58,17 @@ export class AdminsController {
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number): Promise<void> {
-    await this.adminsService.delete(id);
+  async deleteWithUser(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<void> {
+    const admin = await this.adminsService.deleteWithUser(id);
+    this.testEntityExists(admin);
+
+    await this.usersService.delete(id);
+  }
+
+  private testEntityExists(entity: Admin) {
+    if (!entity)
+      throw new HttpException('No admin found', HttpStatus.NOT_FOUND);
   }
 }

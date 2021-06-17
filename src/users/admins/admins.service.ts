@@ -39,7 +39,10 @@ export class AdminsService {
     await this.adminsRepository.save(updatedAdmin);
   }
 
-  async delete(id: number): Promise<void> {
-    await this.adminsRepository.delete(id);
+  async deleteWithUser(id: number): Promise<Admin> {
+    const admin = await this.findById(id);
+    if (!admin) return admin;
+    await this.adminsRepository.delete(admin.id);
+    return admin;
   }
 }
