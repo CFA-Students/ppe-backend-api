@@ -30,6 +30,14 @@ export class PaymentsController {
     return allPayments;
   }
 
+  @Get('reservations')
+  async findAllWithReservations(): Promise<Payment[]> {
+    const allPayments =
+      await this.paymentsService.findAllWithReservations();
+    this.testEntitiesExists(allPayments);
+    return allPayments;
+  }
+
   @Get(':id')
   async findById(
     @Param('id', ParseIntPipe) id: number
@@ -55,6 +63,7 @@ export class PaymentsController {
   }
 
   @Put()
+  @HttpCode(201)
   async update(@Body() payment: Payment): Promise<void> {
     try {
       await this.paymentsService.update(payment);
@@ -68,10 +77,40 @@ export class PaymentsController {
     }
   }
 
+  @Get('reservations/:id')
+  async findByIdWithReservations(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Payment> {
+    const payment =
+      await this.paymentsService.findByIdWithReservations(id);
+    this.testEntityExists(payment);
+    return payment;
+  }
+
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
     const payment = await this.paymentsService.delete(id);
     this.testEntityExists(payment);
+  }
+
+  private testReservationExists(
+    payment: Payment,
+    idReservation: number
+  ) {
+    for (const reservation of payment.reservations)
+      if (reservation.id === idReservation) return undefined;
+    throw new HttpException(
+      'Bad request : no reservation with this id',
+      HttpStatus.BAD_REQUEST
+    );
+  }
+
+  private testReservationsExists(payment: Payment) {
+    if (!payment.reservations || payment.reservations.length <= 0)
+      throw new HttpException(
+        'Bad request : no reservations[]',
+        HttpStatus.BAD_REQUEST
+      );
   }
 
   private testEntitiesExists(entities: BaseEntity[]) {
