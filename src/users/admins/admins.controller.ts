@@ -15,6 +15,7 @@ import {
 import { AdminsService } from './admins.service';
 import { Admin } from './admin.entity';
 import { UsersService } from '../users.service';
+import { BaseEntity } from 'typeorm';
 
 @Controller('users/admins')
 export class AdminsController {
@@ -26,12 +27,7 @@ export class AdminsController {
   @Get()
   async findAll(): Promise<Admin[]> {
     const allAdmins = await this.adminsService.findAll();
-    if (allAdmins.length <= 0) {
-      throw new HttpException(
-        'No admins found',
-        HttpStatus.NOT_FOUND
-      );
-    }
+    this.testEntitiesExists(allAdmins);
     return allAdmins;
   }
 
@@ -40,8 +36,7 @@ export class AdminsController {
     @Param('id', ParseIntPipe) id: number
   ): Promise<Admin> {
     const admin = await this.adminsService.findById(id);
-    if (!admin)
-      throw new HttpException('No admin found', HttpStatus.NOT_FOUND);
+    this.testEntityExists(admin);
     return admin;
   }
 
@@ -68,7 +63,15 @@ export class AdminsController {
     await this.usersService.delete(id);
   }
 
-  private testEntityExists(entity: Admin) {
+  private testEntitiesExists(entities: BaseEntity[]) {
+    if (entities.length <= 0)
+      throw new HttpException(
+        'No admins found',
+        HttpStatus.NOT_FOUND
+      );
+  }
+
+  private testEntityExists(entity: BaseEntity) {
     if (!entity)
       throw new HttpException('No admin found', HttpStatus.NOT_FOUND);
   }

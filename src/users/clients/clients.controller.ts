@@ -15,6 +15,7 @@ import {
 import { ClientsService } from './clients.service';
 import { Client } from './client.entity';
 import { UsersService } from '../users.service';
+import { BaseEntity } from 'typeorm';
 
 @Controller('users/clients')
 export class ClientsController {
@@ -26,11 +27,7 @@ export class ClientsController {
   @Get()
   async findAllWithUser(): Promise<Client[]> {
     const allClients = await this.clientsService.findAllWithUser();
-    if (allClients.length <= 0)
-      throw new HttpException(
-        'No clients found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntitiesExists(allClients);
     return allClients;
   }
 
@@ -38,11 +35,7 @@ export class ClientsController {
   async findAllWithUserAndReservations(): Promise<Client[]> {
     const allClients =
       await this.clientsService.findAllWithUserAndReservations();
-    if (allClients.length <= 0)
-      throw new HttpException(
-        'No clients found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntitiesExists(allClients);
     return allClients;
   }
 
@@ -51,11 +44,7 @@ export class ClientsController {
     @Param('id', ParseIntPipe) id: number
   ): Promise<Client> {
     const client = await this.clientsService.findByIdWithUser(id);
-    if (!client)
-      throw new HttpException(
-        'No client found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntityExists(client);
     return client;
   }
 
@@ -149,8 +138,16 @@ export class ClientsController {
       );
   }
 
-  private testEntityExists(client: Client) {
-    if (!client)
+  private testEntitiesExists(entities: BaseEntity[]) {
+    if (entities.length <= 0)
+      throw new HttpException(
+        'No clients found',
+        HttpStatus.NOT_FOUND
+      );
+  }
+
+  private testEntityExists(entity: BaseEntity) {
+    if (!entity)
       throw new HttpException(
         'No client found',
         HttpStatus.NOT_FOUND

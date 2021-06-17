@@ -35,8 +35,22 @@ export class SuppliersService {
     }
   }
 
-  async update(updatedSupplier: Supplier): Promise<void> {
-    await this.suppliersRepository.save(updatedSupplier);
+  async update(updatedSupplier: Supplier): Promise<Supplier> {
+    const supplier = this.suppliersRepository.findOne(
+      updatedSupplier.id
+    );
+    if (!supplier) return supplier;
+    try {
+      await this.suppliersRepository.save(updatedSupplier);
+    } catch (e) {
+      if (e.code === 'ER_NO_REFERENCED_ROW_2')
+        throw new HttpException(
+          'Duplicate foreign key',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+    return supplier;
   }
 
   async delete(id: number): Promise<void> {

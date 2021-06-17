@@ -15,6 +15,7 @@ import {
 import { SuppliersService } from './suppliers.service';
 import { Supplier } from './supplier.entity';
 import { UsersService } from '../users.service';
+import { BaseEntity } from 'typeorm';
 
 @Controller('users/suppliers')
 export class SuppliersController {
@@ -26,12 +27,7 @@ export class SuppliersController {
   @Get()
   async findAll(): Promise<Supplier[]> {
     const allSuppliers = await this.suppliersService.findAll();
-    if (allSuppliers.length <= 0) {
-      throw new HttpException(
-        'No suppliers found',
-        HttpStatus.NOT_FOUND
-      );
-    }
+    this.testEntitiesExists(allSuppliers);
     return allSuppliers;
   }
 
@@ -40,29 +36,38 @@ export class SuppliersController {
     @Param('id', ParseIntPipe) id: number
   ): Promise<Supplier> {
     const supplier = await this.suppliersService.findById(id);
-    if (!supplier)
-      throw new HttpException(
-        'No supplier found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntityExists(supplier);
     return supplier;
   }
 
   @Post()
   @HttpCode(201)
   async insert(@Body() supplier: Supplier): Promise<void> {
-    console.log(supplier);
     await this.usersService.insert(supplier.user);
     await this.suppliersService.insert(supplier);
   }
 
   @Put()
-  async update(@Body() supplier: Supplier): Promise<void> {
-    await this.suppliersService.update(supplier);
+  async update(@Body() newSupplier: Supplier): Promise<void> {
+    const supplier = await this.suppliersService.update(newSupplier);
+    this.testEntityExists(supplier);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
     await this.suppliersService.delete(id);
+  }
+
+  private testEntitiesExists(entities: BaseEntity[]) {
+    if (entities.length <= 0)
+      throw new HttpException(
+        'No admins found',
+        HttpStatus.NOT_FOUND
+      );
+  }
+
+  private testEntityExists(entity: BaseEntity) {
+    if (!entity)
+      throw new HttpException('No admin found', HttpStatus.NOT_FOUND);
   }
 }
