@@ -11,6 +11,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { BaseEntity } from 'typeorm';
 import { Payment } from './payment.entity';
 import { PaymentsService } from './payments.service';
 
@@ -21,11 +22,7 @@ export class PaymentsController {
   @Get()
   async findAll(): Promise<Payment[]> {
     const allPayments = await this.paymentsService.findAll();
-    if (allPayments.length <= 0)
-      throw new HttpException(
-        'No payments found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntitiesExists(allPayments);
     return allPayments;
   }
 
@@ -34,11 +31,7 @@ export class PaymentsController {
     @Param('id', ParseIntPipe) id: number
   ): Promise<Payment> {
     const payment = await this.paymentsService.findById(id);
-    if (!payment)
-      throw new HttpException(
-        'No payment found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntityExists(payment);
     return payment;
   }
 
@@ -56,5 +49,21 @@ export class PaymentsController {
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
     await this.paymentsService.delete(id);
+  }
+
+  private testEntitiesExists(entities: BaseEntity[]) {
+    if (entities.length <= 0)
+      throw new HttpException(
+        'No payments found',
+        HttpStatus.NOT_FOUND
+      );
+  }
+
+  private testEntityExists(entity: BaseEntity) {
+    if (!entity)
+      throw new HttpException(
+        'No payment found',
+        HttpStatus.NOT_FOUND
+      );
   }
 }
