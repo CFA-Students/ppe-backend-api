@@ -15,6 +15,7 @@ import {
 import { ReservationsService } from './reservations.service';
 import { Reservation } from './reservation.entity';
 import { ClientsService } from '../users/clients/clients.service';
+import { BaseEntity } from 'typeorm';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -26,11 +27,7 @@ export class ReservationsController {
   @Get()
   async findAll(): Promise<Reservation[]> {
     const allReservations = await this.reservationsService.findAll();
-    if (allReservations.length <= 0)
-      throw new HttpException(
-        'No reservations found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntitiesExists(allReservations);
     return allReservations;
   }
 
@@ -38,11 +35,7 @@ export class ReservationsController {
   async findAllWithClients(): Promise<Reservation[]> {
     const allReservations =
       await this.reservationsService.findAllWithClients();
-    if (allReservations.length <= 0)
-      throw new HttpException(
-        'No reservations found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntitiesExists(allReservations);
     return allReservations;
   }
 
@@ -51,11 +44,7 @@ export class ReservationsController {
     @Param('id', ParseIntPipe) id: number
   ): Promise<Reservation> {
     const reservation = await this.reservationsService.findById(id);
-    if (!reservation)
-      throw new HttpException(
-        'No reservation found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntityExists(reservation);
     return reservation;
   }
 
@@ -65,11 +54,7 @@ export class ReservationsController {
   ): Promise<Reservation> {
     const reservation =
       await this.reservationsService.findByIdWithClients(id);
-    if (!reservation)
-      throw new HttpException(
-        'No reservation found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntityExists(reservation);
     return reservation;
   }
 
@@ -105,11 +90,22 @@ export class ReservationsController {
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
     const reservation = await this.reservationsService.delete(id);
-    if (!reservation) {
+    this.testEntityExists(reservation);
+  }
+
+  private testEntitiesExists(entities: BaseEntity[]) {
+    if (entities.length <= 0)
+      throw new HttpException(
+        'No reservations found',
+        HttpStatus.NOT_FOUND
+      );
+  }
+
+  private testEntityExists(entity: BaseEntity) {
+    if (!entity)
       throw new HttpException(
         'No reservation found',
         HttpStatus.NOT_FOUND
       );
-    }
   }
 }
