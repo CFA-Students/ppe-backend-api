@@ -14,6 +14,7 @@ import {
 
 import { LocationSpotsService } from './location-spots.service';
 import { LocationSpot } from './location-spot.entity';
+import { BaseEntity } from 'typeorm';
 
 @Controller('location-spots')
 export class LocationSpotsController {
@@ -25,11 +26,7 @@ export class LocationSpotsController {
   async findAll(): Promise<LocationSpot[]> {
     const allLocationSpots =
       await this.locationSpotsService.findAll();
-    if (allLocationSpots.length <= 0)
-      throw new HttpException(
-        'No location-spots found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntitiesExists(allLocationSpots);
     return allLocationSpots;
   }
 
@@ -38,11 +35,7 @@ export class LocationSpotsController {
     @Param('id', ParseIntPipe) id: number
   ): Promise<LocationSpot> {
     const locationSpot = await this.locationSpotsService.findById(id);
-    if (!locationSpot)
-      throw new HttpException(
-        'No location-spot found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntityExists(locationSpot);
     return locationSpot;
   }
 
@@ -64,5 +57,21 @@ export class LocationSpotsController {
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
     await this.locationSpotsService.delete(id);
+  }
+
+  private testEntitiesExists(entities: BaseEntity[]) {
+    if (entities.length <= 0)
+      throw new HttpException(
+        'No location-spots found',
+        HttpStatus.NOT_FOUND
+      );
+  }
+
+  private testEntityExists(entity: BaseEntity) {
+    if (!entity)
+      throw new HttpException(
+        'No location-spot found',
+        HttpStatus.NOT_FOUND
+      );
   }
 }
