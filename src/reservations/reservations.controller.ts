@@ -39,6 +39,22 @@ export class ReservationsController {
     return allReservations;
   }
 
+  @Get('payments')
+  async findAllTest(): Promise<Reservation[]> {
+    const allReservations =
+      await this.reservationsService.findAllWithPayments();
+    this.testEntitiesExists(allReservations);
+    return allReservations;
+  }
+
+  @Get('clients/payments')
+  async findAllWithClientsAndPayments(): Promise<Reservation[]> {
+    const allReservations =
+      await this.reservationsService.findAllWithClientsAndPayments();
+    this.testEntitiesExists(allReservations);
+    return allReservations;
+  }
+
   @Get(':id')
   async findById(
     @Param('id', ParseIntPipe) id: number
@@ -54,6 +70,28 @@ export class ReservationsController {
   ): Promise<Reservation> {
     const reservation =
       await this.reservationsService.findByIdWithClients(id);
+    this.testEntityExists(reservation);
+    return reservation;
+  }
+
+  @Get('clients/payments/:id')
+  async findByIdWithClientsAndPayments(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Reservation> {
+    const reservation =
+      await this.reservationsService.findByIdWithClientsAndPayments(
+        id
+      );
+    this.testEntityExists(reservation);
+    return reservation;
+  }
+
+  @Get('payments/:id')
+  async findByIdWithPayments(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Reservation> {
+    const reservation =
+      await this.reservationsService.findByIdWithPayments(id);
     this.testEntityExists(reservation);
     return reservation;
   }

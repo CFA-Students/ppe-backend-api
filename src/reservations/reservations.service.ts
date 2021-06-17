@@ -21,6 +21,18 @@ export class ReservationsService {
     });
   }
 
+  async findAllWithPayments(): Promise<Reservation[]> {
+    return await this.reservationsRepository.find({
+      relations: ['payments'],
+    });
+  }
+
+  async findAllWithClientsAndPayments(): Promise<Reservation[]> {
+    return await this.reservationsRepository.find({
+      relations: ['clients', 'payments'],
+    });
+  }
+
   async findById(id: number): Promise<Reservation> {
     return await this.reservationsRepository.findOne(id);
   }
@@ -28,6 +40,20 @@ export class ReservationsService {
   async findByIdWithClients(id: number): Promise<Reservation> {
     return await this.reservationsRepository.findOne(id, {
       relations: ['clients'],
+    });
+  }
+
+  async findByIdWithPayments(id: number): Promise<Reservation> {
+    return await this.reservationsRepository.findOne(id, {
+      relations: ['payments'],
+    });
+  }
+
+  async findByIdWithClientsAndPayments(
+    id: number
+  ): Promise<Reservation> {
+    return await this.reservationsRepository.findOne(id, {
+      relations: ['clients', 'payments'],
     });
   }
 
