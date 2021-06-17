@@ -121,20 +121,12 @@ export class PaymentsService {
     }
   }
 
-  async delete(id: number): Promise<Payment> {
-    const payment = await this.findById(id);
+  async deleteById(id: number): Promise<Payment> {
+    const payment = await this.findByIdWithReservations(id);
     if (!payment) return payment;
-    payment.reservations = payment.reservations.filter(
-      (reservation) => {
-        reservation.id !== id;
-      }
-    );
+    payment.reservations = [];
     await this.paymentsRepository.save(payment);
-    await this.deleteById(id);
+    await this.paymentsRepository.delete(payment.id);
     return payment;
-  }
-
-  async deleteById(id: number): Promise<void> {
-    await this.paymentsRepository.delete(id);
   }
 }

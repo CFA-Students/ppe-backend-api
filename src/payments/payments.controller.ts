@@ -18,10 +18,7 @@ import { PaymentsService } from './payments.service';
 
 @Controller('payments')
 export class PaymentsController {
-  constructor(
-    private readonly reservationsService: ReservationsService,
-    private readonly paymentsService: PaymentsService
-  ) {}
+  constructor(private readonly paymentsService: PaymentsService) {}
 
   @Get()
   async findAll(): Promise<Payment[]> {
@@ -62,7 +59,7 @@ export class PaymentsController {
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
-    const payment = await this.paymentsService.delete(id);
+    const payment = await this.paymentsService.deleteById(id);
     this.testEntityExists(payment);
   }
 
