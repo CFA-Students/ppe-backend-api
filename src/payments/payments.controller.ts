@@ -60,6 +60,12 @@ export class PaymentsController {
     this.testEntityExists(payment);
   }
 
+  @Delete(':id')
+  async delete(@Param('id') id: number): Promise<void> {
+    const payment = await this.paymentsService.delete(id);
+    this.testEntityExists(payment);
+  }
+
   @Get('reservations/:id')
   async findByIdWithReservations(
     @Param('id', ParseIntPipe) id: number
@@ -70,10 +76,17 @@ export class PaymentsController {
     return payment;
   }
 
-  @Delete(':id')
-  async delete(@Param('id') id: number): Promise<void> {
-    const payment = await this.paymentsService.delete(id);
-    this.testEntityExists(payment);
+  @Put('reservations')
+  @HttpCode(201)
+  async updateReservations(
+    @Body() newPayment: Payment
+  ): Promise<void> {
+    this.testReservationsExists(newPayment);
+
+    const client = await this.paymentsService.updateReservations(
+      newPayment
+    );
+    this.testEntityExists(client);
   }
 
   private testReservationExists(

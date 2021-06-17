@@ -4,6 +4,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Reservation } from 'src/reservations/reservation.entity';
 import { Repository } from 'typeorm';
 import { Payment } from './payment.entity';
 
@@ -63,6 +64,61 @@ export class PaymentsService {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
     return payment;
+  }
+
+  async updateReservations(newPayment: Payment): Promise<Payment> {
+    const payment = await this.paymentsRepository.findOne(
+      newPayment.id,
+      {
+        relations: ['reservations'],
+      }
+    );
+    if (!payment) return undefined;
+
+    try {
+      if (payment.reservations.length <= 0) {
+        payment.reservations = [...newPayment.reservations];
+        await this.paymentsRepository.save(payment);
+        return payment;
+      }
+
+      const newReservations: Reservation[] = [];
+      payment.reservations = payment.reservations.map(
+        (existingReservation, index) => {
+          if (
+            existingReservation.id ===
+            newPayment.reservations[index].id
+          ) {
+            return newPayment.reservations[index];
+          }
+          return existingReservation;
+        }
+      );
+
+      for (const newReservation of newPayment.reservations) {
+        if (!payment.reservations.includes(newReservation)) {
+          newReservations.push(newReservation);
+        }
+      }
+
+      if (newReservations.length > 0) {
+        payment.reservations = [
+          ...payment.reservations,
+          ...newReservations,
+        ];
+      }
+
+      await this.paymentsRepository.save(payment);
+      return payment;
+    } catch (e) {
+      console.debug(e);
+      if (e.code === 'ER_NO_REFERENCED_ROW_2')
+        throw new HttpException(
+          'Duplicate foreign key',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async delete(id: number): Promise<Payment> {
