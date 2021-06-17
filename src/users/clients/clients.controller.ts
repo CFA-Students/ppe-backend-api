@@ -69,17 +69,13 @@ export class ClientsController {
   @Put()
   async update(@Body() newClient: Client): Promise<void> {
     const client = await this.clientsService.update(newClient);
-    if (!client)
-      throw new HttpException(
-        'No updatable client found',
-        HttpStatus.NOT_FOUND
-      );
+    this.testEntityExists(client);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {
     const client = await this.clientsService.deleteByIdWithUser(id);
-    this.testClientExists(client);
+    this.testEntityExists(client);
 
     await this.usersService.delete(id);
   }
@@ -90,7 +86,7 @@ export class ClientsController {
   ): Promise<Client> {
     const client =
       await this.clientsService.findByIdWithUserAndReservations(id);
-    this.testClientExists(client);
+    this.testEntityExists(client);
     return client;
   }
 
@@ -102,7 +98,7 @@ export class ClientsController {
     const client = await this.clientsService.updateReservations(
       newClient
     );
-    this.testClientExists(client);
+    this.testEntityExists(client);
   }
 
   @Delete(':id/reservations')
@@ -112,7 +108,7 @@ export class ClientsController {
     const client = await this.clientsService.deleteReservationsById(
       id
     );
-    this.testClientExists(client);
+    this.testEntityExists(client);
   }
 
   @Delete(':id/reservations/:idReservation')
@@ -123,7 +119,7 @@ export class ClientsController {
     const client = await this.clientsService.findByIdWithReservations(
       id
     );
-    this.testClientExists(client);
+    this.testEntityExists(client);
     this.testReservationsExists(client);
     this.testReservationExists(client, idReservation);
 
@@ -153,7 +149,7 @@ export class ClientsController {
       );
   }
 
-  private testClientExists(client: Client) {
+  private testEntityExists(client: Client) {
     if (!client)
       throw new HttpException(
         'No client found',

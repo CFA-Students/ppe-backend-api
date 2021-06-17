@@ -53,8 +53,9 @@ export class AdminsController {
   }
 
   @Put()
-  async update(@Body() admin: Admin): Promise<void> {
-    await this.adminsService.update(admin);
+  async update(@Body() newAdmin: Admin): Promise<void> {
+    const admin = await this.adminsService.update(newAdmin);
+    this.testEntityExists(admin);
   }
 
   @Delete(':id')

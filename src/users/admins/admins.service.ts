@@ -35,8 +35,20 @@ export class AdminsService {
     }
   }
 
-  async update(updatedAdmin: Admin): Promise<void> {
-    await this.adminsRepository.save(updatedAdmin);
+  async update(updatedAdmin: Admin): Promise<Admin> {
+    const admin = this.adminsRepository.findOne(updatedAdmin.id);
+    if (!admin) return admin;
+    try {
+      await this.adminsRepository.save(updatedAdmin);
+    } catch (e) {
+      if (e.code === 'ER_NO_REFERENCED_ROW_2')
+        throw new HttpException(
+          'Duplicate foreign key',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+    return admin;
   }
 
   async deleteWithUser(id: number): Promise<Admin> {
