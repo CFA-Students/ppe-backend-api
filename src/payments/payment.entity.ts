@@ -4,6 +4,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -34,7 +35,21 @@ export class Payment extends BaseEntity {
 
   @ManyToMany(
     () => Reservation,
-    (reservation) => reservation.payments
+    (reservation) => reservation.payments,
+    {
+      cascade: true,
+    }
   )
+  @JoinTable({
+    name: 'execute_payment',
+    joinColumn: {
+      name: 'id_payment',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'id_reservation',
+      referencedColumnName: 'id',
+    },
+  })
   reservations: Reservation[];
 }

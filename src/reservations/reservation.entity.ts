@@ -82,19 +82,6 @@ export class Reservation extends BaseEntity {
   @ManyToMany(() => Client, (client) => client.reservations)
   clients: Client[];
 
-  @ManyToMany(() => Payment, (payment) => payment.reservations, {
-    cascade: true,
-  })
-  @JoinTable({
-    name: 'execute_payment',
-    joinColumn: {
-      name: 'id_reservation',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'id_payment',
-      referencedColumnName: 'id',
-    },
-  })
+  @ManyToMany(() => Payment, (payment) => payment.reservations)
   payments: Payment[];
 }
