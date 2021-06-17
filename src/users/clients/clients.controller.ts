@@ -56,6 +56,7 @@ export class ClientsController {
   }
 
   @Put()
+  @HttpCode(201)
   async update(@Body() newClient: Client): Promise<void> {
     const client = await this.clientsService.update(newClient);
     this.testEntityExists(client);

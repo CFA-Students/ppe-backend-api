@@ -48,7 +48,21 @@ export class PaymentsService {
   }
 
   async update(updatedPayment: Payment): Promise<Payment> {
-    return await this.paymentsRepository.save(updatedPayment);
+    const payment = this.paymentsRepository.findOne(
+      updatedPayment.id
+    );
+    if (!payment) return payment;
+    try {
+      await this.paymentsRepository.save(updatedPayment);
+    } catch (e) {
+      if (e.code === 'ER_NO_REFERENCED_ROW_2')
+        throw new HttpException(
+          'Duplicate foreign key',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+    return payment;
   }
 
   async delete(id: number): Promise<Payment> {

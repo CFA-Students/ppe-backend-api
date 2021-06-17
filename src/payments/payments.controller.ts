@@ -55,17 +55,9 @@ export class PaymentsController {
 
   @Put()
   @HttpCode(201)
-  async update(@Body() payment: Payment): Promise<void> {
-    try {
-      await this.paymentsService.update(payment);
-    } catch (e) {
-      if (e.code === 'ER_NO_REFERENCED_ROW_2')
-        throw new HttpException(
-          'Duplicate foreign key',
-          HttpStatus.CONFLICT
-        );
-      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-    }
+  async update(@Body() newPayment: Payment): Promise<void> {
+    const payment = await this.paymentsService.update(newPayment);
+    this.testEntityExists(payment);
   }
 
   @Get('reservations/:id')
