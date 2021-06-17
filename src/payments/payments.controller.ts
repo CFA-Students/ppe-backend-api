@@ -86,6 +86,33 @@ export class PaymentsController {
     this.testEntityExists(client);
   }
 
+  @Delete(':id/reservations')
+  async deleteReservationsById(
+    @Param('id') id: number
+  ): Promise<void> {
+    const payment = await this.paymentsService.deleteReservationsById(
+      id
+    );
+    this.testEntityExists(payment);
+  }
+
+  @Delete(':id/reservations/:idReservation')
+  async deleteReservationById(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('idReservation', ParseIntPipe) idReservation: number
+  ): Promise<void> {
+    const payment =
+      await this.paymentsService.findByIdWithReservations(id);
+    this.testEntityExists(payment);
+    this.testReservationsExists(payment);
+    this.testReservationExists(payment, idReservation);
+
+    await this.paymentsService.deleteReservationById(
+      payment,
+      idReservation
+    );
+  }
+
   private testReservationExists(
     payment: Payment,
     idReservation: number
