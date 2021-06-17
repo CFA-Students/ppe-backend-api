@@ -68,10 +68,13 @@ export class ReservationsService {
   }
 
   async delete(id: number): Promise<Reservation> {
-    const reservation = await this.findByIdWithClients(id);
+    const reservation = await this.findByIdWithClientsAndPayments(id);
     if (!reservation) return reservation;
     reservation.clients = reservation.clients.filter((client) => {
       client.id !== id;
+    });
+    reservation.payments = reservation.payments.filter((payment) => {
+      payment.id !== id;
     });
     await this.reservationsRepository.save(reservation);
     await this.deleteById(id);

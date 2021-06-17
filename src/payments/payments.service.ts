@@ -14,8 +14,20 @@ export class PaymentsService {
     return await this.paymentsRepository.find();
   }
 
+  async findAllWithReservations(): Promise<Payment[]> {
+    return await this.paymentsRepository.find({
+      relations: ['reservations'],
+    });
+  }
+
   async findById(id: number): Promise<Payment> {
     return await this.paymentsRepository.findOne(id);
+  }
+
+  async findByIdWithReservations(id: number): Promise<Payment> {
+    return await this.paymentsRepository.findOne(id, {
+      relations: ['reservations'],
+    });
   }
 
   async insert(newPayment: Payment): Promise<Payment> {
