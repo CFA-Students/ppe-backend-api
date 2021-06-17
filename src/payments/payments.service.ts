@@ -18,12 +18,12 @@ export class PaymentsService {
     return await this.paymentsRepository.findOne(id);
   }
 
-  async insert(newPayment: Payment): Promise<void> {
-    await this.paymentsRepository.insert(newPayment);
+  async insert(newPayment: Payment): Promise<Payment> {
+    return await this.paymentsRepository.save(newPayment);
   }
 
-  async update(updatedPayment: Payment): Promise<void> {
-    await this.paymentsRepository.save(updatedPayment);
+  async update(updatedPayment: Payment): Promise<Payment> {
+    return await this.paymentsRepository.save(updatedPayment);
   }
 
   async delete(id: number): Promise<void> {

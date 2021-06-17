@@ -11,13 +11,17 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ReservationsService } from 'src/reservations/reservations.service';
 import { BaseEntity } from 'typeorm';
 import { Payment } from './payment.entity';
 import { PaymentsService } from './payments.service';
 
 @Controller('payments')
 export class PaymentsController {
-  constructor(private readonly paymentsService: PaymentsService) {}
+  constructor(
+    private readonly reservationsService: ReservationsService,
+    private readonly paymentsService: PaymentsService
+  ) {}
 
   @Get()
   async findAll(): Promise<Payment[]> {
@@ -37,13 +41,31 @@ export class PaymentsController {
 
   @Post()
   @HttpCode(201)
-  async insert(@Body('payment') payment: Payment): Promise<void> {
-    await this.paymentsService.insert(payment);
+  async insert(@Body() payment: Payment): Promise<void> {
+    try {
+      await this.paymentsService.insert(payment);
+    } catch (e) {
+      if (e.code === 'ER_DUP_ENTRY')
+        throw new HttpException(
+          'Duplicate reservation',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put()
-  async update(@Body('payment') payment: Payment): Promise<void> {
-    await this.paymentsService.update(payment);
+  async update(@Body() payment: Payment): Promise<void> {
+    try {
+      await this.paymentsService.update(payment);
+    } catch (e) {
+      if (e.code === 'ER_NO_REFERENCED_ROW_2')
+        throw new HttpException(
+          'Duplicate foreign key',
+          HttpStatus.CONFLICT
+        );
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Delete(':id')
